@@ -6,24 +6,16 @@ import { Link } from 'react-router-dom';
 function RenderLeader({leader}) {
     return(
         <div key={leader.id} className="col-12 mt-5">
-            <Media tag="li">
-                
-                <div className="row ml">
-                    <div className="col-2">
-                        <Media left middle>
-                            <Media object src={leader.image} alt={leader.name} />
-                        </Media>
-                    </div>
-                    <div className="col-10"> 
-                        <Media body>
-                            <Media heading>{leader.name}</Media>
-                            <p>{leader.designation}</p>
-                            <p>{leader.description}</p>
-                        </Media>
-                    </div>
-                    
-                    
-                </div>    
+            <Media tag="li" className="row">
+                <Media left middle className="col-2">
+                    <Media object src={leader.image} alt={leader.name} />
+                </Media>
+
+                <Media body className="col-10">
+                    <Media heading>{leader.name}</Media>
+                    <p>{leader.designation}</p>
+                    <p>{leader.description}</p>
+                </Media>  
             </Media>            
         </div>
     );
