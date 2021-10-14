@@ -35,7 +35,7 @@ class Header extends Component {
         + " Remember: " + this.remember.checked);
     event.preventDefault();
 
-}
+  }
 
   render() {
     return(

@@ -4,6 +4,7 @@ import { Card, CardImg, CardText, CardBody,
     Breadcrumb,
     BreadcrumbItem} from 'reactstrap';
 import { Link } from 'react-router-dom';
+import CommentForm from './CommentFormComponent';
 
 function RenderComments({comments}) {
 
@@ -20,14 +21,17 @@ function RenderComments({comments}) {
         });
 
         return (
-            <ul className="list-unstyled">
-                {commentlist}
-            </ul>
+            <div>
+                <ul className="list-unstyled">
+                    {commentlist}                
+                </ul>
+                <CommentForm />
+            </div>
         );
     }
     else {
         return (
-            <div>NULL</div>
+            <div></div>
         );
     }
 }
