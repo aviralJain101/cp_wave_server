@@ -1,3 +1,6 @@
+// we can safely delete the reducer.js file from the project. as e have implemented the individual reducers
+
+
 import { DISHES } from "../shared/dishes";
 import { COMMENTS } from "../shared/comments";
 import { PROMOTIONS } from "../shared/promotions";
