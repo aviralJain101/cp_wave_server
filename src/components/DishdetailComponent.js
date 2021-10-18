@@ -5,7 +5,7 @@ import { Button, Modal, ModalHeader, ModalBody, Label, Row, Col } from 'reactstr
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
-
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -120,7 +120,9 @@ function RenderComments({comments, postComment, dishId}) {
         return (
             <div>
                 <ul className="list-unstyled">
-                    {commentlist}                
+                    <Stagger in>
+                        {commentlist}
+                    </Stagger>              
                 </ul>
                 <CommentForm dishId={dishId} postComment={postComment} />
             </div>
@@ -134,14 +136,20 @@ function RenderComments({comments, postComment, dishId}) {
 }
 
 function RenderDish(dish) {
-    return (    
-        <Card>
-            <CardImg top src={baseUrl + dish.image} alt={dish.name} />
-            <CardBody>
-                <CardTitle><b>{dish.name}</b></CardTitle>
-                <CardText>{dish.description}</CardText>
-            </CardBody>
-        </Card>
+    return (  
+        <FadeTransform
+                in
+                transformProps={{
+                    exitTransform: 'scale(0.5) translateY(-50%)'
+                }}>
+            <Card>
+                <CardImg top src={baseUrl + dish.image} alt={dish.name} />
+                <CardBody>
+                    <CardTitle><b>{dish.name}</b></CardTitle>
+                    <CardText>{dish.description}</CardText>
+                </CardBody>
+            </Card>
+        </FadeTransform>
     );
 }
 
