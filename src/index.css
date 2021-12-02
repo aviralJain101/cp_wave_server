@@ -116,6 +116,7 @@ input {
 }
 
 .react-autosuggest__input:focus {
+  background-color: rgb(241, 243, 247);
   outline: none;
 }
 
@@ -139,7 +140,7 @@ input {
   top: 51px;
   width: 100%;
   border: 1px solid #aaa;
-  background-color: #fff;
+  background-color: rgb(241, 243, 247);
   font-family: Helvetica, sans-serif;
   font-weight: 300;
   font-size: 16px;
@@ -166,7 +167,7 @@ input {
 }
 
 .react-autosuggest__suggestion--focused {
-  background-color: #0C7EAF;
+  background-color: #ff0000;
   color: #0000ff;
 }
 
@@ -174,18 +175,23 @@ input {
   display: flex;
   align-items: center;
   background-repeat: no-repeat;
+  /*back ground if you want image in suggestion list*/
 }
 
 .name {
-  margin-left: 68px;
+  /* margin-left: 68px;*//*put this to get left space margin */
   line-height: 45px;
 }
 
 .highlight {
-  color: #ee0000;
+  color: #000;
   font-weight: bold;
 }
 
 .react-autosuggest__suggestion--focused .highlight {
   color: #00ff00;
+}
+
+.react-autosuggest__suggestion--highlighted {
+  background-color: rgb(210, 231, 231);
 }

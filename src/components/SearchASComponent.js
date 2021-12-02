@@ -100,7 +100,7 @@ const people = [
     render() {
       const { value, suggestions } = this.state;
       const inputProps = {
-        placeholder: "Type 'c'",
+        placeholder: "Search User",
         value,
         onChange: this.onChange
       };

@@ -87,62 +87,38 @@ class Header extends Component {
                                 </Nav>
                             </div>
                             
-                            
-                            <NavbarToggler onClick={this.toggleNav} />
-                            <Collapse isOpen={this.state.isNavOpen} navbar>
-                                <Nav navbar>
-                                    <NavItem>
-                                        <NavLink className="nav-link" to="/home">
-                                            <span className="fa fa-home fa-lg"></span> Home
-                                        </NavLink>
-                                    </NavItem>
-                                    <NavItem>
-                                        <NavLink className="nav-link" to="/aboutus">
-                                            <span className="fa fa-info fa-lg"></span> About Us
-                                        </NavLink>
-                                    </NavItem>
-                                    <NavItem>
-                                        <NavLink className="nav-link" to="/menu">
-                                            <span className="fa fa-list fa-lg"></span> Menu
-                                        </NavLink>
-                                    </NavItem>
-                                    <NavItem>
-                                        <NavLink className="nav-link" to="/favorites">
-                                            <span className="fa fa-heart fa-lg"></span> My Favorites
-                                        </NavLink>
-                                    </NavItem>
-                                    <NavItem>
-                                        <NavLink className="nav-link" to="/contactus">
-                                            <span className="fa fa-address-card fa-lg"></span> Contact Us
-                                        </NavLink>
-                                    </NavItem>
-                                </Nav>
-                                <Nav className="ms-auto" navbar>
-                                    <NavItem>
-                                        { !this.props.auth.isAuthenticated ?
-                                            <Button outline onClick={this.toggleModal}>
-                                                <span className="fa fa-sign-in fa-lg"></span> Login
-                                                {this.props.auth.isFetching ?
-                                                    <span className="fa fa-spinner fa-pulse fa-fw"></span>
-                                                    : null
-                                                }
-                                            </Button>
-                                            :
-                                            <div>
-                                            <div className="navbar-text mr-3">{this.props.auth.user.username}</div>
-                                            <Button outline onClick={this.handleLogout}>
-                                                <span className="fa fa-sign-out fa-lg"></span> Logout
-                                                {this.props.auth.isFetching ?
-                                                    <span className="fa fa-spinner fa-pulse fa-fw"></span>
-                                                    : null
-                                                }
-                                            </Button>
-                                            </div>
-                                        }
-
-                                    </NavItem>
-                                </Nav>
-                            </Collapse>
+                            <div className="col-12 mt-2">
+                                <NavbarToggler onClick={this.toggleNav} />
+                                <Collapse isOpen={this.state.isNavOpen} navbar>
+                                    <Nav navbar>
+                                        <NavItem>
+                                            <NavLink className="nav-link" to="/home">
+                                                <span className="fa fa-home fa-lg"></span> Home
+                                            </NavLink>
+                                        </NavItem>
+                                        <NavItem>
+                                            <NavLink className="nav-link" to="/aboutus">
+                                                <span className="fa fa-info fa-lg"></span> About Us
+                                            </NavLink>
+                                        </NavItem>
+                                        <NavItem>
+                                            <NavLink className="nav-link" to="/menu">
+                                                <span className="fa fa-list fa-lg"></span> Menu
+                                            </NavLink>
+                                        </NavItem>
+                                        <NavItem>
+                                            <NavLink className="nav-link" to="/favorites">
+                                                <span className="fa fa-heart fa-lg"></span> My Favorites
+                                            </NavLink>
+                                        </NavItem>
+                                        <NavItem>
+                                            <NavLink className="nav-link" to="/contactus">
+                                                <span className="fa fa-address-card fa-lg"></span> Contact Us
+                                            </NavLink>
+                                        </NavItem>
+                                    </Nav>
+                                </Collapse>
+                            </div>
                         </div>
                     </div>
                 </Navbar>
