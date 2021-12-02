@@ -4,6 +4,7 @@ import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, Jumbotron,
     Form, FormGroup, Input, Label } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import Search from './SearchComponent';
+import SearchAS from './SearchASComponent';
 class Header extends Component {
 
     constructor(props) {
@@ -44,30 +45,19 @@ class Header extends Component {
     render() {
         return(
             <React.Fragment>
-                    {/* <Navbar dark>
-                        <div className="container">
-                            <div className="row">
-                                <div className="col-12">
-                                    <Search />
-                                </div>
-                            </div>
-                        </div>
-                    </Navbar> */}
-                    
-                
-                
                 <Navbar dark expand="md">
-                    <div className="container">
+                    <div className="container mt-2">
                         
                         <div className="row">
                             <div className="col-3">
                                 <NavbarBrand className="mr-auto" href="/">
-                                    <img src="assets/images/logo.png" height="30" width="50"
+                                    <img src="assets/images/logo.png" height="40" width="60"
                                         alt="Ristorante Con Fusion" />
                                 </NavbarBrand>
                             </div>
                             <div className="col-6">
-                                <Search />
+                                {/* <Search /> */}
+                                <SearchAS />
                             </div>
                             <div className="col-3">
                                 <Nav className="pull-right" navbar>

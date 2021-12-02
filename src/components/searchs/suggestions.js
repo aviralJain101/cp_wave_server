@@ -3,7 +3,6 @@ import autoBind from 'react-autobind';
 import classNames from 'classnames';
 import { isNil } from 'lodash';
 import Suggestion from './suggestion';
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
 class Suggestions extends React.Component {
   constructor(props) {
@@ -77,27 +76,17 @@ class Suggestions extends React.Component {
 
   render() {
     return (
-      <Dropdown isOpen={this.props.suggestions.length}
+      <ul
         className="suggestions"
         ref={ref => (this.list = ref)}
         onMouseLeave={this.handleMouseLeave}
       >
-        
-        <DropdownMenu>
-          <DropdownItem>{this.props.suggestions.map(this.renderSuggestion)}</DropdownItem>
-        </DropdownMenu>
-      </Dropdown>
-
-
-      // <ul
-      //   className="suggestions"
-      //   ref={ref => (this.list = ref)}
-      //   onMouseLeave={this.handleMouseLeave}
-      // >
-      //   {this.props.suggestions.map(this.renderSuggestion)}
-      // </ul>
+        {this.props.suggestions.map(this.renderSuggestion)}
+      </ul>
     );
   }
 }
+
+
 
 export default Suggestions;
