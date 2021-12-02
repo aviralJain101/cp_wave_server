@@ -11,3 +11,74 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+input {
+  font-size: 18px;
+  outline: 0;
+}
+
+.field {
+  border: 1px solid #ddd;
+  display: flex;
+  position: relative;
+  border-radius: 25px;
+  background-color: white;
+}
+
+.field--focused {
+  border-color: #ccc;
+}
+
+.input {
+  border: 0;
+  border-radius: 20%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 10px 0 10px 10px;
+  width: 100%;
+  border-radius: 40%;
+
+}
+
+.submit-button:hover {
+  opacity: 1;
+}
+
+.suggestions {
+  border: 2px groove #00ff00;
+  list-style: none;
+  margin: 0;
+  max-height: 150px;
+  overflow: auto;
+  padding: 0;
+  position: relative;
+  top: -1px;
+  user-select: none;
+}
+
+.suggestion {
+  cursor: pointer;
+  height: 40px;
+  letter-spacing: 0.03em;
+  line-height: 40px;
+  padding: 0 7px 0 10px;
+}
+
+.suggestionFocused {
+  background: #ff0000;
+}
+
+.suggestion:last-child {
+  border: none;
+}
+
+
+.round {
+  width: 100%;
+  border-radius: 15px;
+  border: 1px #000 solid;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+}
