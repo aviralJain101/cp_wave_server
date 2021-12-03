@@ -195,3 +195,61 @@ input {
 .react-autosuggest__suggestion--highlighted {
   background-color: rgb(210, 231, 231);
 }
+ /*---------------------------------------------------------------------------
+  Login button CSS
+  -------------------------------------------------------------------------- */
+
+  .btnFacebook { 
+ 
+  height:45px;  
+  border-radius: 4px;
+  background: #3b5998;
+  color:white;
+  border:0px transparent;  
+  text-align: center;
+  margin:5px;
+  display: inline-block;
+  width: 100%;
+  text-align: left;
+  box-shadow: 3px 3px 7px 1px rgba(0,0,0,0.56);
+-webkit-box-shadow: 3px 3px 7px 1px rgba(0,0,0,0.56);
+-moz-box-shadow: 3px 3px 7px 1px rgba(0,0,0,0.56);
+}
+.btnGoogle { 
+  /*  
+  border-radius: 4px;
+  background: #3b5998;
+  color:#000;
+  border:0px transparent;  
+  text-align: center;
+  margin:5px;
+  display: inline-block;
+  width: 100%;
+  text-align: left;
+  box-shadow: 3px 3px 7px 1px rgba(0,0,0,0.56);
+-webkit-box-shadow: 3px 3px 7px 1px rgba(0,0,0,0.56);
+-moz-box-shadow: 3px 3px 7px 1px rgba(0,0,0,0.56); */
+  margin:5px;
+  border-radius: 4px;
+  background: #db3236;
+  color:white;
+  border:0px transparent;
+  text-align: center;
+  width: 100%;
+  height:45px;
+  border-radius: 4px;
+}
+.btnFacebook:hover {
+  background: #3b5998;
+  opacity: 0.6;
+}
+.btnGoogle:hover {
+  background: #db3236;
+  opacity: 0.6;
+}
+
+/* @media only screen and (max-width : 399px) {
+  .btnFacebook,.btnGoogle{
+    width: 100%
+  }
+} */

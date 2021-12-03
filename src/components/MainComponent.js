@@ -7,11 +7,14 @@ import DishDetail from './DishdetailComponent';
 import Favorites from './FavoriteComponent';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
+import MyTeams from './MyTeamComponent';
+import AddUsers from './AddUserComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { postComment, postFeedback, fetchDishes, fetchComments, fetchPromos, fetchLeaders, loginUser, logoutUser, fetchFavorites, postFavorite, deleteFavorite } from '../redux/ActionCreators';
 import { actions } from 'react-redux-form';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
+
 
 const mapStateToProps = state => {
     return {
@@ -118,6 +121,9 @@ class Main extends Component {
               <Route path="/menu/:dishId" component={DishWithId} />
               <PrivateRoute exact path="/favorites" component={() => <Favorites favorites={this.props.favorites} deleteFavorite={this.props.deleteFavorite} />} />
               <Route exact path="/contactus" component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} postFeedback={this.props.postFeedback} />} />
+              <Route exact path="/myteams" component={() => <MyTeams />} />
+              <Route exact path="/addusers" component={() => <AddUsers />} />
+
               <Redirect to="/home" />
             </Switch>
           </CSSTransition>
