@@ -5,10 +5,8 @@ import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, Jumbotron,
 import { NavLink } from 'react-router-dom';
 import Search from './SearchComponent';
 import SearchAS from './SearchASComponent';
-import FBLogin from './Logins/FacebookLoginComponent';
 import { Card, CardImg, CardImgOverlay, CardTitle, Breadcrumb, BreadcrumbItem,CardBody, CardHeader } from 'reactstrap';
-import GLogin from './Logins/GoogleLoginComponent';
-import ModelPop from './ModalComponent';
+import ModelPop from './LoginModalComponent';
 
 class Header extends Component {
 
@@ -143,7 +141,6 @@ class Header extends Component {
                         </div>
                     </div>
                 </Jumbotron> */}
-                {/* <ModelPop isModalOpen={this.state.isModalOpen} toggleModal={this.toggleModal} handleLogin={this.handleLogin}/> */}
             </React.Fragment>
         );
     }
