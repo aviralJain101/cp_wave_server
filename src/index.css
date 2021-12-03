@@ -236,7 +236,7 @@ input {
   opacity: 0.6;
 }
 .btnGoogle:hover {
-  /* background: #db3236; */
+  background: #e26d6f !important;
   opacity: 0.6;
 }
 .googletext {

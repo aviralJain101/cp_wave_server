@@ -27,8 +27,8 @@ class GLogin extends Component {
               // buttonText="Sign in with Google"
           >
             <i className="fa fa-google-plus fa-lg" style={{ marginLeft: 
-                '5px' }}/> 
-            <span class="googletext">&nbsp;&nbsp;Continue with Google</span> 
+                '15px' }}/> 
+            <span class="googletext">&nbsp;&nbsp;&nbsp;&nbsp;Continue with Google</span> 
           </GoogleLogin>       
   );
 }

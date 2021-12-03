@@ -55,13 +55,13 @@ class Header extends Component {
                     <div className="container mt-2">
                         
                         <div className="row">
-                            <div className="col-3">
+                            <div className="col-2">
                                 <NavbarBrand className="mr-auto" href="/">
                                     <img src="assets/images/logo.png" height="40" width="60"
                                         alt="Ristorante Con Fusion" />
                                 </NavbarBrand>
                             </div>
-                            <div className="col-6">
+                            <div className="col-7">
                                 {/* <Search /> */}
                                 <SearchAS />
                             </div>
@@ -70,13 +70,6 @@ class Header extends Component {
                                     <NavItem>
                                         { !this.props.auth.isAuthenticated ?
                                             <ModelPop auth={this.props.auth}/>
-                                            // <Button primary onClick={this.toggleModal} style={{borderRadius:'20px'}}>
-                                            //     <span className="fa fa-sign-in fa-lg"></span> Login
-                                            //     {this.props.auth.isFetching ?
-                                            //         <span className="fa fa-spinner fa-pulse fa-fw"></span>
-                                            //         : null
-                                            //     }
-                                            // </Button>
                                             :
                                             <div>
                                             <div className="navbar-text mr-3">{this.props.auth.user.username}</div>
@@ -150,42 +143,7 @@ class Header extends Component {
                         </div>
                     </div>
                 </Jumbotron> */}
-                <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal} centered>
-                    <ModalHeader toggle={this.toggleModal}>Login</ModalHeader>
-                    <ModalBody>
-                        <Form onSubmit={this.handleLogin}>
-                            <FormGroup>
-                                <Label htmlFor="username">Username</Label>
-                                <Input type="text" id="username" name="username"
-                                    innerRef={(input) => this.username = input} />
-                            </FormGroup>
-                            <FormGroup className="mt-2">
-                                <Label htmlFor="password">Password</Label>
-                                <Input type="password" id="password" name="password"
-                                    innerRef={(input) => this.password = input}  />
-                            </FormGroup>
-                            <FormGroup check className="mt-2">
-                                <Label check>
-                                    <Input type="checkbox" name="remember"
-                                    innerRef={(input) => this.remember = input}  />
-                                    Remember me
-                                </Label>
-                                <Label check className="pull-right">
-                                    <a href="" className="text-decoration-none">Forgot Password</a>
-                                </Label>
-                            </FormGroup>
-                            <FormGroup className="d-flex justify-content-center mt-2 mb-3">
-                                <Button type="submit" value="submit" color="primary">Login</Button>
-                            </FormGroup>
-                            <FormGroup className="mb-2">
-                                <FBLogin />
-                            </FormGroup>
-                            <FormGroup className="mb-2">
-                                <GLogin />
-                            </FormGroup>                            
-                        </Form>
-                    </ModalBody>
-                </Modal>
+                {/* <ModelPop isModalOpen={this.state.isModalOpen} toggleModal={this.toggleModal} handleLogin={this.handleLogin}/> */}
             </React.Fragment>
         );
     }
