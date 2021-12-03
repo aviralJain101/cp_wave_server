@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import FacebookLogin from 'react-facebook-login';
+
 const responseFacebook = (response) => {
   console.log(response);
 }
@@ -25,9 +26,9 @@ class FBLogin extends Component {
                     fields="name,email,picture"
                     callback={responseFacebook}
                     cssClass="btnFacebook"
-                    icon={<i className="fa fa-facebook" style={{marginLeft:'5px'}}>
+                    icon={<i className="fa fa-facebook" style={{marginLeft:'20px'}}>
                     </i>}
-                    textButton = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sign In with Facebook"                                                                
+                    textButton = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Continue with Facebook"                                                                
                     />
             // </div>
 

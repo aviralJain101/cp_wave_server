@@ -7,9 +7,8 @@ import Search from './SearchComponent';
 import SearchAS from './SearchASComponent';
 import FBLogin from './Logins/FacebookLoginComponent';
 import { Card, CardImg, CardImgOverlay, CardTitle, Breadcrumb, BreadcrumbItem,CardBody, CardHeader } from 'reactstrap';
-import { FacebookLoginButton } from "react-social-login-buttons";
-import { GoogleLoginButton } from "react-social-login-buttons";
 import GLogin from './Logins/GoogleLoginComponent';
+import ModelPop from './ModalComponent';
 
 class Header extends Component {
 
@@ -17,7 +16,8 @@ class Header extends Component {
         super(props);
         this.state = {
             isNavOpen: false,
-            isModalOpen: false
+            isModalOpen: false,
+            
         };
         this.toggleNav = this.toggleNav.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
@@ -69,17 +69,18 @@ class Header extends Component {
                                 <Nav className="pull-right" navbar>
                                     <NavItem>
                                         { !this.props.auth.isAuthenticated ?
-                                            <Button primary onClick={this.toggleModal}>
-                                                <span className="fa fa-sign-in fa-lg"></span> Login
-                                                {this.props.auth.isFetching ?
-                                                    <span className="fa fa-spinner fa-pulse fa-fw"></span>
-                                                    : null
-                                                }
-                                            </Button>
+                                            <ModelPop auth={this.props.auth}/>
+                                            // <Button primary onClick={this.toggleModal} style={{borderRadius:'20px'}}>
+                                            //     <span className="fa fa-sign-in fa-lg"></span> Login
+                                            //     {this.props.auth.isFetching ?
+                                            //         <span className="fa fa-spinner fa-pulse fa-fw"></span>
+                                            //         : null
+                                            //     }
+                                            // </Button>
                                             :
                                             <div>
                                             <div className="navbar-text mr-3">{this.props.auth.user.username}</div>
-                                            <Button outline onClick={this.handleLogout}>
+                                            <Button outline onClick={this.handleLogout} style={{borderRadius:'20px'}}>
                                                 <span className="fa fa-sign-out fa-lg"></span> Logout
                                                 {this.props.auth.isFetching ?
                                                     <span className="fa fa-spinner fa-pulse fa-fw"></span>
@@ -149,7 +150,7 @@ class Header extends Component {
                         </div>
                     </div>
                 </Jumbotron> */}
-                <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
+                <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal} centered>
                     <ModalHeader toggle={this.toggleModal}>Login</ModalHeader>
                     <ModalBody>
                         <Form onSubmit={this.handleLogin}>
@@ -158,23 +159,28 @@ class Header extends Component {
                                 <Input type="text" id="username" name="username"
                                     innerRef={(input) => this.username = input} />
                             </FormGroup>
-                            <FormGroup>
+                            <FormGroup className="mt-2">
                                 <Label htmlFor="password">Password</Label>
                                 <Input type="password" id="password" name="password"
                                     innerRef={(input) => this.password = input}  />
                             </FormGroup>
-                            <FormGroup check>
+                            <FormGroup check className="mt-2">
                                 <Label check>
                                     <Input type="checkbox" name="remember"
                                     innerRef={(input) => this.remember = input}  />
                                     Remember me
                                 </Label>
+                                <Label check className="pull-right">
+                                    <a href="" className="text-decoration-none">Forgot Password</a>
+                                </Label>
                             </FormGroup>
-                            <Button type="submit" value="submit" color="primary">Login</Button>
-                            <FormGroup>
+                            <FormGroup className="d-flex justify-content-center mt-2 mb-3">
+                                <Button type="submit" value="submit" color="primary">Login</Button>
+                            </FormGroup>
+                            <FormGroup className="mb-2">
                                 <FBLogin />
                             </FormGroup>
-                            <FormGroup>
+                            <FormGroup className="mb-2">
                                 <GLogin />
                             </FormGroup>                            
                         </Form>
