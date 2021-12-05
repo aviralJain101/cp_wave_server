@@ -9,23 +9,20 @@ class SearchAS extends React.Component {
 
     this.state = {
       value: '',
-      suggestions: []
     };
     this.getSuggestionValue=this.getSuggestionValue.bind(this);
-    this.getSuggestions=this.getSuggestions.bind(this);
     this.renderSuggestion=this.renderSuggestion.bind(this);
   }
+
 
   onChange = (event, { newValue, method }) => {
     this.setState({
       value: newValue
     });
   };
-  
+
   onSuggestionsFetchRequested = ({ value }) => {
-    this.setState({
-      suggestions: this.getSuggestions(value)
-    });
+    this.props.fetchSuggestions(value);
   };
 
   onSuggestionsClearRequested = () => {
@@ -34,13 +31,8 @@ class SearchAS extends React.Component {
     });
   };
 
-  getSuggestions = ({value}) => {
-    this.props.fetchSuggestions({searchTerm: value});
-    return this.props.suggestions.suggestions;
-  }
-  
+  // bug here, initially there is true value which tries to fetch true as search term
   getSuggestionValue= (suggestion) => {
-    alert(suggestion.username);
     return suggestion.username;
   }
 
@@ -80,7 +72,7 @@ class SearchAS extends React.Component {
     return (
       <React.Fragment>
           <Autosuggest 
-        suggestions={suggestions}
+        suggestions={this.props.suggestions.suggestions}
         onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
         onSuggestionsClearRequested={this.onSuggestionsClearRequested}
         getSuggestionValue={this.getSuggestionValue}

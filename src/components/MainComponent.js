@@ -53,8 +53,8 @@ class Main extends Component {
     this.props.fetchPromos();
     this.props.fetchLeaders();
     this.props.fetchFavorites();
-    this.props.fetchSuggestions();
   }
+  
 
   render() {
 

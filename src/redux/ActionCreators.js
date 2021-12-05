@@ -1,6 +1,7 @@
 import * as ActionTypes from './ActionTypes';
 import { baseUrl } from '../shared/baseUrl';
 import axios from 'axios';
+import { string } from 'prop-types';
 
 export const addComment = (comment) => ({
     type: ActionTypes.ADD_COMMENT,
@@ -500,16 +501,9 @@ export const SuggestionsError = (message) => {
 
 
 export const fetchSuggestions = (searchTerm) => (dispatch) => {
-    searchTerm="admin";
-    // console.log(searchTerm);
-    dispatch(requestSuggestions(true));
-    // return axios.get(baseUrl+'suggestions', {
-    //     params: {
-    //       searchTerm:'admin'
-    //     }
-    //   })
+    dispatch(requestSuggestions(searchTerm));
     
-    return fetch(baseUrl+'suggestions?searchTerm=admin')
+    return fetch(baseUrl+'suggestions?searchTerm='+searchTerm)
       .then(response => {
         if (response.ok) {
             console.log(response);
