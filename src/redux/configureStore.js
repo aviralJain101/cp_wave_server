@@ -6,7 +6,7 @@ import { Promotions } from './promotions';
 import { Leaders } from './leaders';
 import { favorites } from './favorites';
 import { Auth } from './auth';
-import { Suggestions } from './suggestion';
+import { Suggestions } from './suggestions';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { InitialFeedback } from './forms';

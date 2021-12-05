@@ -1,5 +1,6 @@
 import * as ActionTypes from './ActionTypes';
 import { baseUrl } from '../shared/baseUrl';
+import axios from 'axios';
 
 export const addComment = (comment) => ({
     type: ActionTypes.ADD_COMMENT,
@@ -52,7 +53,9 @@ export const fetchDishes = () => (dispatch) => {
     return fetch(baseUrl + 'dishes')
         .then(response => {
             if (response.ok) {
+                console.log(response);
                 return response;
+
             }
             else {
                 var error = new Error('Error ' + response.status + ': ' + response.statusText);
@@ -481,10 +484,10 @@ export const requestSuggestions = (searchTerm) => {
     }
 }
   
-export const receiveSuggestions = (response) => {
+export const receiveSuggestions = (suggestions) => {
     return {
         type: ActionTypes.SUGGESTIONS_SUCCESS,
-        suggestions: response.suggestions
+        suggestions: suggestions
     }
 }
   
@@ -496,25 +499,35 @@ export const SuggestionsError = (message) => {
 }
 
 
-export const fetchSuggestions = () => (dispatch) => {
+export const fetchSuggestions = (searchTerm) => (dispatch) => {
+    searchTerm="admin";
+    // console.log(searchTerm);
     dispatch(requestSuggestions(true));
+    // return axios.get(baseUrl+'suggestions', {
+    //     params: {
+    //       searchTerm:'admin'
+    //     }
+    //   })
+    
+    return fetch(baseUrl+'suggestions?searchTerm=admin')
+      .then(response => {
+        if (response.ok) {
+            console.log(response);
+            // console.log(response.json());
 
-    return fetch(baseUrl + 'suggestion')
-        .then(response => {
-            if (response.ok) {
-                return response;
-            }
-            else {
-                var error = new Error('Error ' + response.status + ': ' + response.statusText);
-                error.response = response;
-                throw error;
-            }
-        },
-        error => {
-            var errmess = new Error(error.message);
-            throw errmess;
-        })
-        .then(response => response.json())
-        .then(dishes => dispatch(receiveSuggestions(dishes)))
-        .catch(error => dispatch(SuggestionsError(error.message)));
+            return response;
+        }
+        else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+    },
+    error => {
+        var errmess = new Error(error.message);
+        throw errmess;
+    })
+    .then(response => response.json())
+    .then(suggestions => dispatch(receiveSuggestions(suggestions)))
+    .catch(error => dispatch(SuggestionsError(error.message)));
 }

@@ -42,7 +42,7 @@ const mapDispatchToProps = (dispatch) => ({
   fetchFavorites: () => dispatch(fetchFavorites()),
   postFavorite: (dishId) => dispatch(postFavorite(dishId)),
   deleteFavorite: (dishId) => dispatch(deleteFavorite(dishId)),
-  // fetchSuggestions: (searchTerm)
+  fetchSuggestions: (searchTerm) => dispatch(fetchSuggestions(searchTerm))
 });
 
 class Main extends Component {
@@ -53,6 +53,7 @@ class Main extends Component {
     this.props.fetchPromos();
     this.props.fetchLeaders();
     this.props.fetchFavorites();
+    this.props.fetchSuggestions();
   }
 
   render() {
@@ -108,6 +109,7 @@ class Main extends Component {
             }} />
       )} />
     );
+    
 
     return (
       <div>
@@ -115,6 +117,8 @@ class Main extends Component {
           loginUser={this.props.loginUser} 
           logoutUser={this.props.logoutUser} 
           signupUser={this.props.signupUser}
+          fetchSuggestions={this.props.fetchSuggestions}
+          suggestions={this.props.suggestions}
           />   
         <TransitionGroup>
           <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>

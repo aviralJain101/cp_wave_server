@@ -30,9 +30,18 @@ class Header extends Component {
         this.props.logoutUser();
     }
 
+    
+    
     render() {
+        const Popup = () => {
+            alert(this.props.fetchSuggestions);
+        }
+        
         return(
             <React.Fragment>
+                {/* <div>
+                    <Popup />
+                </div> */}
                 <Navbar dark expand="md">
                     <div className="container mt-2">
                         
@@ -45,7 +54,11 @@ class Header extends Component {
                             </div>
                             <div className="col-7">
                                 {/* <Search /> */}
-                                <SearchAS />
+                                
+                                <SearchAS fetchSuggestions={this.props.fetchSuggestions}
+                                    suggestions={this.props.suggestions}
+                                />
+                                
                             </div>
                             <div className="col-3">
                                 <Nav className="pull-right" navbar>
