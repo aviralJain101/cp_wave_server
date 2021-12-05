@@ -11,7 +11,7 @@ import MyTeams from './MyTeamComponent';
 import AddUsers from './AddUserComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { postComment, postFeedback, fetchDishes, fetchComments, fetchPromos, fetchLeaders, loginUser, logoutUser, fetchFavorites, postFavorite, deleteFavorite } from '../redux/ActionCreators';
+import { postComment, postFeedback, fetchDishes, fetchComments, fetchPromos, fetchLeaders, signupUser, loginUser, logoutUser, fetchFavorites, postFavorite, deleteFavorite, fetchSuggestions } from '../redux/ActionCreators';
 import { actions } from 'react-redux-form';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
@@ -23,7 +23,8 @@ const mapStateToProps = state => {
       promotions: state.promotions,
       leaders: state.leaders,
       favorites: state.favorites,
-      auth: state.auth
+      auth: state.auth,
+      suggestions: state.suggestions
     }
 }
 
@@ -35,11 +36,13 @@ const mapDispatchToProps = (dispatch) => ({
   fetchPromos: () => {dispatch(fetchPromos())},
   fetchLeaders: () => dispatch(fetchLeaders()),
   postFeedback: (feedback) => dispatch(postFeedback(feedback)),
+  signupUser: (creds) => dispatch(signupUser(creds)),
   loginUser: (creds) => dispatch(loginUser(creds)),
   logoutUser: () => dispatch(logoutUser()),
   fetchFavorites: () => dispatch(fetchFavorites()),
   postFavorite: (dishId) => dispatch(postFavorite(dishId)),
-  deleteFavorite: (dishId) => dispatch(deleteFavorite(dishId))
+  deleteFavorite: (dishId) => dispatch(deleteFavorite(dishId)),
+  // fetchSuggestions: (searchTerm)
 });
 
 class Main extends Component {
@@ -111,6 +114,7 @@ class Main extends Component {
         <Header auth={this.props.auth} 
           loginUser={this.props.loginUser} 
           logoutUser={this.props.logoutUser} 
+          signupUser={this.props.signupUser}
           />   
         <TransitionGroup>
           <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>

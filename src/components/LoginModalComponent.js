@@ -17,19 +17,12 @@ class ModelPop extends Component {
             isModalOpen: false,
         };
         this.toggleModal = this.toggleModal.bind(this);
-        this.handleLogin = this.handleLogin.bind(this);
     }
 
     toggleModal() {
         this.setState({
             isModalOpen: !this.state.isModalOpen
         });
-    }
-    handleLogin(event) {
-        this.toggleModal();
-        this.props.loginUser({username: this.username.value, password: this.password.value});
-        event.preventDefault();
-
     }
 
     render() {
@@ -47,7 +40,9 @@ class ModelPop extends Component {
 
                 <LoginModal isModalOpen={this.state.isModalOpen} 
                     toggleModal={this.toggleModal}
-                    handleForgotPassword={this.handleLogin}
+                    loginUser={this.props.loginUser} 
+                    logoutUser={this.props.logoutUser}
+                    signupUser={this.props.signupUser}
                     />
             </React.Fragment>
         );

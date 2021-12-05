@@ -238,12 +238,12 @@ export const loginError = (message) => {
 
 export const loginUser = (creds) => (dispatch) => {
     // We dispatch requestLogin to kickoff the call to the API
-    dispatch(requestLogin(creds))
+    dispatch(requestLogin(creds));
 
     return fetch(baseUrl + 'users/login', {
         method: 'POST',
         headers: { 
-            'Content-Type':'application/json' 
+            'Content-Type':'application/json'
         },
         body: JSON.stringify(creds)
     })
@@ -399,3 +399,122 @@ export const addFavorites = (favorites) => ({
     type: ActionTypes.ADD_FAVORITES,
     payload: favorites
 });
+
+/* ==========================================================
+                SIGNUP
+============================================================*/
+
+export const requestSignup = (creds) => {
+    return {
+        type: ActionTypes.SIGNUP_REQUEST,
+        creds
+    }
+}
+  
+export const receiveSignup = (response) => {
+    return {
+        type: ActionTypes.SIGNUP_SUCCESS,
+        token: response.token
+    }
+}
+  
+export const signupError = (message) => {
+    return {
+        type: ActionTypes.SIGNUP_FAILURE,
+        message
+    }
+}
+
+export const signupUser = (creds) => (dispatch) => {
+    // We dispatch requestSignup to kickoff the call to the API
+    dispatch(requestSignup(creds))
+
+    return fetch(baseUrl + 'users/signup', {
+        method: 'POST',
+        headers: { 
+            'Content-Type':'application/json' 
+        },
+        body: JSON.stringify(creds)
+    })
+    .then(response => {
+        if (response.ok) {
+            return response;
+        } else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+        },
+        error => {
+            throw error;
+        })
+    .then(response => response.json())
+    .then(response => {
+        if (response.success) {
+            // If Signup was successful, set the token in local storage
+            localStorage.setItem('token', response.token);
+            localStorage.setItem('creds', JSON.stringify(creds));
+            // Dispatch the success action
+            // dispatch(fetchFavorites());
+            dispatch(receiveSignup(response));
+        }
+        else {
+            var error = new Error('Error ' + response.status);
+            error.response = response;
+            throw error;
+        }
+    })
+    .catch(error => dispatch(signupError(error.message)))
+};
+
+
+
+/* ==========================================================
+                SUGGESTIONS
+============================================================*/
+
+
+export const requestSuggestions = (searchTerm) => {
+    return {
+        type: ActionTypes.SUGGESTIONS_REQUEST,
+        searchTerm
+    }
+}
+  
+export const receiveSuggestions = (response) => {
+    return {
+        type: ActionTypes.SUGGESTIONS_SUCCESS,
+        suggestions: response.suggestions
+    }
+}
+  
+export const SuggestionsError = (message) => {
+    return {
+        type: ActionTypes.SUGGESTIONS_FAILED,
+        message
+    }
+}
+
+
+export const fetchSuggestions = () => (dispatch) => {
+    dispatch(requestSuggestions(true));
+
+    return fetch(baseUrl + 'suggestion')
+        .then(response => {
+            if (response.ok) {
+                return response;
+            }
+            else {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response;
+                throw error;
+            }
+        },
+        error => {
+            var errmess = new Error(error.message);
+            throw errmess;
+        })
+        .then(response => response.json())
+        .then(dishes => dispatch(receiveSuggestions(dishes)))
+        .catch(error => dispatch(SuggestionsError(error.message)));
+}

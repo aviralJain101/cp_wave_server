@@ -14,12 +14,9 @@ class Header extends Component {
         super(props);
         this.state = {
             isNavOpen: false,
-            isModalOpen: false,
             
         };
         this.toggleNav = this.toggleNav.bind(this);
-        this.toggleModal = this.toggleModal.bind(this);
-        this.handleLogin = this.handleLogin.bind(this);
         this.handleLogout = this.handleLogout.bind(this);
     }
 
@@ -27,19 +24,6 @@ class Header extends Component {
         this.setState({
             isNavOpen: !this.state.isNavOpen
         });
-    }
-
-    toggleModal() {
-        this.setState({
-            isModalOpen: !this.state.isModalOpen
-        });
-    }
-
-    handleLogin(event) {
-        this.toggleModal();
-        this.props.loginUser({username: this.username.value, password: this.password.value});
-        event.preventDefault();
-
     }
 
     handleLogout() {
@@ -67,16 +51,23 @@ class Header extends Component {
                                 <Nav className="pull-right" navbar>
                                     <NavItem>
                                         { !this.props.auth.isAuthenticated ?
-                                            <ModelPop auth={this.props.auth}/>
+                                            <ModelPop auth={this.props.auth}
+                                                loginUser={this.props.loginUser} 
+                                                logoutUser={this.props.logoutUser} 
+                                                signupUser={this.props.signupUser}
+                                                />
                                             :
                                             <div>
-                                            <div className="navbar-text mr-3">{this.props.auth.user.username}</div>
-                                            <Button outline onClick={this.handleLogout} style={{borderRadius:'20px'}}>
+                                            <span className="navbar-text" style={{color:'#fff'}}>{this.props.auth.user.username}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                            <Button primary onClick={this.handleLogout} style={{borderRadius:'20px'}}>
                                                 <span className="fa fa-sign-out fa-lg"></span> Logout
                                                 {this.props.auth.isFetching ?
                                                     <span className="fa fa-spinner fa-pulse fa-fw"></span>
                                                     : null
                                                 }
+                                                {/* to do
+                                                    create a dashboard on ONclick
+                                                */}
                                             </Button>
                                             </div>
                                         }

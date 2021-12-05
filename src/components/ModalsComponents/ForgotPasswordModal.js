@@ -15,6 +15,15 @@ class ForgotPasswordModal extends Component {
         this.state = {
             
         };
+        this.handleForgotPassword=this.handleForgotPassword.bind(this);
+    }
+
+    handleForgotPassword(event) {
+        this.toggleModalForgotPassword();
+        alert(this.email.value);
+        // this.props.loginUser({username: this.username.value, password: this.password.value});
+        event.preventDefault();
+
     }
 
     render() {
@@ -24,7 +33,7 @@ class ForgotPasswordModal extends Component {
                 <Modal isOpen={this.props.isModalOpen} toggle={this.props.toggleModal} centered>
                     <ModalHeader toggle={this.props.toggleModal}>Reset Password</ModalHeader>
                     <ModalBody>
-                        <Form onSubmit={this.props.handleForgotPassword}>
+                        <Form onSubmit={this.handleForgotPassword}>
                             <FormGroup>
                                 <Label htmlFor="email" className="mt-2 mb-3 text-center">We will send an email to your box, just follow that link to set your new password.</Label>
                                 <Input type="text" id="email" name="email"

@@ -26,8 +26,7 @@ class LoginModal extends Component {
         this.openSignupToSigninModal=this.openSignupToSigninModal.bind(this);
         this.openForgotToSigninModal=this.openForgotToSigninModal.bind(this);
 
-        this.handlesignup = this.handlesignup.bind(this);
-        this.handleForgotPassword = this.handleForgotPassword.bind(this);
+        this.handleLogin = this.handleLogin.bind(this);
 
     }
 
@@ -65,20 +64,11 @@ class LoginModal extends Component {
     }
 
 
-
-
-
-    handlesignup(event) {
-        this.toggleModalsignup();
+    handleLogin(event) {
+        this.props.toggleModal();
+        // alert(this.props.signupUser);
         this.props.loginUser({username: this.username.value, password: this.password.value});
         event.preventDefault();
-
-    }
-    handleForgotPassword(event) {
-        this.toggleModalForgotPassword();
-        this.props.loginUser({username: this.username.value, password: this.password.value});
-        event.preventDefault();
-
     }
 
     render() {
@@ -89,7 +79,7 @@ class LoginModal extends Component {
                 <Modal isOpen={this.props.isModalOpen} toggle={this.props.toggleModal} centered>
                     <ModalHeader toggle={this.props.toggleModal}>Login</ModalHeader>
                     <ModalBody>
-                        <Form onSubmit={this.props.handleLogin}>
+                        <Form onSubmit={this.handleLogin}>
                             <FormGroup>
                                 <Label htmlFor="username">Username</Label>
                                 <Input type="text" id="username" name="username"
@@ -134,14 +124,13 @@ class LoginModal extends Component {
                 
                 <ForgotPasswordModal isModalOpen={this.state.isModalOpenForgotPassword} 
                     toggleModal={this.toggleModalForgotPassword}
-                    handleForgotPassword={this.handleForgotPassword}
                     changeModal={this.openForgotToSigninModal}
                     />
                 
                 <SignUpModal isModalOpen={this.state.isModalOpenSignup} 
                     toggleModal={this.toggleModalsignup}
-                    handleForgotPassword={this.handlesignup}
                     changeModal={this.openSignupToSigninModal}
+                    signupUser={this.props.signupUser}
                     />
 
             </React.Fragment>
