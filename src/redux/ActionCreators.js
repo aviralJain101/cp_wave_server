@@ -1,7 +1,5 @@
 import * as ActionTypes from './ActionTypes';
 import { baseUrl } from '../shared/baseUrl';
-import axios from 'axios';
-import { string } from 'prop-types';
 
 export const addComment = (comment) => ({
     type: ActionTypes.ADD_COMMENT,
@@ -506,7 +504,7 @@ export const fetchSuggestions = (searchTerm) => (dispatch) => {
     return fetch(baseUrl+'suggestions?searchTerm='+searchTerm)
       .then(response => {
         if (response.ok) {
-            console.log(response);
+            // console.log(response);
             // console.log(response.json());
 
             return response;

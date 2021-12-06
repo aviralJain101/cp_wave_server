@@ -33,28 +33,52 @@ function RenderCard({item, isLoading, errMess}) {
         );
 }
 
-function Home(props) {
-    return(
-        <div className="container">
-            <div className="row align-items-start">
-                <div className="col-12 col-md m-1">
-                    <RenderCard item={props.dish} 
-                        isLoading={props.dishesLoading}
-                        errMess={props.dishesErrMess} />
-                </div>
-                <div className="col-12 col-md m-1">
-                    <RenderCard item={props.promotion} 
-                        isLoading={props.promosLoading}
-                        errMess={props.promosErrMess} />
-                </div>
-                <div className="col-12 col-md m-1">
-                    <RenderCard item={props.leader} 
-                        isLoading={props.leaderLoading} 
-                        errMess={props.leaderErrMess} />
+class Home extends React.Component {
+    
+
+    constructor(props) {
+        super(props);
+        
+    }
+    shouldComponentUpdate(nextProps) {
+        // Rendering the component only if 
+        // passed props value is changed
+        alert("hell");
+        console.log(this.props.value);
+        console.log(nextProps.value);
+      
+        if (nextProps.value !== this.props.value) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    
+    render() {
+        return(
+            <div className="container">
+                <div className="row align-items-start">
+                    <div className="col-12 col-md m-1">
+                        <RenderCard item={this.props.dish} 
+                            isLoading={this.props.dishesLoading}
+                            errMess={this.props.dishesErrMess} />
+                    </div>
+                    <div className="col-12 col-md m-1">
+                        <RenderCard item={this.props.promotion} 
+                            isLoading={this.props.promosLoading}
+                            errMess={this.props.promosErrMess} />
+                    </div>
+                    <div className="col-12 col-md m-1">
+                        <RenderCard item={this.props.leader} 
+                            isLoading={this.props.leaderLoading} 
+                            errMess={this.props.leaderErrMess} />
+                    </div>
                 </div>
             </div>
-        </div>
-    );
+        );
+    }
+    
 }
+
 
 export default Home;
