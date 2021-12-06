@@ -11,7 +11,7 @@ import MyTeams from './MyTeamComponent';
 import AddUsers from './AddUserComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { postComment, postFeedback, fetchDishes, fetchComments, fetchPromos, fetchLeaders, signupUser, loginUser, logoutUser, fetchFavorites, postFavorite, deleteFavorite, fetchSuggestions } from '../redux/ActionCreators';
+import { postComment, postFeedback, fetchDishes, fetchComments, fetchPromos, fetchLeaders, signupUser, loginUser, logoutUser, fetchFavorites, postFavorite, deleteFavorite/*, fetchSuggestions*/ } from '../redux/ActionCreators';
 import { actions } from 'react-redux-form';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
@@ -24,7 +24,7 @@ const mapStateToProps = state => {
       leaders: state.leaders,
       favorites: state.favorites,
       auth: state.auth,
-      suggestions: state.suggestions
+      // suggestions: state.suggestions
     }
 }
 
@@ -42,7 +42,7 @@ const mapDispatchToProps = (dispatch) => ({
   fetchFavorites: () => dispatch(fetchFavorites()),
   postFavorite: (dishId) => dispatch(postFavorite(dishId)),
   deleteFavorite: (dishId) => dispatch(deleteFavorite(dishId)),
-  fetchSuggestions: (searchTerm) => dispatch(fetchSuggestions(searchTerm))
+  // fetchSuggestions: (searchTerm) => dispatch(fetchSuggestions(searchTerm))
 });
 
 class Main extends Component {
@@ -117,8 +117,8 @@ class Main extends Component {
           loginUser={this.props.loginUser} 
           logoutUser={this.props.logoutUser} 
           signupUser={this.props.signupUser}
-          fetchSuggestions={this.props.fetchSuggestions}
-          suggestions={this.props.suggestions}
+          // fetchSuggestions={this.props.fetchSuggestions}
+          // suggestions={this.props.suggestions}
           />   
         <TransitionGroup>
           <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>

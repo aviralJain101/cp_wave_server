@@ -2,7 +2,22 @@ import React from 'react';
 import Autosuggest from 'react-autosuggest';
 import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
-  
+import { fetchSuggestions } from '../redux/suggestionsRedux/ActionCreators';
+import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+const mapStateToProps = state => {
+  return {
+    suggestions: state.suggestions
+  }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+fetchSuggestions: (searchTerm) => dispatch(fetchSuggestions(searchTerm))
+});
+
+
+
 class SearchAS extends React.Component {
   constructor() {
     super();
@@ -85,4 +100,5 @@ class SearchAS extends React.Component {
   }
 }
   
-export default SearchAS;  
+// export default SearchAS;  
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SearchAS));
