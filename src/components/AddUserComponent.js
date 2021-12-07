@@ -48,13 +48,11 @@ function Renderusers({searches}) {
     }  
     else if(searches.searchResult){
         // alert("searchResult");
-        searches.searchResult.map((user) => {
-            return (
-                <div key={user._id} className="col-12">
-                    <RenderUser user={user} />
-                </div>
-            );
-        });
+        return (
+            <div>
+                Ids Exist
+            </div>
+        );
     }
     
 }
