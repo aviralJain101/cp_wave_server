@@ -523,3 +523,57 @@ export const fetchSuggestions = (searchTerm) => (dispatch) => {
     .then(suggestions => dispatch(receiveSuggestions(suggestions)))
     .catch(error => dispatch(SuggestionsError(error.message)));
 }
+
+
+/* ==========================================================
+                SEARCHES
+============================================================*/
+
+
+export const requestSearches = (searchTerm) => {
+    return {
+        type: ActionTypes.SEARCH_REQUEST,
+        searchTerm
+    }
+}
+  
+export const receiveSearches = (searchResult) => {
+    return {
+        type: ActionTypes.SEARCH_SUCCESS,
+        searchResult
+    }
+}
+  
+export const searchesError = (message) => {
+    return {
+        type: ActionTypes.SEARCH_FAILED,
+        message
+    }
+}
+
+
+export const fetchSearches = (searchTerm) => (dispatch) => {
+    dispatch(requestSearches(searchTerm));
+    
+    return fetch(baseUrl+'search?searchTerm='+searchTerm)
+      .then(response => {
+        if (response.ok) {
+            // console.log(response);
+            // console.log(response.json());
+
+            return response;
+        }
+        else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+    },
+    error => {
+        var errmess = new Error(error.message);
+        throw errmess;
+    })
+    .then(response => response.json())
+    .then(searchResult => dispatch(receiveSearches(searchResult)))
+    .catch(error => dispatch(searchesError(error.message)));
+}

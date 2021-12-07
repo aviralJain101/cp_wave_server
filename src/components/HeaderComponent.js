@@ -54,7 +54,7 @@ class Header extends Component {
                                 </NavbarBrand>
                             </div>
                             <div className="col-7">
-                                <SearchAS />
+                                <SearchAS fetchSearches={this.props.fetchSearches}/>
                             </div>
                             <div className="col-3">
                                 <Nav className="pull-right" navbar>

@@ -10,7 +10,7 @@ import { Suggestions } from './suggestions';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { InitialFeedback } from './forms';
-import { SearchThis } from './searches';
+import { Searches } from './searches';
 
 export const ConfigureStore = () => {
     const store = createStore(
@@ -21,6 +21,7 @@ export const ConfigureStore = () => {
             leaders: Leaders,
             auth: Auth,
             suggestions: Suggestions,
+            searches: Searches,
             favorites,
             ...createForms({
                 feedback: InitialFeedback

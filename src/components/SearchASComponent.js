@@ -5,6 +5,7 @@ import parse from 'autosuggest-highlight/parse';
 import { fetchSuggestions } from '../redux/ActionCreators';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Suggestion from './Searchs/suggestion';
 
 const mapStateToProps = state => {
   return {
@@ -32,11 +33,15 @@ class SearchAS extends React.Component {
 
   onSuggestionSelected(event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }){
     if(this.props.location.pathname === '/addusers') {
-      alert("already at /addusers");
+      // alert("already at /addusers");
     }
     else {
+      // alert("this.props.location.pathname")
       this.props.history.push("/addusers");
     }
+    // alert(suggestionValue);
+    this.props.fetchSearches(suggestionValue);
+
     // alert(this.props.location.pathname);
   }
   

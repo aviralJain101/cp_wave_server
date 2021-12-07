@@ -11,7 +11,7 @@ import MyTeams from './MyTeamComponent';
 import AddUsers from './AddUserComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { postComment, postFeedback, fetchDishes, fetchComments, fetchPromos, fetchLeaders, signupUser, loginUser, logoutUser, fetchFavorites, postFavorite, deleteFavorite/*, fetchSuggestions*/ } from '../redux/ActionCreators';
+import { postComment, postFeedback, fetchDishes, fetchComments, fetchPromos, fetchLeaders, signupUser, loginUser, logoutUser, fetchFavorites, postFavorite, deleteFavorite, fetchSearches } from '../redux/ActionCreators';
 import { actions } from 'react-redux-form';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
@@ -24,7 +24,7 @@ const mapStateToProps = state => {
       leaders: state.leaders,
       favorites: state.favorites,
       auth: state.auth,
-      // suggestions: state.suggestions
+      searches: state.searches
     }
 }
 
@@ -42,7 +42,7 @@ const mapDispatchToProps = (dispatch) => ({
   fetchFavorites: () => dispatch(fetchFavorites()),
   postFavorite: (dishId) => dispatch(postFavorite(dishId)),
   deleteFavorite: (dishId) => dispatch(deleteFavorite(dishId)),
-  // fetchSuggestions: (searchTerm) => dispatch(fetchSuggestions(searchTerm))
+  fetchSearches: (searchTerm) => dispatch(fetchSearches(searchTerm))
 });
 
 class Main extends Component {
@@ -69,6 +69,14 @@ class Main extends Component {
           leader={this.props.leaders.leaders.filter((leader) => leader.featured)[0]}
           leaderLoading={this.props.leaders.isLoading}
           leaderErrMess={this.props.leaders.errMess}
+        />
+      );
+    }
+
+    const AddUsersPage = () => {
+      return(
+        <AddUsers 
+          searches={this.props.searches}
         />
       );
     }
@@ -117,6 +125,7 @@ class Main extends Component {
           loginUser={this.props.loginUser} 
           logoutUser={this.props.logoutUser} 
           signupUser={this.props.signupUser}
+          fetchSearches={this.props.fetchSearches}
           // fetchSuggestions={this.props.fetchSuggestions}
           // suggestions={this.props.suggestions}
           />   
@@ -130,7 +139,7 @@ class Main extends Component {
               <PrivateRoute exact path="/favorites" component={() => <Favorites favorites={this.props.favorites} deleteFavorite={this.props.deleteFavorite} />} />
               <Route exact path="/contactus" component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} postFeedback={this.props.postFeedback} />} />
               <Route exact path="/myteams" component={() => <MyTeams />} />
-              <Route exact path="/addusers" component={() => <AddUsers />} />
+              <Route exact path="/addusers" component={AddUsersPage} />
 
               <Redirect to="/home" />
             </Switch>
