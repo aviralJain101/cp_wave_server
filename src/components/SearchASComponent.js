@@ -31,7 +31,13 @@ class SearchAS extends React.Component {
   }
 
   onSuggestionSelected(event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }){
-    alert(method);
+    if(this.props.location.pathname === '/addusers') {
+      alert("already at /addusers");
+    }
+    else {
+      this.props.history.push("/addusers");
+    }
+    // alert(this.props.location.pathname);
   }
   
   onChange = (event, { newValue, method }) => {
