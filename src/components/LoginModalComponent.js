@@ -30,7 +30,7 @@ class ModelPop extends Component {
 
             <React.Fragment>
 
-                <Button primary onClick={this.toggleModal} style={{borderRadius:'20px'}}>
+                <Button primary onClick={this.toggleModal} style={{borderRadius:'18px'}}>
                     <span className="fa fa-sign-in fa-lg"></span> Login
                     {this.props.auth.isFetching ?
                         <span className="fa fa-spinner fa-pulse fa-fw"></span>

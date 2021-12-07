@@ -40,9 +40,6 @@ class Header extends Component {
         
         return(
             <React.Fragment>
-                {/* <div>
-                    <Popup />
-                </div> */}
                 <Navbar dark expand="md">
                     <div className="container mt-2">
                         
@@ -57,32 +54,15 @@ class Header extends Component {
                                 <SearchAS fetchSearches={this.props.fetchSearches}/>
                             </div>
                             <div className="col-3">
-                                <Nav className="pull-right" navbar>
-                                    <NavItem>
-                                        { !this.props.auth.isAuthenticated ?
-                                            <ModelPop auth={this.props.auth}
-                                                loginUser={this.props.loginUser} 
-                                                logoutUser={this.props.logoutUser} 
-                                                signupUser={this.props.signupUser}
-                                                />
-                                            :
-                                            <div>
-                                            <span className="navbar-text" style={{color:'#fff'}}>{this.props.auth.user.username}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                            <Button primary onClick={this.handleLogout} style={{borderRadius:'20px'}}>
-                                                <span className="fa fa-sign-out fa-lg"></span> Logout
-                                                {this.props.auth.isFetching ?
-                                                    <span className="fa fa-spinner fa-pulse fa-fw"></span>
-                                                    : null
-                                                }
-                                                {/* to do
-                                                    create a dashboard on ONclick
-                                                */}
-                                            </Button>
-                                            </div>
-                                        }
-
-                                    </NavItem>
-                                </Nav>
+                                { 
+                                    this.props.auth.isAuthenticated ?
+                                    // <div>
+                                        <span className="navbar-text pull-right" style={{color:'#fff'}}>{this.props.auth.user.username}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                        
+                                    // </div>
+                                    :
+                                    null
+                                    }
                             </div>
                             
                             <div className="col-12 mt-4 mb-2">
@@ -124,8 +104,32 @@ class Header extends Component {
                                                 <span className="fa fa-users fa-lg"></span> My Teams
                                             </NavLink>
                                         </NavItem>
-                                        
                                     </Nav>
+                                    <Nav className="ms-auto" navbar>
+                                        <NavItem>
+                                            { !this.props.auth.isAuthenticated ?
+                                                <ModelPop auth={this.props.auth}
+                                                    loginUser={this.props.loginUser} 
+                                                    logoutUser={this.props.logoutUser} 
+                                                    signupUser={this.props.signupUser}
+                                                    />
+                                                :
+                                                <div>
+                                                <Button primary onClick={this.handleLogout} style={{borderRadius:'20px'}}>
+                                                    <span className="fa fa-sign-out fa-lg"></span> Logout
+                                                    {this.props.auth.isFetching ?
+                                                        <span className="fa fa-spinner fa-pulse fa-fw"></span>
+                                                        : null
+                                                    }
+                                                    {/* to do
+                                                        create a dashboard on ONclick
+                                                    */}
+                                                </Button>
+                                                </div>
+                                            }
+
+                                        </NavItem>
+                                    </Nav> 
                                 </Collapse>
                             </div>
                         </div>

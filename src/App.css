@@ -54,5 +54,12 @@ address{
     transition: all 300ms ease-out;
 }
 
+.navbar>.container, .navbar>.container-fluid, .navbar>.container-lg, .navbar>.container-md, .navbar>.container-sm, .navbar>.container-xl, .navbar>.container-xxl {
+    display: block;
+    flex-wrap: inherit;
+    align-items: center;
+    justify-content: space-between;
+}
+
 
 
