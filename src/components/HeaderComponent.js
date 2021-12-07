@@ -50,19 +50,22 @@ class Header extends Component {
                                         alt="Ristorante Con Fusion" />
                                 </NavbarBrand>
                             </div>
-                            <div className="col-7">
+                            <div className="col-8">
                                 <SearchAS fetchSearches={this.props.fetchSearches}/>
                             </div>
-                            <div className="col-3">
-                                { 
-                                    this.props.auth.isAuthenticated ?
-                                    // <div>
-                                        <span className="navbar-text pull-right" style={{color:'#fff'}}>{this.props.auth.user.username}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                        
-                                    // </div>
-                                    :
-                                    null
+                            <div className="col-2">
+                                <Nav navbar className="pull-right">
+                                    <NavItem>
+                                    { 
+                                        this.props.auth.isAuthenticated ?
+                                        <NavLink className="nav-link" to={`${this.props.auth.user.username}`}>
+                                            <span style={{color:'#fff'}}>{this.props.auth.user.username}</span>
+                                        </NavLink>
+                                        :
+                                        null
                                     }
+                                    </NavItem>
+                                </Nav>
                             </div>
                             
                             <div className="col-12 mt-4 mb-2">
@@ -135,16 +138,6 @@ class Header extends Component {
                         </div>
                     </div>
                 </Navbar>
-                {/* <Jumbotron>
-                    <div className="container">
-                        <div className="row row-header text-center">
-                            <div className="col-6 offset-3">
-                                <h1>Bonds</h1>
-                                <h5><blockquote>The world isn't perfect. But it's there for us, doing the best it can... that's what makes it so damn beautiful.</blockquote></h5>
-                            </div>
-                        </div>
-                    </div>
-                </Jumbotron> */}
             </React.Fragment>
         );
     }
