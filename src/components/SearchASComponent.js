@@ -101,10 +101,12 @@ class SearchAS extends React.Component {
         else {
           this.props.history.push("/addusers");
         }
-        this.setState({
-          value: ''
-        });
+        // this.setState({
+        //   value: ''
+        // });
+        if(this.state.value.trim().length>=1){
         this.props.fetchSearches(this.state.value);
+        }
         break;
     }
   }
