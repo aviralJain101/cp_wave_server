@@ -8,10 +8,6 @@ import SearchAS from './SearchASComponent';
 import { Card, CardImg, CardImgOverlay, CardTitle, Breadcrumb, BreadcrumbItem,CardBody, CardHeader } from 'reactstrap';
 import ModelPop from './LoginModalComponent';
 
-import { ConfigureStore } from '../redux/suggestionsRedux/configureStore';
-import { Provider } from 'react-redux';
-
-const suggestionsStore = ConfigureStore();
 
 class Header extends Component {
 
@@ -58,14 +54,7 @@ class Header extends Component {
                                 </NavbarBrand>
                             </div>
                             <div className="col-7">
-                                {/* <Search /> */}
-                                <Provider store={suggestionsStore}>
-                                    <SearchAS /*fetchSuggestions={this.props.fetchSuggestions}
-                                        suggestions={this.props.suggestions}*/
-                                    />
-                                </Provider>
-                                
-                                
+                                <SearchAS />
                             </div>
                             <div className="col-3">
                                 <Nav className="pull-right" navbar>

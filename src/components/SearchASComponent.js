@@ -2,7 +2,7 @@ import React from 'react';
 import Autosuggest from 'react-autosuggest';
 import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
-import { fetchSuggestions } from '../redux/suggestionsRedux/ActionCreators';
+import { fetchSuggestions } from '../redux/ActionCreators';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -27,14 +27,19 @@ class SearchAS extends React.Component {
     };
     this.getSuggestionValue=this.getSuggestionValue.bind(this);
     this.renderSuggestion=this.renderSuggestion.bind(this);
+    this.onSuggestionSelected=this.onSuggestionSelected.bind(this);
   }
 
-
+  onSuggestionSelected(event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }){
+    alert(method);
+  }
+  
   onChange = (event, { newValue, method }) => {
     this.setState({
       value: newValue
     });
   };
+
 
   onSuggestionsFetchRequested = ({ value }) => {
     this.props.fetchSuggestions(value);
@@ -92,7 +97,9 @@ class SearchAS extends React.Component {
         onSuggestionsClearRequested={this.onSuggestionsClearRequested}
         getSuggestionValue={this.getSuggestionValue}
         renderSuggestion={this.renderSuggestion}
-        inputProps={inputProps} />
+        inputProps={inputProps} 
+        onSuggestionSelected={this.onSuggestionSelected}
+        />
       </React.Fragment>
       
       
