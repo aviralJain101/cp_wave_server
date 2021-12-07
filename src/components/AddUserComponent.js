@@ -1,36 +1,39 @@
 import React, { Component } from 'react';
-import { Card, CardImg, CardImgOverlay, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { baseUrl } from '../shared/baseUrl';
 import { Loading } from './LoadingComponent';
+import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
+import { Fade, Stagger } from 'react-animation-components';
 
-function RenderUser(user) {
+function RenderUser({user}) {
     return(
-        <Card>
-            {/* <Link to={`/menu/${dish._id}`} > */}
-            {/* <CardImg width="100%" src={baseUrl + dish.image} alt={dish.name} /> */}
-            <CardImgOverlay>
-                <CardTitle>{user.username}</CardTitle>
-            </CardImgOverlay>
-            {/* </Link> */}
-        </Card>
+        <Media>
+            {/* <Media left middle>
+                <Media object src={baseUrl + leader.image} alt={leader.name} />
+            </Media> */}
+            <Media body className="ml-5">
+                <Media heading>{user.username}</Media>
+                {/* <p>{user.designation}</p>
+                <p>{user.description}</p> */}
+            </Media>
+        </Media>
     );
 }
 
-function Renderusers({searches}) {
-    // alert(searches.searchResult);
-    if(searches.isLoading) {
+function Renderusers({isLoading, errMess, searchResult, searchTerm}) {
+    // alert(isLoading);
+    if(isLoading) {
         // alert("if");
         return(
             <Loading />
         );
     }
-    else if (searches.errMess) {
+    else if (errMess) {
         return(
-            <h4>{searches.errMess}</h4>
+            <h4>{errMess}</h4>
         );
     }
-    else if(searches.searchResult == null) {
+    else if(searchResult == null) {
         // alert("else");
         return (
             <div>
@@ -38,7 +41,7 @@ function Renderusers({searches}) {
             </div>
         );
     } 
-    else if(searches.searchResult.length == 0) {
+    else if(searchResult.length == 0) {
         // alert("else");
         return (
             <div>
@@ -46,11 +49,23 @@ function Renderusers({searches}) {
             </div>
         );
     }  
-    else if(searches.searchResult){
-        // alert("searchResult");
+    else if(searchResult){
+        // alert(searchResult.length);
+        const users = searchResult.map((user) => {
+            // alert(user.username);
+            return (
+                // <Fade in key={user._id}>
+                    <div className="col-12 mt-2">
+                        {/* {user.username} */}
+                            <RenderUser user={user} />
+                    </div>
+                // </Fade>
+            );
+        });
+
         return (
             <div>
-                Ids Exist
+                {users}
             </div>
         );
     }
@@ -77,7 +92,11 @@ class AddUsers extends Component {
                     </Breadcrumb>
                     <div className="col-12">
                         
-                        <Renderusers searches={this.props.searches} />
+                        <Renderusers 
+                        isLoading={this.props.searches.isLoading}
+                        errMess={this.props.searches.errMess}
+                        searchResult={this.props.searches.searchResult}
+                        searchTerm={this.props.searches.searchTerm} />
                     </div>
                 </div>
                 

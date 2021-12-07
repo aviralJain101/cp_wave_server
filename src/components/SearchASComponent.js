@@ -6,6 +6,8 @@ import { fetchSuggestions } from '../redux/ActionCreators';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Suggestion from './Searchs/suggestion';
+import Suggestions from './Searchs/suggestions';
+import autoBind from 'react-autobind';
 
 const mapStateToProps = state => {
   return {
@@ -26,9 +28,14 @@ class SearchAS extends React.Component {
     this.state = {
       value: '',
     };
-    this.getSuggestionValue=this.getSuggestionValue.bind(this);
-    this.renderSuggestion=this.renderSuggestion.bind(this);
-    this.onSuggestionSelected=this.onSuggestionSelected.bind(this);
+
+    autoBind(
+      this,
+      'getSuggestionValue',
+      'renderSuggestion',
+      'onSuggestionSelected',
+      'handleKeyDown'
+    );
   }
 
   onSuggestionSelected(event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }){
@@ -36,13 +43,9 @@ class SearchAS extends React.Component {
       // alert("already at /addusers");
     }
     else {
-      // alert("this.props.location.pathname")
       this.props.history.push("/addusers");
     }
-    // alert(suggestionValue);
     this.props.fetchSearches(suggestionValue);
-
-    // alert(this.props.location.pathname);
   }
   
   onChange = (event, { newValue, method }) => {
@@ -78,7 +81,6 @@ class SearchAS extends React.Component {
             {
               parts.map((part, index) => {
                 const className = part.highlight ? 'highlight' : null;
-    
                 return (
                   <span className={className} key={index}>{part.text}</span>
                 );
@@ -90,14 +92,41 @@ class SearchAS extends React.Component {
     );
   }
 
+  handleKeyDown(event) {
+    switch (event.key) {
+      case 'Enter':
+        if(this.props.location.pathname === '/addusers') {
+          // alert("already at /addusers");
+        }
+        else {
+          this.props.history.push("/addusers");
+        }
+        this.setState({
+          value: ''
+        });
+        this.props.fetchSearches(this.state.value);
+        break;
+    }
+  }
+
 
   render() {
-    const { value, suggestions } = this.state;
+    const { value } = this.state;
     const inputProps = {
       placeholder: "Search User",
       value,
       onChange: this.onChange
+      // onkeypress: this.handleKeyPress
     };
+
+    const renderInputComponent = inputProps => (
+      <div>
+        <input {...inputProps} 
+          onKeyPress={this.handleKeyDown}
+        />
+        
+      </div>
+    );
 
 
     return (
@@ -110,6 +139,8 @@ class SearchAS extends React.Component {
         renderSuggestion={this.renderSuggestion}
         inputProps={inputProps} 
         onSuggestionSelected={this.onSuggestionSelected}
+        // highlightFirstSuggestion='true'
+        renderInputComponent={renderInputComponent}
         />
       </React.Fragment>
       
