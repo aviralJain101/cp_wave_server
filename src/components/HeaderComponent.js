@@ -7,6 +7,7 @@ import Search from './SearchComponent';
 import SearchAS from './SearchASComponent';
 import { Card, CardImg, CardImgOverlay, CardTitle, Breadcrumb, BreadcrumbItem,CardBody, CardHeader } from 'reactstrap';
 import ModelPop from './LoginModalComponent';
+import Avatar from 'react-avatar';
 
 
 class Header extends Component {
@@ -44,13 +45,13 @@ class Header extends Component {
                     <div className="container mt-2">
                         
                         <div className="row">
-                            <div className="col-2">
+                            <div className="col-2 mt-2">
                                 <NavbarBrand className="mr-auto" href="/">
                                     <img src="assets/images/logo.png" height="40" width="60"
                                         alt="Ristorante Con Fusion" />
                                 </NavbarBrand>
                             </div>
-                            <div className="col-8">
+                            <div className="col-8 mt-2">
                                 <SearchAS fetchSearches={this.props.fetchSearches}/>
                             </div>
                             <div className="col-2">
@@ -59,7 +60,17 @@ class Header extends Component {
                                     { 
                                         this.props.auth.isAuthenticated ?
                                         <NavLink className="nav-link" to={`${this.props.auth.user.username}`}>
-                                            <span style={{color:'#fff'}}>{this.props.auth.user.username}</span>
+                                            <span style={{color:'#fff'}}>
+                                                <Avatar name={this.props.auth.user.username} size="50" 
+                                                    textSizeRatio="2"
+                                                    round='20'
+                                                    fgColor='#fff'
+                                                    maxInitials='2'
+                                                    className="round"
+                                                    // color="lightgreen"
+                                                />
+                                                {/* {this.props.auth.user.username} */}
+                                            </span>
                                         </NavLink>
                                         :
                                         null
