@@ -73,12 +73,6 @@ input {
 }
 
 
-.round {
-  border-radius: 50%;
-  border: 1px #000 groove;
-}
-
-
 
 
 
@@ -244,3 +238,14 @@ input {
     width: 100%
   }
 } */
+/* =======================================================
+            Remove drop down down arrow
+===========================================================*/
+.dropdown-toggle:after {
+  display: none !important; 
+}
+
+.round {
+  border-radius: 50%;
+  /* border: 1px #000 groove; */
+}

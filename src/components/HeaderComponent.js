@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, Jumbotron,
     Button, Modal, ModalHeader, ModalBody,
     Form, FormGroup, Input, Label } from 'reactstrap';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import Search from './SearchComponent';
 import SearchAS from './SearchASComponent';
 import { Card, CardImg, CardImgOverlay, CardTitle, Breadcrumb, BreadcrumbItem,CardBody, CardHeader } from 'reactstrap';
 import ModelPop from './LoginModalComponent';
 import Avatar from 'react-avatar';
+import { NavDropdown} from 'react-bootstrap';
 
 
 class Header extends Component {
@@ -56,26 +57,27 @@ class Header extends Component {
                             </div>
                             <div className="col-2">
                                 <Nav navbar className="pull-right">
-                                    <NavItem>
-                                    { 
-                                        this.props.auth.isAuthenticated ?
-                                        <NavLink className="nav-link" to={`${this.props.auth.user.username}`}>
-                                            <span style={{color:'#fff'}}>
-                                                <Avatar name={this.props.auth.user.username} size="50" 
-                                                    textSizeRatio="2"
-                                                    round='20'
-                                                    fgColor='#fff'
-                                                    maxInitials='2'
-                                                    className="round"
-                                                    // color="lightgreen"
-                                                />
-                                                {/* {this.props.auth.user.username} */}
-                                            </span>
-                                        </NavLink>
+                                    {this.props.auth.isAuthenticated ?
+
+                                        <NavDropdown title={
+                                            <Avatar name={this.props.auth.user.username} size="42" 
+                                                textSizeRatio="2"
+                                                round='20'
+                                                fgColor='#fff'
+                                                maxInitials='2'
+                                                className="round"
+                                                // color="lightgreen"
+                                            />
+                                            } 
+                                            id="collasible-nav-dropdown"
+                                        >
+                                            <NavDropdown.Item href={`${this.props.auth.user.username}`}>Profile</NavDropdown.Item>
+                                            <NavDropdown.Divider />
+                                            <NavDropdown.Item href="/home" onClick={this.handleLogout}>Logout</NavDropdown.Item>                                       
+                                        </NavDropdown>
                                         :
                                         null
                                     }
-                                    </NavItem>
                                 </Nav>
                             </div>
                             
@@ -93,26 +95,12 @@ class Header extends Component {
                                                 <span className="fa fa-user-plus fa-lg"></span> Add Users
                                             </NavLink>
                                         </NavItem>
-                                        {/* <NavItem>
-                                            <NavLink className="nav-link" to="/aboutus">
-                                                <span className="fa fa-info fa-lg"></span> About Us
-                                            </NavLink>
-                                        </NavItem>
-                                        <NavItem>
-                                            <NavLink className="nav-link" to="/menu">
-                                                <span className="fa fa-list fa-lg"></span> Menu
-                                            </NavLink>
-                                        </NavItem> */}
                                         <NavItem>
                                             <NavLink className="nav-link" to="/favorites">
                                                 <span className="fa fa-heart fa-lg"></span> My Favorites
                                             </NavLink>
                                         </NavItem>
-                                        {/* <NavItem>
-                                            <NavLink className="nav-link" to="/contactus">
-                                                <span className="fa fa-address-card fa-lg"></span> Contact Us
-                                            </NavLink>
-                                        </NavItem> */}
+
                                         <NavItem>
                                             <NavLink className="nav-link" to="/myteams">
                                                 <span className="fa fa-users fa-lg"></span> My Teams
