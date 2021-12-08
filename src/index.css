@@ -239,7 +239,7 @@ input {
   }
 } */
 /* =======================================================
-            Remove drop down down arrow
+            Profile Related Remove drop down down arrow
 ===========================================================*/
 .dropdown-toggle:after {
   display: none !important; 
@@ -248,4 +248,16 @@ input {
 .round {
   border-radius: 50%;
   /* border: 1px #000 groove; */
+}
+.profile {
+  align-items: center;
+    justify-content: center;
+}
+
+CardTitle {
+  color:rgb(16, 15, 73) !important;
+}
+
+i.fa {
+  margin-right: 10px;
 }

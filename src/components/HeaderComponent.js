@@ -71,6 +71,7 @@ class Header extends Component {
                                             } 
                                             id="collasible-nav-dropdown"
                                         >
+                                            {/* pass the props */}
                                             <NavDropdown.Item href={`${this.props.auth.user.username}`}>Profile</NavDropdown.Item>
                                             <NavDropdown.Divider />
                                             <NavDropdown.Item href="/home" onClick={this.handleLogout}>Logout</NavDropdown.Item>                                       

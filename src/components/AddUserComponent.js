@@ -2,21 +2,21 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { baseUrl } from '../shared/baseUrl';
 import { Loading } from './LoadingComponent';
-import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, CardText, CardTitle} from 'reactstrap';
 import { Fade, Stagger } from 'react-animation-components';
 
 function RenderUser({user}) {
     return(
-        <Media>
-            {/* <Media left middle>
-                <Media object src={baseUrl + leader.image} alt={leader.name} />
-            </Media> */}
-            <Media body className="ml-5">
-                <Media heading>{user.username}</Media>
-                {/* <p>{user.designation}</p>
-                <p>{user.description}</p> */}
-            </Media>
-        </Media>
+        <Card bg="primary" text="white" style={{ width: '1%00' }}>
+            <CardHeader>{user.username}</CardHeader>
+            <CardBody>
+            <CardTitle>Primary Card Title</CardTitle>
+            <CardText>
+                Some quick example text to build on the card title and make up the bulk
+                of the card's content.
+            </CardText>
+            </CardBody>
+        </Card>
     );
 }
 

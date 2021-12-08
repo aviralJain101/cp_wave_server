@@ -3,7 +3,9 @@ import { Card, CardImg, CardImgOverlay, CardTitle, Breadcrumb, BreadcrumbItem } 
 import { Link } from 'react-router-dom';
 import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
-
+import ProfileLeft from './Dashboard/ProfileLeftComponent';
+import ProfileRight from './Dashboard/ProfileRightComponent';
+import Avatar from 'react-avatar';
 
 class Dashboard extends Component {
     constructor(props) {
@@ -13,7 +15,7 @@ class Dashboard extends Component {
     render() {
 
         return (
-            <div className="container">
+            <div className="container mb-4">
                 <div className="row">
                     <Breadcrumb>
                         <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
@@ -22,6 +24,14 @@ class Dashboard extends Component {
                     <div className="col-12">
                         <h3>Dashbooard</h3>
                         <hr />
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-12 col-md-4">
+                        <ProfileLeft auth={this.props.auth}/>
+                    </div>
+                    <div className="col-12 col-md-8">
+                        <ProfileRight auth={this.props.auth}/>
                     </div>
                 </div>
                 

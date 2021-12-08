@@ -86,6 +86,7 @@ class Main extends Component {
       return(
         <Dashboard 
           searches={this.props.searches}
+          auth={this.props.auth}
         />
       );
     }
