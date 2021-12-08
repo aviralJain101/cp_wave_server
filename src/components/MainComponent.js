@@ -10,6 +10,7 @@ import Footer from './FooterComponent';
 import MyTeams from './MyTeamComponent';
 import AddUsers from './AddUserComponent';
 import Dashboard from './DashboardComponent';
+import Chat from './ChatComponent/MainChatComponent'
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { postComment, postFeedback, fetchDishes, fetchComments, fetchPromos, fetchLeaders, signupUser, loginUser, logoutUser, fetchFavorites, postFavorite, deleteFavorite, fetchSearches } from '../redux/ActionCreators';
@@ -91,6 +92,12 @@ class Main extends Component {
       );
     }
 
+    const ChatUserPage = () => {
+      return (
+        <Chat />
+      );
+    }
+
     const DishWithId = ({match}) => {
       return(
         this.props.auth.isAuthenticated
@@ -150,6 +157,7 @@ class Main extends Component {
               <Route exact path="/contactus" component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} postFeedback={this.props.postFeedback} />} />
               <Route exact path="/myteams" component={() => <MyTeams />} />
               <Route exact path="/addusers" component={AddUsersPage} />
+              <Route exact path="/chat" component={ChatUserPage} />
               <Route path="/:User" component={DashboardPage} />
 
               <Redirect to="/home" />

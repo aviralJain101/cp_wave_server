@@ -74,7 +74,9 @@ class Header extends Component {
                                             {/* pass the props */}
                                             <NavDropdown.Item href={`${this.props.auth.user.username}`}>Profile</NavDropdown.Item>
                                             <NavDropdown.Divider />
-                                            <NavDropdown.Item href="/home" onClick={this.handleLogout}>Logout</NavDropdown.Item>                                       
+                                            <NavDropdown.Item href="/home" onClick={this.handleLogout}>Logout</NavDropdown.Item>
+                                            <NavDropdown.Divider />
+                                            <NavDropdown.Item href="/chat">Chat</NavDropdown.Item>                                                                              
                                         </NavDropdown>
                                         :
                                         null
