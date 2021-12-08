@@ -13,7 +13,7 @@ import Dashboard from './DashboardComponent';
 import Chat from './ChatComponent/MainChatComponent'
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { postComment, postFeedback, fetchDishes, fetchComments, fetchPromos, fetchLeaders, signupUser, loginUser, logoutUser, fetchFavorites, postFavorite, deleteFavorite, fetchSearches } from '../redux/ActionCreators';
+import { postComment, postFeedback, fetchDishes, fetchComments, fetchPromos, fetchLeaders, signupUser, loginUser, logoutUser, fetchFavorites, postFavorite, deleteFavorite, fetchSearches, fetchFriends } from '../redux/ActionCreators';
 import { actions } from 'react-redux-form';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
@@ -26,7 +26,8 @@ const mapStateToProps = state => {
       leaders: state.leaders,
       favorites: state.favorites,
       auth: state.auth,
-      searches: state.searches
+      searches: state.searches,
+      friends: state.friends
     }
 }
 
@@ -44,7 +45,8 @@ const mapDispatchToProps = (dispatch) => ({
   fetchFavorites: () => dispatch(fetchFavorites()),
   postFavorite: (dishId) => dispatch(postFavorite(dishId)),
   deleteFavorite: (dishId) => dispatch(deleteFavorite(dishId)),
-  fetchSearches: (searchTerm) => dispatch(fetchSearches(searchTerm))
+  fetchSearches: (searchTerm) => dispatch(fetchSearches(searchTerm)),
+  fetchFriends: () => dispatch(fetchFriends())
 });
 
 class Main extends Component {
@@ -55,11 +57,11 @@ class Main extends Component {
     this.props.fetchPromos();
     this.props.fetchLeaders();
     this.props.fetchFavorites();
+    this.props.fetchFriends();
   }
   
 
   render() {
-
     const HomePage = () => {
       return(
         <Home dish={this.props.dishes.dishes.filter((dish) => dish.featured)[0]}
@@ -94,7 +96,10 @@ class Main extends Component {
 
     const ChatUserPage = () => {
       return (
-        <Chat />
+        <Chat 
+          // fetchFriends={this.props.fetchFriends}
+          friends={this.props.friends}
+        />
       );
     }
 
@@ -143,6 +148,8 @@ class Main extends Component {
           logoutUser={this.props.logoutUser} 
           signupUser={this.props.signupUser}
           fetchSearches={this.props.fetchSearches}
+          // fetchFriends={this.props.fetchFriends}
+          // friends={this.props.friends}
           // fetchSuggestions={this.props.fetchSuggestions}
           // suggestions={this.props.suggestions}
           />   
@@ -164,7 +171,7 @@ class Main extends Component {
             </Switch>
           </CSSTransition>
         </TransitionGroup>
-        <Footer />
+        {/* <Footer /> */}
       </div>
     );
   }

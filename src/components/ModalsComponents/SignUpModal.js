@@ -18,7 +18,7 @@ class SignUpModal extends Component {
     handleSignup(event) {
         // alert(this.props.signupUser);
         this.props.toggleModal();
-        this.props.signupUser({firstname: this.firstname.value, lastname:this.lastname.value, username: this.usernames.value, password: this.passwords.value});
+        this.props.signupUser({firstname: this.firstname.value, lastname:this.lastname.value, username: this.usernames.value, password: this.passwords.value, email: this.email.value});
         event.preventDefault();
     }
 
@@ -34,23 +34,33 @@ class SignUpModal extends Component {
                             <FormGroup>
                                 <Label htmlFor="firstname">First Name</Label>
                                 <Input type="text" id="firstname" name="firstname"
-                                    innerRef={(input) => this.firstname = input} />
+                                    innerRef={(input) => this.firstname = input} 
+                                    required/>
                             </FormGroup>
                             <FormGroup>
                                 <Label htmlFor="lastname">Last Name</Label>
                                 <Input type="text" id="lastname" name="lastname"
-                                    innerRef={(input) => this.lastname = input} />
+                                    innerRef={(input) => this.lastname = input} 
+                                    required/>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label htmlFor="email">Email</Label>
+                                <Input type="text" id="email" name="email"
+                                    innerRef={(input) => this.email = input} 
+                                    required/>
                             </FormGroup>
                             <FormGroup>
                                 <Label htmlFor="usernames">Username</Label>
                                 <Input type="text" id="usernames" name="usernames"
-                                    innerRef={(input) => this.usernames = input} />
+                                    innerRef={(input) => this.usernames = input} 
+                                    required/>
                             </FormGroup>
 
                             <FormGroup className="mt-2">
                                 <Label htmlFor="passwords">Password</Label>
                                 <Input type="password" id="passwords" name="passwords"
-                                    innerRef={(input) => this.passwords = input}  />
+                                    innerRef={(input) => this.passwords = input}  
+                                    required/>
                             </FormGroup>
                             {/* <FormGroup check className="mt-2">
                                 <Label check>

@@ -577,3 +577,56 @@ export const fetchSearches = (searchTerm) => (dispatch) => {
     .then(searchResult => dispatch(receiveSearches(searchResult)))
     .catch(error => dispatch(searchesError(error.message)));
 }
+
+
+/* ==========================================================
+                Friends Fetching
+============================================================*/
+
+
+export const requestFriendsFetch = () => {
+    return {
+        type: ActionTypes.FIRENDS_FETCH_REQUEST
+    }
+}
+  
+export const receiveFriendsFetch = (searchResult) => {
+    return {
+        type: ActionTypes.FIRENDS_FETCH_SUCCESS,
+        payload: searchResult
+    }
+}
+  
+export const FriendsFetchError = (message) => {
+    return {
+        type: ActionTypes.FIRENDS_FETCH_FAILED,
+        payload: message
+    }
+}
+
+
+export const fetchFriends = () => (dispatch) => {
+    dispatch(requestFriendsFetch());
+    
+    return fetch(baseUrl+'friends')
+      .then(response => {
+        if (response.ok) {
+            // console.log(response);
+            // console.log(response.json());
+
+            return response;
+        }
+        else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+    },
+    error => {
+        var errmess = new Error(error.message);
+        throw errmess;
+    })
+    .then(response => response.json())
+    .then(searchResult => dispatch(receiveFriendsFetch(searchResult)))
+    .catch(error => dispatch(FriendsFetchError(error.message)));
+}
