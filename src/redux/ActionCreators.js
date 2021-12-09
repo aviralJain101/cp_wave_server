@@ -607,9 +607,13 @@ export const FriendsFetchError = (message) => {
 
 export const fetchFriends = () => (dispatch) => {
     dispatch(requestFriendsFetch());
-    
-    return fetch(baseUrl+'friends')
-      .then(response => {
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+
+    return fetch(baseUrl+'friends',{
+        headers: {
+            'Authorization': bearer
+        },
+    }).then(response => {
         if (response.ok) {
             // console.log(response);
             // console.log(response.json());
