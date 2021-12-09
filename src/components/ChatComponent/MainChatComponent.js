@@ -10,6 +10,7 @@ import { ChatList } from 'react-chat-elements'
 import { SideBar } from 'react-chat-elements'
 import { Navbar } from 'react-chat-elements'
 import { MessageList } from 'react-chat-elements'
+import { Popup } from 'react-chat-elements'
 
 
 class Chat extends Component {
@@ -71,7 +72,7 @@ class Chat extends Component {
                                     </div>
                                 }
                                 center={
-                                    <div className="scrollbar" style={{maxHeight:'60vh'}}>
+                                    <div className="scrollbar" style={{maxHeight:'55vh'}}>
                                         <MessageList
                                             className='message-list'
                                             lockable={true}

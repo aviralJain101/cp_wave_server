@@ -278,7 +278,7 @@ i.fa {
 }
 .chat-input-box {
   border: 1px solid rgb(158, 191, 199);
-  border-radius: 25px;
+  border-radius: 5px;
   font-weight: bold;
 }
 .rce-input-textarea {

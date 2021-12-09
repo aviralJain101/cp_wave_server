@@ -29,7 +29,7 @@ class RenderMessageBOX extends Component {
                     className="chat-input-box"
                     placeholder="Type here..."
                     multiline={true}
-                    maxHeight='100'
+                    maxHeight='60'
                     rightButtons={
                         <Button
                             color='grey '
