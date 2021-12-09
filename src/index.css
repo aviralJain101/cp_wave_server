@@ -293,3 +293,15 @@ i.fa {
   justify-content: flex-start;
   width: 100%;
 }
+.messagebox {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border: 1px solid rgb(158, 191, 199);
+  border-radius: 10px;
+}
+
+.rce-container-mbox, .rce-container-citem {
+  min-width: 100px !important;
+
+}

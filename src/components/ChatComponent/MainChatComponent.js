@@ -9,6 +9,7 @@ import { ChatItem } from 'react-chat-elements'
 import { ChatList } from 'react-chat-elements'
 import { SideBar } from 'react-chat-elements'
 import { Navbar } from 'react-chat-elements'
+import { MessageList } from 'react-chat-elements'
 
 
 class Chat extends Component {
@@ -70,7 +71,110 @@ class Chat extends Component {
                                     </div>
                                 }
                                 center={
-                                    <div>'CENTER' area</div>
+                                    <div className="scrollbar" style={{maxHeight:'60vh'}}>
+                                        <MessageList
+                                            className='message-list'
+                                            lockable={true}
+                                            toBottomHeight={'100%'}
+                                            dataSource={[
+                                                {
+                                                    position: 'right',
+                                                    type: 'text',
+                                                    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+                                                    date: new Date(),
+                                                },{
+                                                    position: 'left',
+                                                    type: 'text',
+                                                    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+                                                    date: new Date(),
+                                                },{
+                                                    position: 'right',
+                                                    type: 'text',
+                                                    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+                                                    date: new Date(),
+                                                },{
+                                                    position: 'left',
+                                                    type: 'text',
+                                                    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+                                                    date: new Date(),
+                                                },{
+                                                    position: 'right',
+                                                    type: 'text',
+                                                    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+                                                    date: new Date(),
+                                                },{
+                                                    position: 'left',
+                                                    type: 'text',
+                                                    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+                                                    date: new Date(),
+                                                },{
+                                                    position: 'right',
+                                                    type: 'text',
+                                                    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+                                                    date: new Date(),
+                                                },{
+                                                    position: 'left',
+                                                    type: 'text',
+                                                    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+                                                    date: new Date(),
+                                                },{
+                                                    position: 'right',
+                                                    type: 'text',
+                                                    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+                                                    date: new Date(),
+                                                },{
+                                                    position: 'left',
+                                                    type: 'text',
+                                                    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+                                                    date: new Date(),
+                                                },{
+                                                    position: 'right',
+                                                    type: 'text',
+                                                    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+                                                    date: new Date(),
+                                                },{
+                                                    position: 'left',
+                                                    type: 'text',
+                                                    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+                                                    date: new Date(),
+                                                },{
+                                                    position: 'left',
+                                                    type: 'text',
+                                                    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+                                                    date: new Date(),
+                                                },{
+                                                    position: 'right',
+                                                    type: 'text',
+                                                    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+                                                    date: new Date(),
+                                                },{
+                                                    position: 'left',
+                                                    type: 'text',
+                                                    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+                                                    date: new Date(),
+                                                },{
+                                                    position: 'right',
+                                                    type: 'text',
+                                                    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+                                                    date: new Date(),
+                                                },{
+                                                    position: 'left',
+                                                    type: 'text',
+                                                    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+                                                    date: new Date(),
+                                                },{
+                                                    position: 'right',
+                                                    type: 'text',
+                                                    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+                                                    date: new Date(),
+                                                },{
+                                                    position: 'left',
+                                                    type: 'text',
+                                                    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+                                                    date: new Date(),
+                                                }
+                                            ]} />
+                                    </div>
                                 }
                                 bottom={
                                     <div><RenderMessageBOX /></div>
