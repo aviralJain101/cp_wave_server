@@ -4,42 +4,82 @@ import { Link } from 'react-router-dom';
 import { Loading } from '../LoadingComponent';
 import { baseUrl } from '../../shared/baseUrl';
 import Avatar from 'react-avatar';
-import Chatitem from './helperComponent/ChatComponent';
 import RenderMessageBOX from './helperComponent/RenderMessageBox';
-import RenderUserPage from '../AddUsers/RenderUserPageComponent';
+import { ChatItem } from 'react-chat-elements'
+import { ChatList } from 'react-chat-elements'
+import { SideBar } from 'react-chat-elements'
+import { Navbar } from 'react-chat-elements'
 
 
 class Chat extends Component {
+
     constructor(props) {
         super(props);
-       }
+        this.state = {
+            
+        };
+        this.handleOnclick=this.handleOnclick.bind(this);
+    }
+
+    handleOnclick(friend) {
+        this.setState({
+            user: friend
+        });
+    }
 
     render() {
 
-        return (
-            <div className="container" style={{maxHeight:'75vh'}}>
-                {/* {alert(this.props.friends.friends)} */}
-                {/* <div className="row">
-                    <h4>Chat</h4>
-                    <hr />
-                </div> */}
-                {/* <card> */}
-                <div className="row mt-4 card flex-row" style={{maxHeight:'75vh'}}>
-                    {/* <Card> */}
-                        <div className="col-6 col-lg-5" style={{maxHeight:'75vh'}}>
-                            <Chatitem 
-                                // fetchFriends={this.props.fetchFriends}
-                                friends={this.props.friends}
-                            />
-                        </div>
-                        <div className="col-6 col-lg-7">
-                            MessageBox
-                        </div>
+        const FrontPage = this.props.friends.friends.map((friend) => {
+            return (
+                    <ChatItem
+                        avatar={'https://facebook.github.io/react/img/logo.svg'}
+                        alt={'Reactjs'}
+                        title={friend.username}
+                        subtitle={'What are you doing?'}
+                        date={new Date()}
+                        unread={10}
+                        onClick={() => this.handleOnclick(friend.username)}
                         
-                    {/* </Card> */}
-                </div> 
-                {/* </card> */}
-                               
+                    />                
+            );
+        });
+
+
+        return (
+            <div className="container" style={{height:'75vh'}}>
+                <div className="row mt-4 card flex-row" style={{height:'75vh'}}>
+                    <div className="col-6 col-lg-5 scrollbar" style={{maxHeight:'75vh'}}>
+                        {FrontPage}
+                    </div>
+                        
+                    <div className="col-6 col-lg-7 style={{Height:'75vh'}}">
+                    {
+                        this.state.user ?
+                            <SideBar
+                                top={
+                                    <div>
+                                        
+                                        <ChatItem
+                                            avatar={'https://facebook.github.io/react/img/logo.svg'}
+                                            alt={'Reactjs'}
+                                            title={this.state.user}
+                                            subtitle={'Notify Online/Offline'}
+                                            date={new Date()}
+                                            unread={10} 
+                                            />
+                                    </div>
+                                }
+                                center={
+                                    <div>'CENTER' area</div>
+                                }
+                                bottom={
+                                    <div><RenderMessageBOX /></div>
+                                }
+                            />:
+                            <SideBar />
+                        }
+                    </div>
+                </div>                               
             </div>            
         );
 

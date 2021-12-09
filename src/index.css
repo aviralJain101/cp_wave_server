@@ -267,4 +267,29 @@ i.fa {
 ===========================================================*/
 .scrollbar {
   overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-width: none;
+}
+.scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.chat-input-box::-webkit-scrollbar {
+  display: none !important;
+}
+.chat-input-box {
+  border: 1px solid rgb(158, 191, 199);
+  border-radius: 25px;
+  font-weight: bold;
+}
+.rce-input-textarea {
+  min-height: 41px !important;
+  resize: none;
+  font-size: 22px;
+}
+.rce-sbar-item {
+  display: block !important;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
 }
