@@ -500,11 +500,11 @@ export const SuggestionsError = (message) => {
 }
 
 
-export const fetchSuggestions = (searchTerm) => (dispatch) => {
+export const fetchSuggestions = (searchTerm,page) => (dispatch) => {
     dispatch(requestSuggestions(searchTerm));
     const bearer = 'Bearer ' + localStorage.getItem('token');
 
-    return fetch(baseUrl+'suggestions?searchTerm='+searchTerm,{
+    return fetch(baseUrl+'suggestions?searchTerm='+searchTerm+'&page='+page,{
         headers: {
             'Authorization': bearer
         },

@@ -45,7 +45,7 @@ class SearchAS extends React.Component {
     else {
       this.props.history.push("/addusers");
     }
-    this.props.fetchSearches(suggestionValue);
+    this.props.fetchSearches(suggestionValue,0);
   }
   
   onChange = (event, { newValue, method }) => {
@@ -102,7 +102,7 @@ class SearchAS extends React.Component {
           this.props.history.push("/addusers");
         }
         if(this.state.value.trim().length>=1){
-        this.props.fetchSearches(this.state.value);
+        this.props.fetchSearches(this.state.value,0);
         }
         break;
     }
