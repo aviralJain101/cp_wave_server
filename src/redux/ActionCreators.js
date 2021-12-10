@@ -46,6 +46,39 @@ export const postComment = (dishId, rating, comment) => (dispatch) => {
         alert('Your comment could not be posted\nError: '+ error.message); })
 }
 
+
+export const fetchComments = () => (dispatch) => {
+    return fetch(baseUrl + 'comments')
+        .then(response => {
+            if (response.ok) {
+                return response;
+            }
+            else {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response;
+                throw error;
+            }
+        },
+        error => {
+            var errmess = new Error(error.message);
+            throw errmess;
+        })
+        .then(response => response.json())
+        .then(comments => dispatch(addComments(comments)))
+        .catch(error => dispatch(commentsFailed(error.message)));
+}
+
+export const commentsFailed = (errmess) => ({
+    type: ActionTypes.COMMENTS_FAILED,
+    payload: errmess
+});
+
+export const addComments = (comments) => ({
+    type: ActionTypes.ADD_COMMENTS,
+    payload: comments
+});
+
+
 export const fetchDishes = () => (dispatch) => {
     dispatch(dishesLoading(true));
 
@@ -83,37 +116,6 @@ export const dishesFailed = (errmess) => ({
 export const addDishes = (dishes) => ({
     type: ActionTypes.ADD_DISHES,
     payload: dishes
-});
-
-export const fetchComments = () => (dispatch) => {
-    return fetch(baseUrl + 'comments')
-        .then(response => {
-            if (response.ok) {
-                return response;
-            }
-            else {
-                var error = new Error('Error ' + response.status + ': ' + response.statusText);
-                error.response = response;
-                throw error;
-            }
-        },
-        error => {
-            var errmess = new Error(error.message);
-            throw errmess;
-        })
-        .then(response => response.json())
-        .then(comments => dispatch(addComments(comments)))
-        .catch(error => dispatch(commentsFailed(error.message)));
-}
-
-export const commentsFailed = (errmess) => ({
-    type: ActionTypes.COMMENTS_FAILED,
-    payload: errmess
-});
-
-export const addComments = (comments) => ({
-    type: ActionTypes.ADD_COMMENTS,
-    payload: comments
 });
 
 export const fetchPromos = () => (dispatch) => {
@@ -500,8 +502,13 @@ export const SuggestionsError = (message) => {
 
 export const fetchSuggestions = (searchTerm) => (dispatch) => {
     dispatch(requestSuggestions(searchTerm));
-    
-    return fetch(baseUrl+'suggestions?searchTerm='+searchTerm)
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+
+    return fetch(baseUrl+'suggestions?searchTerm='+searchTerm,{
+        headers: {
+            'Authorization': bearer
+        },
+    })
       .then(response => {
         if (response.ok) {
             // console.log(response);
@@ -554,8 +561,12 @@ export const searchesError = (message) => {
 
 export const fetchSearches = (searchTerm) => (dispatch) => {
     dispatch(requestSearches(searchTerm));
-    
-    return fetch(baseUrl+'search?searchTerm='+searchTerm)
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+    return fetch(baseUrl+'search?searchTerm='+searchTerm,{
+        headers: {
+            'Authorization': bearer
+        },
+    })
       .then(response => {
         if (response.ok) {
             // console.log(response);

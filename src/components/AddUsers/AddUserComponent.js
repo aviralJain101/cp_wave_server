@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { baseUrl } from '../shared/baseUrl';
-import { Loading } from './LoadingComponent';
+import { baseUrl } from '../../shared/baseUrl';
+import { Loading } from '../LoadingComponent';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, CardText, CardTitle} from 'reactstrap';
 import { Fade, Stagger } from 'react-animation-components';
+import ScrollComponent from './InfiniteScroll';
 
 function RenderUser({user}) {
     return(
@@ -50,16 +51,11 @@ function Renderusers({isLoading, errMess, searchResult, searchTerm}) {
         );
     }  
     else if(searchResult){
-        // alert(searchResult.length);
         const users = searchResult.map((user) => {
-            // alert(user.username);
             return (
-                // <Fade in key={user._id}>
                     <div className="col-12 mt-2">
-                        {/* {user.username} */}
-                            <RenderUser user={user} />
+                        <RenderUser user={user} />
                     </div>
-                // </Fade>
             );
         });
 

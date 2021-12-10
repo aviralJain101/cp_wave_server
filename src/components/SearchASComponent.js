@@ -101,9 +101,6 @@ class SearchAS extends React.Component {
         else {
           this.props.history.push("/addusers");
         }
-        // this.setState({
-        //   value: ''
-        // });
         if(this.state.value.trim().length>=1){
         this.props.fetchSearches(this.state.value);
         }
@@ -118,7 +115,6 @@ class SearchAS extends React.Component {
       placeholder: "Search User",
       value,
       onChange: this.onChange
-      // onkeypress: this.handleKeyPress
     };
 
     const renderInputComponent = inputProps => (

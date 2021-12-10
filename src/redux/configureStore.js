@@ -8,6 +8,7 @@ import { favorites } from './favorites';
 import { Auth } from './auth';
 import { Suggestions } from './suggestions';
 import { Friends } from './friends';
+import { Chat } from './chat';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { InitialFeedback } from './forms';
@@ -24,6 +25,7 @@ export const ConfigureStore = () => {
             suggestions: Suggestions,
             searches: Searches,
             friends: Friends,
+            chat: Chat,
             favorites,
             ...createForms({
                 feedback: InitialFeedback

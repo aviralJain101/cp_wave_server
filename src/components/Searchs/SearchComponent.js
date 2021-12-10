@@ -1,8 +1,8 @@
 import React from 'react';
 import autoBind from 'react-autobind';
 
-import SearchBar from './Searchs/search-bar';
-import words from './words.json';
+import SearchBar from './search-bar';
+import words from '../words.json';
 
 class Search extends React.Component {
   constructor(props) {

@@ -8,7 +8,7 @@ import Favorites from './FavoriteComponent';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import MyTeams from './MyTeamComponent';
-import AddUsers from './AddUserComponent';
+import AddUsers from './AddUsers/AddUserComponent';
 import Dashboard from './DashboardComponent';
 import Chat from './ChatComponent/MainChatComponent'
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
@@ -148,10 +148,6 @@ class Main extends Component {
           logoutUser={this.props.logoutUser} 
           signupUser={this.props.signupUser}
           fetchSearches={this.props.fetchSearches}
-          // fetchFriends={this.props.fetchFriends}
-          // friends={this.props.friends}
-          // fetchSuggestions={this.props.fetchSuggestions}
-          // suggestions={this.props.suggestions}
           />   
         <TransitionGroup>
           <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>
