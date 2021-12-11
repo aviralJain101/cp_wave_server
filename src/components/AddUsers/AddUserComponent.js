@@ -42,7 +42,7 @@ class AddUsers extends Component {
         var options = {
             root: null,
             rootMargin: "0px",
-            threshold: 0.4
+            threshold: 0.8
         };
         
         this.observer = new IntersectionObserver(
@@ -53,7 +53,6 @@ class AddUsers extends Component {
     }
 
     getUsers(page) {
-        
 
         if(this.props.searches.searchTerm == null || this.props.searches.searchTerm.length<1){
             this.setState({hasMore: true});
@@ -61,12 +60,28 @@ class AddUsers extends Component {
         }
         else {
             this.setState({ loading: true });
+            this.setState({errMess: null});
+            this.setState({infoMess: null});
             const bearer = 'Bearer ' + localStorage.getItem('token');
             fetch(baseUrl+'search?searchTerm='+this.props.searches.searchTerm+'&page='+page,{
                 headers: {
                     'Authorization': bearer
                 },
             })
+            .then(response => {
+                    if (response.ok) {
+                        return response;
+                    }
+                    else {
+                        var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                        error.response = response;
+                        throw error;
+                    }
+                },
+                error => {
+                    var errmess = new Error(error.message);
+                    throw errmess;
+                })
             .then(response => response.json())
             .then(searchResult => {
                 this.setState({ users: [...this.state.users, ...searchResult] });
@@ -75,7 +90,15 @@ class AddUsers extends Component {
                 if(searchResult.length < 6){
                     this.setState({hasMore: false});
                 }
+                else {
+                    this.setState({ page: this.state.page+1 });
+                }
             })
+            .catch(error => {
+                this.setState({errMess: error.message});
+                this.setState({loading: false});
+
+            });
         }
     }
 
@@ -84,9 +107,7 @@ class AddUsers extends Component {
     handleObserver(entities, observer) {
         const y = entities[0].boundingClientRect.y;
         if (this.state.prevY > y && this.state.hasMore) {
-            this.setState({ page: this.state.page+1 });
-            this.getUsers(this.state.page);
-            
+            this.getUsers(this.state.page);            
         }
         this.setState({ prevY: y });
     }
@@ -106,12 +127,12 @@ class AddUsers extends Component {
         return (
             <div className="container">
                 <div>
-                <Breadcrumb>
-                    <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
-                    <BreadcrumbItem active>AddUsers</BreadcrumbItem>
-            </Breadcrumb>
-            </div>
-            <div>
+                    <Breadcrumb>
+                        <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
+                        <BreadcrumbItem active>AddUsers</BreadcrumbItem>
+                    </Breadcrumb>
+                </div>
+                <div>
                 
                     {this.state.users.map(user => (
                         <RenderUser user={user} />
@@ -122,10 +143,10 @@ class AddUsers extends Component {
                         <h4>Yay!! you have visited it all</h4>:
                         null
                     }
-                    {/* {this.state.errMess ?
+                    {this.state.errMess ?
                         <h4>{this.state.errMess}</h4>:
                         null
-                    } */}
+                    }
                     {this.state.infoMess ?
                         <h4>{this.state.infoMess}</h4>:
                         null
