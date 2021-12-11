@@ -22,52 +22,6 @@ function RenderUser({user}) {
     );
 }
 
-function Renderusers({isLoading, errMess, searchResult, searchTerm}) {
-    // alert(isLoading);
-    if(isLoading) {
-        // alert("if");
-        return(
-            <Loading />
-        );
-    }
-    else if (errMess) {
-        return(
-            <h4>{errMess}</h4>
-        );
-    }
-    else if(searchResult == null) {
-        // alert("else");
-        return (
-            <div>
-                <h3>Type something in the searchBox to show results.</h3>
-            </div>
-        );
-    } 
-    else if(searchResult.length == 0) {
-        // alert("else");
-        return (
-            <div>
-                <h3>Id's doesn't exist.</h3>
-            </div>
-        );
-    }  
-    else if(searchResult){
-        const users = searchResult.map((user) => {
-            return (
-                <RenderUser user={user} />
-            );
-        });
-
-        return (
-            <div>
-                {users}
-            </div>
-        );
-    }
-    
-}
-
-
 class AddUsers extends Component {
     constructor(props) {
         super(props);
@@ -76,59 +30,66 @@ class AddUsers extends Component {
             loading: false,
             page: 0,
             prevY: 0,
-            hasMore: true
+            hasMore: true,
+            errMess: null,
+            infoMess: null
         };
     }
 
     componentDidMount() {
-    this.getUsers(this.state.page);
+        this.getUsers(this.state.page);
 
-    var options = {
-        root: null,
-        rootMargin: "0px",
-        threshold: 1.0
-    };
-    
-    this.observer = new IntersectionObserver(
-        this.handleObserver.bind(this),
-        options
-    );
-    this.observer.observe(this.loadingRef);
+        var options = {
+            root: null,
+            rootMargin: "0px",
+            threshold: 0.4
+        };
+        
+        this.observer = new IntersectionObserver(
+            this.handleObserver.bind(this),
+            options
+        );
+        this.observer.observe(this.loadingRef);
     }
 
     getUsers(page) {
-    this.setState({ loading: true });
+        
 
-    const bearer = 'Bearer ' + localStorage.getItem('token');
-    fetch(baseUrl+'search?searchTerm='+this.props.searches.searchTerm+'&page='+page,{
-        headers: {
-            'Authorization': bearer
-        },
-    })
-    .then(response => response.json())
-    .then(searchResult => {
-        this.setState({ users: [...this.state.users, ...searchResult] });
-        console.log(searchResult);
-        this.setState({ loading: false });
-        if(searchResult.length < 6){
-            this.setState({hasMore: false});
+        if(this.props.searches.searchTerm == null || this.props.searches.searchTerm.length<1){
+            this.setState({hasMore: true});
+            this.setState({infoMess: "Type something in the searchbox to search"});
         }
-    })
-    
-    
+        else {
+            this.setState({ loading: true });
+            const bearer = 'Bearer ' + localStorage.getItem('token');
+            fetch(baseUrl+'search?searchTerm='+this.props.searches.searchTerm+'&page='+page,{
+                headers: {
+                    'Authorization': bearer
+                },
+            })
+            .then(response => response.json())
+            .then(searchResult => {
+                this.setState({ users: [...this.state.users, ...searchResult] });
+                console.log(searchResult);
+                this.setState({ loading: false });
+                if(searchResult.length < 6){
+                    this.setState({hasMore: false});
+                }
+            })
+        }
     }
 
      
 
-      handleObserver(entities, observer) {
+    handleObserver(entities, observer) {
         const y = entities[0].boundingClientRect.y;
         if (this.state.prevY > y && this.state.hasMore) {
-          this.setState({ page: this.state.page+1 });
-          this.getUsers(this.state.page);
-          
+            this.setState({ page: this.state.page+1 });
+            this.getUsers(this.state.page);
+            
         }
         this.setState({ prevY: y });
-      }
+    }
     
 
     render() {
@@ -161,13 +122,22 @@ class AddUsers extends Component {
                         <h4>Yay!! you have visited it all</h4>:
                         null
                     }
+                    {/* {this.state.errMess ?
+                        <h4>{this.state.errMess}</h4>:
+                        null
+                    } */}
+                    {this.state.infoMess ?
+                        <h4>{this.state.infoMess}</h4>:
+                        null
+                    }
                 </div>
                     
-                <div
-                    ref={loadingRef => (this.loadingRef = loadingRef)}
-                    style={loadingCSS}
-                >
-                    <span style={loadingTextCSS}>Loading...</span>
+                <div ref={loadingRef => (this.loadingRef = loadingRef)} style={loadingCSS} >
+                    {
+                        this.state.loading ?
+                        <span style={loadingTextCSS}>Loading...</span>:
+                        null
+                    }   
                 </div>
             </div>
         );
