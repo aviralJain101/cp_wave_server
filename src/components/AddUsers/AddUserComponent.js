@@ -74,7 +74,7 @@ class AddUsers extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            photos: [],
+            users: [],
             loading: false,
             page: 0,
             prevY: 0,
@@ -109,7 +109,7 @@ class AddUsers extends Component {
         })
         .then(response => response.json())
         .then(searchResult => {
-            this.setState({ photos: [...this.state.photos, ...searchResult] });
+            this.setState({ users: [...this.state.users, ...searchResult] });
             console.log(searchResult);
             this.setState({ loading: false });
             if(searchResult.length < 6){
@@ -126,13 +126,11 @@ class AddUsers extends Component {
 
       handleObserver(entities, observer) {
         const y = entities[0].boundingClientRect.y;
-        if (this.state.prevY > y) {
-            
-          const lastPhoto = this.state.photos[this.state.photos.length - 1];
-          const curPage = this.state.page+1;
-          this.getPhotos(curPage);
-        //   alert(curPage);
-          this.setState({ page: curPage });
+        if (this.state.prevY > y && this.state.hasMore) {
+        //   const curPage = this.state.page+1;
+          this.setState({ page: this.state.page+1 });
+          this.getPhotos(this.state.page);
+          
         }
         this.setState({ prevY: y });
       }
@@ -151,11 +149,18 @@ class AddUsers extends Component {
 
     return (
         <div className="container">
-        <div style={{ minHeight: "800px" }}>
-            {this.state.photos.map(user => (
+        <div>
+            {this.state.users.map(user => (
                 <RenderUser user={user} />
             ))}
         </div>
+        <div>
+            {!this.state.hasMore ?
+                <h4>Yay!! you have visited it all</h4>:
+                null
+            }
+        </div>
+            
         <div
             ref={loadingRef => (this.loadingRef = loadingRef)}
             style={loadingCSS}
