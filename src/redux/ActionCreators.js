@@ -500,11 +500,11 @@ export const SuggestionsError = (message) => {
 }
 
 
-export const fetchSuggestions = (searchTerm,page) => (dispatch) => {
+export const fetchSuggestions = (searchTerm) => (dispatch) => {
     dispatch(requestSuggestions(searchTerm));
     const bearer = 'Bearer ' + localStorage.getItem('token');
 
-    return fetch(baseUrl+'suggestions?searchTerm='+searchTerm+'&page='+page,{
+    return fetch(baseUrl+'suggestions?searchTerm='+searchTerm,{
         headers: {
             'Authorization': bearer
         },
@@ -561,32 +561,32 @@ export const searchesError = (message) => {
 
 export const fetchSearches = (searchTerm) => (dispatch) => {
     dispatch(requestSearches(searchTerm));
-    const bearer = 'Bearer ' + localStorage.getItem('token');
-    return fetch(baseUrl+'search?searchTerm='+searchTerm,{
-        headers: {
-            'Authorization': bearer
-        },
-    })
-      .then(response => {
-        if (response.ok) {
-            // console.log(response);
-            // console.log(response.json());
+    // const bearer = 'Bearer ' + localStorage.getItem('token');
+    // return fetch(baseUrl+'search?searchTerm='+searchTerm,{
+    //     headers: {
+    //         'Authorization': bearer
+    //     },
+    // })
+    //   .then(response => {
+    //     if (response.ok) {
+    //         // console.log(response);
+    //         // console.log(response.json());
 
-            return response;
-        }
-        else {
-            var error = new Error('Error ' + response.status + ': ' + response.statusText);
-            error.response = response;
-            throw error;
-        }
-    },
-    error => {
-        var errmess = new Error(error.message);
-        throw errmess;
-    })
-    .then(response => response.json())
-    .then(searchResult => dispatch(receiveSearches(searchResult)))
-    .catch(error => dispatch(searchesError(error.message)));
+    //         return response;
+    //     }
+    //     else {
+    //         var error = new Error('Error ' + response.status + ': ' + response.statusText);
+    //         error.response = response;
+    //         throw error;
+    //     }
+    // },
+    // error => {
+    //     var errmess = new Error(error.message);
+    //     throw errmess;
+    // })
+    // .then(response => response.json())
+    // .then(searchResult => dispatch(receiveSearches(searchResult)))
+    // .catch(error => dispatch(searchesError(error.message)));
 }
 
 

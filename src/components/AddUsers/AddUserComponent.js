@@ -10,7 +10,7 @@ import axios from "axios";
 function RenderUser({user}) {
     return(
         <Card bg="primary" text="white" style={{ width: '1%00' }}>
-            <CardHeader>{user}</CardHeader>
+            <CardHeader>{user.username}</CardHeader>
             <CardBody>
             <CardTitle>Primary Card Title</CardTitle>
             <CardText>
@@ -77,7 +77,8 @@ class AddUsers extends Component {
             photos: [],
             loading: false,
             page: 0,
-            prevY: 0
+            prevY: 0,
+            hasMore: true
           };
        }
 
@@ -101,7 +102,7 @@ class AddUsers extends Component {
         this.setState({ loading: true });
 
         const bearer = 'Bearer ' + localStorage.getItem('token');
-        fetch(baseUrl+'search?searchTerm=adm&page=0',{
+        fetch(baseUrl+'search?searchTerm='+this.props.searches.searchTerm+'&page='+page,{
             headers: {
                 'Authorization': bearer
             },
@@ -111,16 +112,14 @@ class AddUsers extends Component {
             this.setState({ photos: [...this.state.photos, ...searchResult] });
             console.log(searchResult);
             this.setState({ loading: false });
+            if(searchResult.length < 6){
+                this.setState({hasMore: false});
+            }
+            console.log(this.state.hasMore)
+            // alert(searchResult.length);
         })
-
-        // axios
-        //   .get(
-        //     `https://jsonplaceholder.typicode.com/photos?_page=${page}&_limit=10`
-        //   )
-        //   .then(res => {
-        //     this.setState({ photos: [...this.state.photos, ...res.data] });
-        //     this.setState({ loading: false });
-        //   });
+        
+        
       }
 
      
@@ -129,7 +128,7 @@ class AddUsers extends Component {
         const y = entities[0].boundingClientRect.y;
         if (this.state.prevY > y) {
           const lastPhoto = this.state.photos[this.state.photos.length - 1];
-          const curPage = lastPhoto.albumId;
+          const curPage = lastPhoto._id;
           this.getPhotos(curPage);
           this.setState({ page: curPage });
         }
@@ -152,7 +151,7 @@ class AddUsers extends Component {
         <div className="container">
         <div style={{ minHeight: "800px" }}>
             {this.state.photos.map(user => (
-                <RenderUser user={"ashish vishal"} />
+                <RenderUser user={user} />
             ))}
         </div>
         <div

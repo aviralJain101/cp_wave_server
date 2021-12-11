@@ -45,7 +45,7 @@ const mapDispatchToProps = (dispatch) => ({
   fetchFavorites: () => dispatch(fetchFavorites()),
   postFavorite: (dishId) => dispatch(postFavorite(dishId)),
   deleteFavorite: (dishId) => dispatch(deleteFavorite(dishId)),
-  fetchSearches: (searchTerm, page) => dispatch(fetchSearches(searchTerm, page)),
+  fetchSearches: (searchTerm) => dispatch(fetchSearches(searchTerm)),
   fetchFriends: () => dispatch(fetchFriends())
 });
 
