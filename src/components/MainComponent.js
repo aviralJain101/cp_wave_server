@@ -16,7 +16,7 @@ import { connect } from 'react-redux';
 import { postComment, postFeedback, fetchDishes, fetchComments, fetchPromos, fetchLeaders, signupUser, loginUser, logoutUser, fetchFavorites, postFavorite, deleteFavorite, fetchSearches, fetchFriends } from '../redux/ActionCreators';
 import { actions } from 'react-redux-form';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-
+import jwt_decode from 'jwt-decode'
 
 const mapStateToProps = state => {
     return {
@@ -52,6 +52,23 @@ const mapDispatchToProps = (dispatch) => ({
 class Main extends Component {
 
   componentDidMount() {
+    const storedToken = localStorage.getItem("token");
+    if (storedToken){
+      let decodedData =jwt_decode(storedToken);
+      let expirationDate = decodedData.exp;
+        var current_time = Date.now() / 1000;
+        if(expirationDate < current_time)
+        {
+          // alert("exired");
+            this.props.logoutUser();
+        }
+        // else {
+        //   alert("not-expired");
+        // }
+    }
+    // else {
+    //   alert("not got token");
+    // }
     this.props.fetchDishes();
     this.props.fetchComments();
     this.props.fetchPromos();
