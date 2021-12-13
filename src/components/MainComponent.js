@@ -7,7 +7,7 @@ import DishDetail from './DishdetailComponent';
 import Favorites from './FavoriteComponent';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
-import MyTeams from './MyTeamComponent';
+import Courses from './CoursesComponent';
 import AddUsers from './AddUsers/AddUserComponent';
 import Dashboard from './DashboardComponent';
 import Chat from './ChatComponent/MainChatComponent'
@@ -178,7 +178,7 @@ class Main extends Component {
               <Route path="/menu/:dishId" component={DishWithId} />
               <PrivateRoute exact path="/favorites" component={() => <Favorites favorites={this.props.favorites} deleteFavorite={this.props.deleteFavorite} />} />
               <Route exact path="/contactus" component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} postFeedback={this.props.postFeedback} />} />
-              <Route exact path="/myteams" component={() => <MyTeams />} />
+              <Route exact path="/courses" component={() => <Courses />} />
               <Route exact path="/addusers" component={AddUsersPage} />
               <Route exact path="/chat" component={ChatUserPage} />
               <Route path="/:User" component={DashboardPage} />
