@@ -12590,6 +12590,16 @@ stylehacks@^4.0.0:
     postcss "^7.0.0"
     postcss-selector-parser "^3.0.0"
 
+suneditor-react@^3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/suneditor-react/-/suneditor-react-3.3.1.tgz#540901d71d5f45a2485ac923cada8eeb692aab18"
+  integrity sha512-/bljp0IGEvkpzJ4Ty9xrb89RHN6U/Ap+OGtZtpJzVb9V6fLk6wuCEyt/9mH1xslefQnM8/FPZwcIP/vo//xh9A==
+
+suneditor@^2.41.3:
+  version "2.41.3"
+  resolved "https://registry.yarnpkg.com/suneditor/-/suneditor-2.41.3.tgz#2eb70d5c793ed50eab3ba2d282e984e076bb217e"
+  integrity sha512-V4Hz1PY2MhIhw2Lf1iInjEhuVp65B5EbqKb8GpBluZDfx3MnZnNm5v/+Ssr1rV9swTCUWOsl8Qo92KhLMZIllA==
+
 supports-color@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-2.0.0.tgz#535d045ce6b6363fa40117084629995e9df324c7"

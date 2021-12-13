@@ -6,6 +6,7 @@ import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, CardText, CardT
 import { Fade, Stagger } from 'react-animation-components';
 import ScrollComponent from './InfiniteScroll';
 import axios from "axios";
+import { Next } from 'react-bootstrap/esm/PageItem';
 
 function RenderUser({user}) {
     return(
@@ -32,7 +33,8 @@ class AddUsers extends Component {
             prevY: 0,
             hasMore: true,
             errMess: null,
-            infoMess: null
+            infoMess: null,
+            noUserExists: false
         };
     }
 
@@ -62,6 +64,7 @@ class AddUsers extends Component {
             this.setState({ loading: true });
             this.setState({errMess: null});
             this.setState({infoMess: null});
+            this.setState({noUserExists: false});
             const bearer = 'Bearer ' + localStorage.getItem('token');
             fetch(baseUrl+'search?searchTerm='+this.props.searches.searchTerm+'&page='+page,{
                 headers: {
@@ -87,7 +90,10 @@ class AddUsers extends Component {
                 this.setState({ users: [...this.state.users, ...searchResult] });
                 console.log(searchResult);
                 this.setState({ loading: false });
-                if(searchResult.length < 6){
+                if(this.state.users.length==0) {
+                    this.setState({noUserExists: `No Ids exist with username: ${this.props.searches.searchTerm}` })
+                }
+                else if(searchResult.length < 6){
                     this.setState({hasMore: false});
                 }
                 else {
@@ -139,15 +145,14 @@ class AddUsers extends Component {
                     ))}
                 </div>
                 <div>
-                    {!this.state.hasMore ?
+                    {
+                        (this.state.noUserExists) ?
+                        <h4>{this.state.noUserExists}</h4>:
+                        !this.state.hasMore ?
                         <h4>Yay!! you have visited it all</h4>:
-                        null
-                    }
-                    {this.state.errMess ?
+                        this.state.errMess ?
                         <h4>{this.state.errMess}</h4>:
-                        null
-                    }
-                    {this.state.infoMess ?
+                        this.state.infoMess ?
                         <h4>{this.state.infoMess}</h4>:
                         null
                     }
