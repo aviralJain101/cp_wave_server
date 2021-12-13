@@ -16,8 +16,9 @@ import { connect } from 'react-redux';
 import { postComment, postFeedback, fetchDishes, fetchComments, fetchPromos, fetchLeaders, signupUser, loginUser, logoutUser, fetchFavorites, postFavorite, deleteFavorite, fetchSearches, fetchFriends } from '../redux/ActionCreators';
 import { actions } from 'react-redux-form';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import jwt_decode from 'jwt-decode'
-
+import jwt_decode from 'jwt-decode';
+import { io } from "socket.io-client";
+import { baseUrl } from '../shared/baseUrl';
 const mapStateToProps = state => {
     return {
       dishes: state.dishes,
@@ -62,13 +63,15 @@ class Main extends Component {
           // alert("exired");
             this.props.logoutUser();
         }
-        // else {
-        //   alert("not-expired");
-        // }
+        
+        
     }
-    // else {
-    //   alert("not got token");
-    // }
+    var socket = io('https://localhost:3443/', {transports: ['websocket', 'polling', 'flashsocket'],rejectUnauthorized: false});
+
+    // const socket = io('https://localhost:3443/');
+    socket.on("connect", () => {
+      console.log(socket.id); // x8WIv7-mJelg7on_ALbx
+    });
     this.props.fetchDishes();
     this.props.fetchComments();
     this.props.fetchPromos();
