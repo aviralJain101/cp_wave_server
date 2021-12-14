@@ -35,23 +35,42 @@ class CreateCourseModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tags:null
+            // tags:[],
+            selectedOption: null,
         }
         this.handleCreate = this.handleCreate.bind(this);
+        // this.onSelect = this.onSelect.bind(this);
+        // this.onRemove = this.onRemove.bind(this);
     }
 
-    handleChange = (selectedOption) => {
-        this.setState({ selectedOption });
-        console.log(this.state.tags);
-        console.log(`Option selected:`, selectedOption);
-      };
+
+    // onSelect(selectedList, selectedItem) {
+    //     this.setState({tags: selectedList});
+    //     console.log(this.state.tags);
+    // }
+
+    // onRemove(selectedList, removedItem) {
+    //     this.setState({tags: selectedList});
+    //     console.log(this.state.tags);
+    // }
 
     handleCreate(event) {
         this.props.toggleModal();
-        alert(this.state.tags);
+        console.log(this.coursename.value);
+        console.log(this.state.selectedOption);
         // this.props.createCourse({username: this.username.value, password: this.password.value});
         event.preventDefault();
     }
+
+    // state = {
+    //     selectedOption: null,
+    // };
+
+    handleChange = (selectedOption) => {
+        this.setState({ selectedOption });
+        console.log(`Option selected:`, selectedOption);
+    };
+
 
     render() {
         const { selectedOption } = this.state;
@@ -75,16 +94,26 @@ class CreateCourseModal extends Component {
                                     innerRef={(input) => this.price = input} 
                                     required/>
                             </FormGroup>
-                            <FormGroup className='mt-3 mb-3'>
-                                <Label htmlFor="Tags">Tags</Label>
+                            <FormGroup className="mt-3 mb-4">
+                                <Label htmlFor="price">Course Tags</Label>
+                                {/* <Multiselect
+                                    options={this.state.options} // Options to display in the dropdown
+                                    onSelect={this.onSelect} // Function will trigger on select event
+                                    onRemove={this.onRemove} // Function will trigger on remove event
+                                    displayValue="name" // Property name to display in the dropdown options
+                                    showCheckbox='true'
+                                    closeOnSelect={true}
+                                    id="course tags"
+                                    avoidHighlightFirstOption= 'true'
+                                    placeholder={"Select Course Tags"}
+                                /> */}
                                 <Select
                                     value={selectedOption}
                                     onChange={this.handleChange}
                                     options={options}
                                     isMulti='true'
                                     isSearchable='true'
-                                    placeholder='Select Tags'
-                                    autoFocus= 'true'
+                                    placeholder='Select Course Tag'
                                 />
                             </FormGroup>
                             <FormGroup className="text-center mt-2 mb-3">
