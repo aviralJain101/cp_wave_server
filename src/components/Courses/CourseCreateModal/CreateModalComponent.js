@@ -1,34 +1,24 @@
 import React, { Component } from 'react';
 import { Button, Modal, ModalHeader, ModalBody,Form, FormGroup, Input, Label } from 'reactstrap';
 import { Card, CardImg, CardImgOverlay, CardTitle, Breadcrumb, BreadcrumbItem,CardBody, CardHeader } from 'reactstrap';
-import Multiselect from 'multiselect-react-dropdown';
 import Select from 'react-select';
 
 
-const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' },
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' },
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' },
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' },
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' },
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' },
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' },
-  ];
-  
+// const options = [
+//     { value: 'chocolate', label: 'Chocolate' },
+//     { value: 'strawberry', label: 'Strawberry' },
+//     { value: 'vanilla', label: 'Vanilla' }
+//   ];
+
+// function createOption(props) {
+//     // if(props != null || props.length !=0 )
+//     // {
+//     //     options = props.map((option) => { option['value']=option['tagName'];
+//     //     delete option['tagName'];
+//     //     })
+//     // }
+
+// }
 
 class CreateCourseModal extends Component {
 
@@ -39,20 +29,8 @@ class CreateCourseModal extends Component {
             selectedOption: null,
         }
         this.handleCreate = this.handleCreate.bind(this);
-        // this.onSelect = this.onSelect.bind(this);
-        // this.onRemove = this.onRemove.bind(this);
     }
 
-
-    // onSelect(selectedList, selectedItem) {
-    //     this.setState({tags: selectedList});
-    //     console.log(this.state.tags);
-    // }
-
-    // onRemove(selectedList, removedItem) {
-    //     this.setState({tags: selectedList});
-    //     console.log(this.state.tags);
-    // }
 
     handleCreate(event) {
         this.props.toggleModal();
@@ -62,10 +40,6 @@ class CreateCourseModal extends Component {
         event.preventDefault();
     }
 
-    // state = {
-    //     selectedOption: null,
-    // };
-
     handleChange = (selectedOption) => {
         this.setState({ selectedOption });
         console.log(`Option selected:`, selectedOption);
@@ -74,6 +48,11 @@ class CreateCourseModal extends Component {
 
     render() {
         const { selectedOption } = this.state;
+        var options = this.props.courseTags.courseTags.map((tag) => {
+            var t={"value" : tag.tagName,"label" : tag.label}
+            return t;
+        });
+
         return(
 
             <React.Fragment>
@@ -96,17 +75,6 @@ class CreateCourseModal extends Component {
                             </FormGroup>
                             <FormGroup className="mt-3 mb-4">
                                 <Label htmlFor="price">Course Tags</Label>
-                                {/* <Multiselect
-                                    options={this.state.options} // Options to display in the dropdown
-                                    onSelect={this.onSelect} // Function will trigger on select event
-                                    onRemove={this.onRemove} // Function will trigger on remove event
-                                    displayValue="name" // Property name to display in the dropdown options
-                                    showCheckbox='true'
-                                    closeOnSelect={true}
-                                    id="course tags"
-                                    avoidHighlightFirstOption= 'true'
-                                    placeholder={"Select Course Tags"}
-                                /> */}
                                 <Select
                                     value={selectedOption}
                                     onChange={this.handleChange}

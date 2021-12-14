@@ -9,7 +9,7 @@ import { Auth } from './auth';
 import { Suggestions } from './suggestions';
 import { Friends } from './friends';
 import { Chat } from './chat';
-import { CourseTag } from './CourseTag/course';
+import { CourseTags } from './CourseTags/course';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { InitialFeedback } from './forms';
@@ -27,7 +27,7 @@ export const ConfigureStore = () => {
             searches: Searches,
             friends: Friends,
             chat: Chat,
-            courseTags: CourseTag,
+            courseTags: CourseTags,
             favorites,
             ...createForms({
                 feedback: InitialFeedback

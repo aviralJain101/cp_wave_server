@@ -43,8 +43,8 @@ class Home extends React.Component {
     shouldComponentUpdate(nextProps) {
         // Rendering the component only if 
         // passed props value is changed
-        console.log(this.props.value);
-        console.log(nextProps.value);
+        // console.log(this.props.value);
+        // console.log(nextProps.value);
       
         if (nextProps.value !== this.props.value) {
           return true;

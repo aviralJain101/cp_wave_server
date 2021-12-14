@@ -56,19 +56,13 @@ class Courses extends Component {
                                 </Accordion.Item> 
                             </Accordion>
                         </div>
-                        
-                        {/* <div>
-                            <MyBoughtCourses/>
-                        </div>
-                        <div>
-                            <MyCreatedCourses />
-                        </div> */}
-
                     </div>
                 </div>
                 <CreateCourseModal isModalOpen={this.state.isCreateModalOpen} 
-                        toggleModal={this.toggleModalCreate}
-                    />
+                    toggleModal={this.toggleModalCreate}
+                    courseTags = {this.props.courseTags} 
+                />
+               
             </React.Fragment>
         );
 

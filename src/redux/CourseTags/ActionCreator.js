@@ -11,7 +11,7 @@ export const tagsFailed = (errmess) => ({
 });
 
 export const addTags = (tags) => ({
-    type: ActionTypes.ADD_COURSE_TAG,
+    type: ActionTypes.ADD_COURSE_TAGS,
     payload: tags
 });
 

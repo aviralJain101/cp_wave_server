@@ -15,7 +15,7 @@ import CourseDetail from './Courses/CourseDetails/CourseDetailComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { postComment, postFeedback, fetchDishes, fetchComments, fetchPromos, fetchLeaders, signupUser, loginUser, logoutUser, fetchFavorites, postFavorite, deleteFavorite, fetchSearches, fetchFriends } from '../redux/ActionCreators';
-import { fetchCourseTags } from '../redux/CourseTag/ActionCreator';
+import { fetchCourseTags } from '../redux/CourseTags/ActionCreator';
 import { actions } from 'react-redux-form';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import jwt_decode from 'jwt-decode';
@@ -32,7 +32,7 @@ const mapStateToProps = state => {
       auth: state.auth,
       searches: state.searches,
       friends: state.friends,
-      courseTags: state.friends
+      courseTags: state.courseTags
 
     }
 }
@@ -100,6 +100,23 @@ class Main extends Component {
           leaderErrMess={this.props.leaders.errMess}
         />
       );
+    }
+
+    const CoursePage = () => {
+      {console.log("course tags")}
+      {console.log(this.props.courseTags)}
+      return(
+        // this.props.auth.isAuthenticated
+        // ?
+        
+        <Courses
+          courseTags = {this.props.courseTags} 
+        />
+        // :
+        // <div>
+        //   {this.props.history.push("/home")}
+        // </div>
+        );
     }
 
     const AddUsersPage = () => {
@@ -189,7 +206,7 @@ class Main extends Component {
               <Route path="/menu/:dishId" component={DishWithId} />
               <PrivateRoute exact path="/favorites" component={() => <Favorites favorites={this.props.favorites} deleteFavorite={this.props.deleteFavorite} />} />
               <Route exact path="/contactus" component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} postFeedback={this.props.postFeedback} />} />
-              <Route exact path="/courses" component={() => <Courses />} />
+              <Route exact path="/courses" component={ CoursePage } />
               <Route path="/courses/:courseId" component={CourseWithId} />
               <Route exact path="/addusers" component={AddUsersPage} />
               <Route exact path="/chat" component={ChatUserPage} />
