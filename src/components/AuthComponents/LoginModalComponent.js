@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom';
 import FBLogin from './Logins/FacebookLoginComponent';
 import { Card, CardImg, CardImgOverlay, CardTitle, Breadcrumb, BreadcrumbItem,CardBody, CardHeader } from 'reactstrap';
 import GLogin from './Logins/GoogleLoginComponent';
-import LoginModal from './ModalsComponents/LoginModal';
+import LoginModal from './Modals/LoginModal';
 
 
 class ModelPop extends Component {

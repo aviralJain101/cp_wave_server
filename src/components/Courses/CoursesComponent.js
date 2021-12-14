@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { Card, CardImg, CardImgOverlay, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { Loading } from './LoadingComponent';
-import { baseUrl } from '../shared/baseUrl';
-import MyBoughtCourses from './Courses/MyBoughtCourses';
-import MyCreatedCourses from './Courses/MyCreatedCourses';
+import MyBoughtCourses from './CourseSubComponent/MyBoughtCourses';
+import MyCreatedCourses from './CourseSubComponent/MyCreatedCourses';
 import { Accordion, Button } from 'react-bootstrap';
-import CreateCourseModal from './Courses/CourseCreateModal/CreateModalComponent';
+import CreateCourseModal from './CourseCreateModal/CreateModalComponent';
 
 class Courses extends Component {
     constructor(props) {

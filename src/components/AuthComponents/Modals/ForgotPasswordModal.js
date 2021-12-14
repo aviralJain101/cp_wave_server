@@ -3,9 +3,9 @@ import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, Jumbotron,
     Button, Modal, ModalHeader, ModalBody,
     Form, FormGroup, Input, Label } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
-import FBLogin from '../Logins/FacebookLoginComponent';
+import FBLogin from '../../SocialLogins/FacebookLoginComponent';
 import { Card, CardImg, CardImgOverlay, CardTitle, Breadcrumb, BreadcrumbItem,CardBody, CardHeader } from 'reactstrap';
-import GLogin from '../Logins/GoogleLoginComponent';
+import GLogin from '../../SocialLogins/GoogleLoginComponent';
 import { th } from 'react-html-attributes';
 
 class ForgotPasswordModal extends Component {

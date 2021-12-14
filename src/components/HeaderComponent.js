@@ -5,7 +5,7 @@ import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, Jumbotron,
 import { Link, NavLink } from 'react-router-dom';
 import SearchAS from './SearchASComponent';
 import { Card, CardImg, CardImgOverlay, CardTitle, Breadcrumb, BreadcrumbItem,CardBody, CardHeader } from 'reactstrap';
-import ModelPop from './LoginModalComponent';
+import ModelPop from './AuthComponents/LoginModalComponent';
 import Avatar from 'react-avatar';
 import { NavDropdown} from 'react-bootstrap';
 

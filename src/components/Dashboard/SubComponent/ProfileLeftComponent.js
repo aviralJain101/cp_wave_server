@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, CardText, CardTitle} from 'reactstrap';
-import { Link } from 'react-router-dom';
-import { Loading } from '../LoadingComponent';
-import { baseUrl } from '../../shared/baseUrl';
 import Avatar from 'react-avatar';
 
 
-class ProfileRight extends Component {
+class ProfileLeft extends Component {
     constructor(props) {
         super(props);
        }
@@ -35,14 +32,14 @@ class ProfileRight extends Component {
                         
                         
                         {/* <CardTitle>Primary Card Title</CardTitle> */}
-                        {/* <Card style={{border:'none'}} className="mb-4">
+                        <Card style={{border:'none'}} className="mb-4">
                             <h2 className="text-center mb-4"> {this.props.auth.user.username}</h2>
                             <CardText><i class="fa fa-user" aria-hidden="true"></i>Full Name</CardText>
                             <CardText><i class="fa fa-envelope" aria-hidden="true"></i>Email</CardText>
                             <CardText><i class="fa fa-map-marker" aria-hidden="true"></i> Location</CardText>
                             <CardText><i class="fa fa-university" aria-hidden="true"></i> Education</CardText>
                             <CardText><i class="fa fa-calendar"></i> Joined On</CardText>
-                        </Card> */}
+                        </Card>
                     </CardBody>
                 </Card>
 
@@ -53,4 +50,4 @@ class ProfileRight extends Component {
     }
 }
 
-export default ProfileRight;
+export default ProfileLeft;

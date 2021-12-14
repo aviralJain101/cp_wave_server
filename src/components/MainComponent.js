@@ -7,14 +7,15 @@ import DishDetail from './DishdetailComponent';
 import Favorites from './FavoriteComponent';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
-import Courses from './CoursesComponent';
+import Courses from './Courses/CoursesComponent';
 import AddUsers from './AddUsers/AddUserComponent';
-import Dashboard from './DashboardComponent';
+import Dashboard from './Dashboard/DashboardComponent';
 import Chat from './ChatComponent/MainChatComponent';
-import CourseDetail from './Courses/CourseDetailComponent';
+import CourseDetail from './Courses/CourseDetails/CourseDetailComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { postComment, postFeedback, fetchDishes, fetchComments, fetchPromos, fetchLeaders, signupUser, loginUser, logoutUser, fetchFavorites, postFavorite, deleteFavorite, fetchSearches, fetchFriends } from '../redux/ActionCreators';
+import { fetchCourseTags } from '../redux/CourseTag/ActionCreator';
 import { actions } from 'react-redux-form';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import jwt_decode from 'jwt-decode';
@@ -30,7 +31,9 @@ const mapStateToProps = state => {
       favorites: state.favorites,
       auth: state.auth,
       searches: state.searches,
-      friends: state.friends
+      friends: state.friends,
+      courseTags: state.friends
+
     }
 }
 
@@ -49,7 +52,8 @@ const mapDispatchToProps = (dispatch) => ({
   postFavorite: (dishId) => dispatch(postFavorite(dishId)),
   deleteFavorite: (dishId) => dispatch(deleteFavorite(dishId)),
   fetchSearches: (searchTerm) => dispatch(fetchSearches(searchTerm)),
-  fetchFriends: () => dispatch(fetchFriends())
+  fetchFriends: () => dispatch(fetchFriends()),
+  fetchCourseTags: (courseData) => dispatch(fetchCourseTags(courseData))
 });
 
 class Main extends Component {
@@ -65,8 +69,6 @@ class Main extends Component {
           // alert("exired");
             this.props.logoutUser();
         }
-        
-        
     }
     // var socket = io('https://localhost:3443/', {transports: ['websocket', 'polling', 'flashsocket'],rejectUnauthorized: false});
 
@@ -80,6 +82,7 @@ class Main extends Component {
     this.props.fetchLeaders();
     this.props.fetchFavorites();
     this.props.fetchFriends();
+    this.props.fetchCourseTags();
   }
   
 
