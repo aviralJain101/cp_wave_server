@@ -13,7 +13,7 @@ class MyBoughtCourses extends Component {
         return (
             <div>
                 <Card className="col-12 col-md-6 col-lg-3">
-                    <Link to='#' >
+                    <Link to='{`/courses/${course._id}`}' >
                     <CardImg variant="top" src="./assets/images/vadonut.png" />
                     </Link>
                     <CardBody>

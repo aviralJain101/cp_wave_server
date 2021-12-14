@@ -10,7 +10,8 @@ import Footer from './FooterComponent';
 import Courses from './CoursesComponent';
 import AddUsers from './AddUsers/AddUserComponent';
 import Dashboard from './DashboardComponent';
-import Chat from './ChatComponent/MainChatComponent'
+import Chat from './ChatComponent/MainChatComponent';
+import CourseDetail from './Courses/CourseDetailComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { postComment, postFeedback, fetchDishes, fetchComments, fetchPromos, fetchLeaders, signupUser, loginUser, logoutUser, fetchFavorites, postFavorite, deleteFavorite, fetchSearches, fetchFriends } from '../redux/ActionCreators';
@@ -19,6 +20,7 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import jwt_decode from 'jwt-decode';
 import { io } from "socket.io-client";
 import { baseUrl } from '../shared/baseUrl';
+
 const mapStateToProps = state => {
     return {
       dishes: state.dishes,
@@ -125,9 +127,15 @@ class Main extends Component {
 
     const DishWithId = ({match}) => {
       return(
+        <CourseDetail />
+      );
+    }
+
+    const CourseWithId = ({match}) => {
+      return(
         this.props.auth.isAuthenticated
         ?
-        <DishDetail dish={this.props.dishes.dishes.filter((dish) => dish._id === match.params.dishId)[0]}
+        <CourseDetail dish={this.props.dishes.dishes.filter((dish) => dish._id === match.params.dishId)[0]}
           isLoading={this.props.dishes.isLoading}
           errMess={this.props.dishes.errMess}
           comments={this.props.comments.comments.filter((comment) => comment.dish === match.params.dishId)}
@@ -179,6 +187,7 @@ class Main extends Component {
               <PrivateRoute exact path="/favorites" component={() => <Favorites favorites={this.props.favorites} deleteFavorite={this.props.deleteFavorite} />} />
               <Route exact path="/contactus" component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} postFeedback={this.props.postFeedback} />} />
               <Route exact path="/courses" component={() => <Courses />} />
+              <Route path="/courses/:courseId" component={CourseWithId} />
               <Route exact path="/addusers" component={AddUsersPage} />
               <Route exact path="/chat" component={ChatUserPage} />
               <Route path="/:User" component={DashboardPage} />

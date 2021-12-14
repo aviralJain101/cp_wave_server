@@ -21,9 +21,14 @@ class Courses extends Component {
                         <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
                         <BreadcrumbItem active>Courses</BreadcrumbItem>
                     </Breadcrumb>
-                    <div className="col-12">
+                    <div className="col-4">
                         <h3>Courses</h3>
                         <hr />
+                    </div>
+                    <div className="col-8">
+                        <Link to ="#" className="pull-right text-decoration-none">
+                            <span className="fa fa-plus fa-lg"></span>  Create Course
+                        </Link>
                     </div>
                     <div>
                         <Accordion defaultActiveKey="0">

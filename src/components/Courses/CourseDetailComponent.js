@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Card, ListGroup, ListGroupItem, CardImg, CardText, CardTitle, CardBody, Accordion,  } from 'reactstrap';
+import { Card, ListGroup, ListGroupItem, CardImg, CardText, CardTitle, CardBody, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 
-class MyCreatedCourses extends Component {
+class CourseDetail extends Component {
     constructor(props) {
         super(props);
        }
@@ -12,9 +12,10 @@ class MyCreatedCourses extends Component {
 
         return (
             <div>
+                <h4>Course Details</h4>
                 <Card className="col-12 col-md-6 col-lg-3">
-                <Link to='{`/courses/${course._id}`}' >
-                    <CardImg variant="top" src="./assets/images/buffet.png" />
+                    <Link to='#' >
+                    <CardImg variant="top" src="./assets/images/vadonut.png" />
                     </Link>
                     <CardBody>
                         <CardTitle>Card Title</CardTitle>
@@ -29,10 +30,6 @@ class MyCreatedCourses extends Component {
                         <ListGroupItem>Rating</ListGroupItem>
                         <ListGroupItem>Students taken this course</ListGroupItem>
                     </ListGroup>
-                    {/* <Card.Body>
-                        <Card.Link href="#">Card Link</Card.Link>
-                        <Card.Link href="#">Another Link</Card.Link>
-                    </Card.Body> */}
                 </Card>
             </div>
         );
@@ -40,4 +37,4 @@ class MyCreatedCourses extends Component {
     }
 }
 
-export default MyCreatedCourses;
+export default CourseDetail;
