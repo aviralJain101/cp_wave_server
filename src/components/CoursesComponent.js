@@ -6,11 +6,23 @@ import { baseUrl } from '../shared/baseUrl';
 import MyBoughtCourses from './Courses/MyBoughtCourses';
 import MyCreatedCourses from './Courses/MyCreatedCourses';
 import { Accordion } from 'react-bootstrap';
+import CreateCourseModal from './Courses/CourseCreateModal/CreateModalComponent';
 
 class Courses extends Component {
     constructor(props) {
         super(props);
-       }
+        this.state = {
+            isCreateModalOpen: false
+        }
+        this.toggleModalCreate = this.toggleModalCreate.bind(this);
+    }
+
+    toggleModalCreate = (event) => {
+        event.preventDefault();
+        this.setState({
+            isCreateModalOpen: !this.state.isCreateModalOpen
+        });
+    }
 
     render() {
 
@@ -26,7 +38,7 @@ class Courses extends Component {
                         <hr />
                     </div>
                     <div className="col-8">
-                        <Link to ="#" className="pull-right text-decoration-none">
+                        <Link to ="#" onClick={this.toggleModalCreate} className="pull-right text-decoration-none">
                             <span className="fa fa-plus fa-lg"></span>  Create Course
                         </Link>
                     </div>
@@ -55,6 +67,10 @@ class Courses extends Component {
                     </div> */}
 
                 </div>
+
+                <CreateCourseModal isModalOpen={this.state.isCreateModalOpen} 
+                    toggleModal={this.toggleModalCreate}
+                />
                 
             </div>
         );

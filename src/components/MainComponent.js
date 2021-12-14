@@ -68,12 +68,12 @@ class Main extends Component {
         
         
     }
-    var socket = io('https://localhost:3443/', {transports: ['websocket', 'polling', 'flashsocket'],rejectUnauthorized: false});
+    // var socket = io('https://localhost:3443/', {transports: ['websocket', 'polling', 'flashsocket'],rejectUnauthorized: false});
 
-    // const socket = io('https://localhost:3443/');
-    socket.on("connect", () => {
-      console.log(socket.id); // x8WIv7-mJelg7on_ALbx
-    });
+    // // const socket = io('https://localhost:3443/');
+    // socket.on("connect", () => {
+    //   console.log(socket.id); // x8WIv7-mJelg7on_ALbx
+    // });
     this.props.fetchDishes();
     this.props.fetchComments();
     this.props.fetchPromos();
