@@ -15,7 +15,7 @@ export const addTags = (tags) => ({
     payload: tags
 });
 
-export const fetchCourseTags = () => (dispatch) => {
+export const fetchCourseTags = (courseData) => (dispatch) => {
     dispatch(tagsLoading());
 
     return fetch(baseUrl + 'coursetags')

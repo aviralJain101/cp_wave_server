@@ -16,6 +16,8 @@ import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { postComment, postFeedback, fetchDishes, fetchComments, fetchPromos, fetchLeaders, signupUser, loginUser, logoutUser, fetchFavorites, postFavorite, deleteFavorite, fetchSearches, fetchFriends } from '../redux/ActionCreators';
 import { fetchCourseTags } from '../redux/CourseTags/ActionCreator';
+import { fetchBoughtCourse, postBoughtCourse } from '../redux/Course/BoughtCourse/ActionCreator';
+import { fetchCreatedCourse, postCreatedCourse } from '../redux/Course/CreatedCourse/ActionCreator';
 import { actions } from 'react-redux-form';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import jwt_decode from 'jwt-decode';
@@ -32,8 +34,9 @@ const mapStateToProps = state => {
       auth: state.auth,
       searches: state.searches,
       friends: state.friends,
-      courseTags: state.courseTags
-
+      courseTags: state.courseTags,
+      boughtCourse: state.boughtCourse,
+      createdCourse: state.createdCourse
     }
 }
 
@@ -53,7 +56,11 @@ const mapDispatchToProps = (dispatch) => ({
   deleteFavorite: (dishId) => dispatch(deleteFavorite(dishId)),
   fetchSearches: (searchTerm) => dispatch(fetchSearches(searchTerm)),
   fetchFriends: () => dispatch(fetchFriends()),
-  fetchCourseTags: (courseData) => dispatch(fetchCourseTags(courseData))
+  fetchCourseTags: (courseData) => dispatch(fetchCourseTags(courseData)),
+  fetchBoughtCourse: () => dispatch(fetchBoughtCourse()),
+  postBoughtCourse: (courseData) => dispatch(postBoughtCourse(courseData)),
+  fetchCreatedCourse: () => dispatch(fetchCreatedCourse()),
+  postCreatedCourse: (courseData) => dispatch(postCreatedCourse(courseData)),
 });
 
 class Main extends Component {
@@ -83,6 +90,9 @@ class Main extends Component {
     this.props.fetchFavorites();
     this.props.fetchFriends();
     this.props.fetchCourseTags();
+    if(this.props.auth.isAuthenticated) {
+      this.props.fetchCreatedCourse();
+    }
   }
   
 
@@ -103,19 +113,18 @@ class Main extends Component {
     }
 
     const CoursePage = () => {
-      {console.log("course tags")}
-      {console.log(this.props.courseTags)}
       return(
-        // this.props.auth.isAuthenticated
-        // ?
-        
+        this.props.auth.isAuthenticated
+        ?
         <Courses
           courseTags = {this.props.courseTags} 
+          postCreatedCourse={this.props.postCreatedCourse}
+          createdCourse={this.props.createdCourse}
         />
-        // :
-        // <div>
-        //   {this.props.history.push("/home")}
-        // </div>
+        :
+        <div>
+          {this.props.history.push("/home")}
+        </div>
         );
     }
 

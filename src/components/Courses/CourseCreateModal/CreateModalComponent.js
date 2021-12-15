@@ -36,7 +36,9 @@ class CreateCourseModal extends Component {
         this.props.toggleModal();
         console.log(this.coursename.value);
         console.log(this.state.selectedOption);
-        // this.props.createCourse({username: this.username.value, password: this.password.value});
+        // postCreatedCourse={this.props.postCreatedCourse}
+
+        // this.props.postCreatedCourse({courseName: this.coursename.value, price: this.price.value, tags: this.state.selectedOption});
         event.preventDefault();
     }
 

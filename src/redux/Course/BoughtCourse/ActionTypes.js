@@ -1,0 +1,5 @@
+export const COURSE_LOADING = 'COURSE_LOADING';
+export const COURSE_FAILED = 'COURSE_FAILED';
+export const ADD_COURSE = 'ADD_COURSE';
+export const APPEND_COURSE = 'APPEND_COURSE';
+

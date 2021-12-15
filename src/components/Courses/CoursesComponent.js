@@ -60,7 +60,8 @@ class Courses extends Component {
                 </div>
                 <CreateCourseModal isModalOpen={this.state.isCreateModalOpen} 
                     toggleModal={this.toggleModalCreate}
-                    courseTags = {this.props.courseTags} 
+                    courseTags = {this.props.courseTags}
+                    postCreatedCourse={this.props.postCreatedCourse}
                 />
                
             </React.Fragment>
