@@ -7,26 +7,26 @@ import MyBoughtCourses from './CourseSubComponent/MyBoughtCourses';
 import MyCreatedCourses from './CourseSubComponent/MyCreatedCourses';
 import { Accordion, Button } from 'react-bootstrap';
 import CreateCourseModal from './CourseCreateModal/CreateModalComponent';
-import { fetchCreatedCourse, postCreatedCourse } from '../../redux/Course/CreatedCourse/ActionCreator';
-import { fetchBoughtCourse, postBoughtCourse } from '../../redux/Course/BoughtCourse/ActionCreator';
-import { fetchCourseTags } from '../../redux/CourseTags/ActionCreator';
+// import { fetchCreatedCourse, postCreatedCourse } from '../../redux/Course/CreatedCourse/ActionCreator';
+// import { fetchBoughtCourse, postBoughtCourse } from '../../redux/Course/BoughtCourse/ActionCreator';
+// import { fetchCourseTags } from '../../redux/CourseTags/ActionCreator';
 
-const mapStateToProps = state => {
-    return {
-        courseTags: state.courseTags,
-        boughtCourse: state.boughtCourse,
-        createdCourse: state.createdCourse
-    }
-  }
+// const mapStateToProps = state => {
+//     return {
+//         courseTags: state.courseTags,
+//         boughtCourse: state.boughtCourse,
+//         createdCourse: state.createdCourse
+//     }
+//   }
   
-const mapDispatchToProps = (dispatch) => ({
-    fetchCourseTags: (courseData) => dispatch(fetchCourseTags(courseData)),
-    fetchBoughtCourse: () => dispatch(fetchBoughtCourse()),
-    postBoughtCourse: (courseData) => dispatch(postBoughtCourse(courseData)),
-    fetchCreatedCourse: () => dispatch(fetchCreatedCourse()),
-    postCreatedCourse: (courseData) => dispatch(postCreatedCourse(courseData)),
+// const mapDispatchToProps = (dispatch) => ({
+//     fetchCourseTags: (courseData) => dispatch(fetchCourseTags(courseData)),
+//     fetchBoughtCourse: () => dispatch(fetchBoughtCourse()),
+//     postBoughtCourse: (courseData) => dispatch(postBoughtCourse(courseData)),
+//     fetchCreatedCourse: () => dispatch(fetchCreatedCourse()),
+//     postCreatedCourse: (courseData) => dispatch(postCreatedCourse(courseData)),
 
-});
+// });
   
   
 
@@ -39,10 +39,10 @@ class Courses extends Component {
         }
     }
 
-    componentDidMount() {
-        this.props.fetchCourseTags();
-        this.props.fetchCreatedCourse();
-    }
+    // componentDidMount() {
+    //     this.props.fetchCourseTags();
+    //     this.props.fetchCreatedCourse();
+    // }
 
     toggleModalCreate = (event) => {
         // event.preventDefault();
@@ -89,11 +89,11 @@ class Courses extends Component {
                         </div>
                     </div>
                 </div>
-                <CreateCourseModal isModalOpen={this.state.isCreateModalOpen} 
+                {/* <CreateCourseModal isModalOpen={this.state.isCreateModalOpen} 
                     toggleModal={this.toggleModalCreate}
                     courseTags = {this.props.courseTags}
                     // postCreatedCourse={this.props.postCreatedCourse}
-                />
+                /> */}
                
             </React.Fragment>
         );
@@ -101,7 +101,7 @@ class Courses extends Component {
     }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Courses));
+// export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Courses));
 
 
-// export default Courses;
+export default Courses;

@@ -14,7 +14,7 @@ function RenderCourseItem({ course }) {
     return(
         <Card className="">
             <Link to={`/courses/${course._id}`} >
-                <CardImg variant="top" height="200px" src="./assets/images/buffet.png" />
+                <CardImg variant="top" src="./assets/images/buffet.png" />
             </Link>
             <CardBody>
                 <CardTitle>{course.courseName}</CardTitle>

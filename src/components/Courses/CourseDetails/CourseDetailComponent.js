@@ -18,17 +18,13 @@ class CourseDetail extends Component {
                     <CardImg variant="top" src="./assets/images/vadonut.png" />
                     </Link>
                     <CardBody>
-                        <CardTitle>Card Title</CardTitle>
-                        <CardText>
-                        Some quick example text to build on the card title and make up the bulk of
-                        the card's content.
-                        </CardText>
+                    <CardTitle>{this.props.course.courseName}</CardTitle>
                     </CardBody>
                     <ListGroup className="list-group-flush">
-                        <ListGroupItem>Author</ListGroupItem>
-                        <ListGroupItem>Created On</ListGroupItem>
-                        <ListGroupItem>Rating</ListGroupItem>
-                        <ListGroupItem>Students taken this course</ListGroupItem>
+                        <ListGroupItem>{this.props.course.author.username}</ListGroupItem>
+                        {this.props.course.author.email?<ListGroupItem>{this.props.course.author.email}</ListGroupItem>:null}
+                        <ListGroupItem>Created On : {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day:'2-digit'}).format(new Date(Date.parse(this.props.course.createdAt)))}</ListGroupItem>
+                        <ListGroupItem>updated On : {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day:'2-digit'}).format(new Date(Date.parse(this.props.course.updatedAt)))}</ListGroupItem>
                     </ListGroup>
                 </Card>
             </div>
