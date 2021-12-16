@@ -40,7 +40,6 @@ class Courses extends Component {
     }
 
     componentDidMount() {
-        alert("created");
         this.props.fetchCourseTags();
         this.props.fetchCreatedCourse();
     }

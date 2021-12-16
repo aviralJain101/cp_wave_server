@@ -14,7 +14,7 @@ function RenderCourseItem({ course }) {
     return(
         <Card className="">
             <Link to={`/courses/${course._id}`} >
-                <CardImg variant="top" src="./assets/images/buffet.png" />
+                <CardImg variant="top" height="200px" src="./assets/images/buffet.png" />
             </Link>
             <CardBody>
                 <CardTitle>{course.courseName}</CardTitle>
@@ -50,7 +50,7 @@ class MyCreatedCourses extends Component {
     render() {
         const courses = this.props.createdCourse.course.map((course) => {
             return (
-                <div key={course._id} className="col-12 col-md-6 col-lg-3 mb-2">
+                <div key={course._id} className="col-12 col-md-6 col-lg-4 mb-2">
                     <RenderCourseItem course={course} />
                 </div>
             );
