@@ -15,14 +15,15 @@ import CourseDetail from './Courses/CourseDetails/CourseDetailComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { postComment, postFeedback, fetchDishes, fetchComments, fetchPromos, fetchLeaders, signupUser, loginUser, logoutUser, fetchFavorites, postFavorite, deleteFavorite, fetchSearches, fetchFriends } from '../redux/ActionCreators';
-import { fetchCourseTags } from '../redux/CourseTags/ActionCreator';
-import { fetchBoughtCourse, postBoughtCourse } from '../redux/Course/BoughtCourse/ActionCreator';
-import { fetchCreatedCourse, postCreatedCourse } from '../redux/Course/CreatedCourse/ActionCreator';
+// import { fetchCourseTags } from '../redux/CourseTags/ActionCreator';
+// import { fetchBoughtCourse, postBoughtCourse } from '../redux/Course/BoughtCourse/ActionCreator';
+// import { postCreatedCourse } from '../redux/Course/CreatedCourse/ActionCreator';
 import { actions } from 'react-redux-form';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import jwt_decode from 'jwt-decode';
 import { io } from "socket.io-client";
 import { baseUrl } from '../shared/baseUrl';
+import isEqual from 'lodash.isequal';
 
 const mapStateToProps = state => {
     return {
@@ -34,9 +35,9 @@ const mapStateToProps = state => {
       auth: state.auth,
       searches: state.searches,
       friends: state.friends,
-      courseTags: state.courseTags,
-      boughtCourse: state.boughtCourse,
-      createdCourse: state.createdCourse
+      // courseTags: state.courseTags,
+      // boughtCourse: state.boughtCourse,
+      // createdCourse: state.createdCourse
     }
 }
 
@@ -56,11 +57,11 @@ const mapDispatchToProps = (dispatch) => ({
   deleteFavorite: (dishId) => dispatch(deleteFavorite(dishId)),
   fetchSearches: (searchTerm) => dispatch(fetchSearches(searchTerm)),
   fetchFriends: () => dispatch(fetchFriends()),
-  fetchCourseTags: (courseData) => dispatch(fetchCourseTags(courseData)),
-  fetchBoughtCourse: () => dispatch(fetchBoughtCourse()),
-  postBoughtCourse: (courseData) => dispatch(postBoughtCourse(courseData)),
-  fetchCreatedCourse: () => dispatch(fetchCreatedCourse()),
-  postCreatedCourse: (courseData) => dispatch(postCreatedCourse(courseData)),
+  // fetchCourseTags: (courseData) => dispatch(fetchCourseTags(courseData)),
+  // fetchBoughtCourse: () => dispatch(fetchBoughtCourse()),
+  // postBoughtCourse: (courseData) => dispatch(postBoughtCourse(courseData)),
+  // fetchCreatedCourse: () => dispatch(fetchCreatedCourse()),
+  // postCreatedCourse: (courseData) => dispatch(postCreatedCourse(courseData)),
 });
 
 class Main extends Component {
@@ -84,15 +85,15 @@ class Main extends Component {
     //   console.log(socket.id); // x8WIv7-mJelg7on_ALbx
     // });
     this.props.fetchDishes();
-    this.props.fetchComments();
+    // this.props.fetchComments();
     this.props.fetchPromos();
     this.props.fetchLeaders();
-    this.props.fetchFavorites();
+    // this.props.fetchFavorites();
     this.props.fetchFriends();
-    this.props.fetchCourseTags();
-    if(this.props.auth.isAuthenticated) {
-      this.props.fetchCreatedCourse();
-    }
+    // this.props.fetchCourseTags();
+    // if(this.props.auth.isAuthenticated) {
+    //   this.props.fetchCreatedCourse();
+    // }
   }
   
 
@@ -117,9 +118,10 @@ class Main extends Component {
         this.props.auth.isAuthenticated
         ?
         <Courses
-          courseTags = {this.props.courseTags} 
-          postCreatedCourse={this.props.postCreatedCourse}
-          createdCourse={this.props.createdCourse}
+          // fetchCreatedCourse={this.props.fetchCreatedCourse}
+          // courseTags = {this.props.courseTags} 
+          // postCreatedCourse={this.props.postCreatedCourse}
+          // createdCourse={this.props.createdCourse}
         />
         :
         <div>
@@ -155,34 +157,29 @@ class Main extends Component {
     }
 
     const DishWithId = ({match}) => {
+      {console.log(match)}
+      {console.log(this.props.dishes.dishes)}
       return(
-        <CourseDetail />
+        <DishDetail dish={this.props.dishes.dishes.filter((dish) => isEqual(dish._id, match.params.dishId))[0]}
+            isLoading={this.props.dishes.isLoading}
+            errMess={this.props.dishes.errMess}
+            comments={this.props.comments.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId,10))}
+            commentsErrMess={this.props.comments.errMess}
+            postComment={this.props.postComment}
+          />
       );
-    }
+    };
 
     const CourseWithId = ({match}) => {
+      // {console.log(match)}
+
       return(
         this.props.auth.isAuthenticated
         ?
-        <CourseDetail dish={this.props.dishes.dishes.filter((dish) => dish._id === match.params.dishId)[0]}
-          isLoading={this.props.dishes.isLoading}
-          errMess={this.props.dishes.errMess}
-          comments={this.props.comments.comments.filter((comment) => comment.dish === match.params.dishId)}
-          commentsErrMess={this.props.comments.errMess}
-          postComment={this.props.postComment}
-          // favorite={this.props.favorites.favorites.dishes.some((dish) => dish._id === match.params.dishId)}
-          postFavorite={this.props.postFavorite}
-          />
+        <CourseDetail
+        />
         :
-        <DishDetail dish={this.props.dishes.dishes.filter((dish) => dish._id === match.params.dishId)[0]}
-          isLoading={this.props.dishes.isLoading}
-          errMess={this.props.dishes.errMess}
-          comments={this.props.comments.comments.filter((comment) => comment.dish === match.params.dishId)}
-          commentsErrMess={this.props.comments.errMess}
-          postComment={this.props.postComment}
-          favorite={false}
-          postFavorite={this.props.postFavorite}
-          />
+        null
       );
     }
 

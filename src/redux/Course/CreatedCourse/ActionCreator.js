@@ -22,25 +22,32 @@ export const appendCourse = (course) => ({
 
 export const fetchCreatedCourse = () => (dispatch) => {
     dispatch(courseLoading());
-
-    return fetch(baseUrl + 'courses?type=created')
-        .then(response => {
-            if (response.ok) {
-                return response;
-            }
-            else {
-                var error = new Error('Error ' + response.status + ': ' + response.statusText);
-                error.response = response;
-                throw error;
-            }
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+    return fetch(baseUrl + 'courses?type=created',{
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization': bearer
         },
-        error => {
-            var errmess = new Error(error.message);
-            throw errmess;
-        })
-        .then(response => response.json())
-        .then(course => dispatch(addCourse(course)))
-        .catch(error => dispatch(courseFailed(error.message)));
+        credentials: "same-origin"
+    })
+    .then(response => {
+        if (response.ok) {
+            return response;
+        }
+        else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+    },
+    error => {
+        var errmess = new Error(error.message);
+        throw errmess;
+    })
+    .then(response => response.json())
+    .then(course => dispatch(addCourse(course)))
+    .catch(error => dispatch(courseFailed(error.message)));
 }
 
 export const postCreatedCourse = (courseData) => (dispatch) => {

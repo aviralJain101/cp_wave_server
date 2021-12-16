@@ -1,10 +1,35 @@
 import React, { Component } from 'react';
 import { Card, CardImg, CardImgOverlay, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import MyBoughtCourses from './CourseSubComponent/MyBoughtCourses';
 import MyCreatedCourses from './CourseSubComponent/MyCreatedCourses';
 import { Accordion, Button } from 'react-bootstrap';
 import CreateCourseModal from './CourseCreateModal/CreateModalComponent';
+import { fetchCreatedCourse, postCreatedCourse } from '../../redux/Course/CreatedCourse/ActionCreator';
+import { fetchBoughtCourse, postBoughtCourse } from '../../redux/Course/BoughtCourse/ActionCreator';
+import { fetchCourseTags } from '../../redux/CourseTags/ActionCreator';
+
+const mapStateToProps = state => {
+    return {
+        courseTags: state.courseTags,
+        boughtCourse: state.boughtCourse,
+        createdCourse: state.createdCourse
+    }
+  }
+  
+const mapDispatchToProps = (dispatch) => ({
+    fetchCourseTags: (courseData) => dispatch(fetchCourseTags(courseData)),
+    fetchBoughtCourse: () => dispatch(fetchBoughtCourse()),
+    postBoughtCourse: (courseData) => dispatch(postBoughtCourse(courseData)),
+    fetchCreatedCourse: () => dispatch(fetchCreatedCourse()),
+    postCreatedCourse: (courseData) => dispatch(postCreatedCourse(courseData)),
+
+});
+  
+  
+
 
 class Courses extends Component {
     constructor(props) {
@@ -12,6 +37,12 @@ class Courses extends Component {
         this.state = {
             isCreateModalOpen: false
         }
+    }
+
+    componentDidMount() {
+        alert("created");
+        this.props.fetchCourseTags();
+        this.props.fetchCreatedCourse();
     }
 
     toggleModalCreate = (event) => {
@@ -22,7 +53,6 @@ class Courses extends Component {
     }
 
     render() {
-
         return (
             <React.Fragment>
                 <div className="container">
@@ -51,7 +81,9 @@ class Courses extends Component {
                                 <Accordion.Item eventKey="1">
                                     <Accordion.Header>My Created Courses</Accordion.Header>
                                     <Accordion.Body>
-                                        <MyCreatedCourses />
+                                        <MyCreatedCourses 
+                                            createdCourse={this.props.createdCourse}
+                                        />
                                     </Accordion.Body>
                                 </Accordion.Item> 
                             </Accordion>
@@ -61,7 +93,7 @@ class Courses extends Component {
                 <CreateCourseModal isModalOpen={this.state.isCreateModalOpen} 
                     toggleModal={this.toggleModalCreate}
                     courseTags = {this.props.courseTags}
-                    postCreatedCourse={this.props.postCreatedCourse}
+                    // postCreatedCourse={this.props.postCreatedCourse}
                 />
                
             </React.Fragment>
@@ -70,4 +102,7 @@ class Courses extends Component {
     }
 }
 
-export default Courses;
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Courses));
+
+
+// export default Courses;

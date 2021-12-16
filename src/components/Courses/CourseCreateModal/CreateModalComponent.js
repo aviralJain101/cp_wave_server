@@ -34,10 +34,14 @@ class CreateCourseModal extends Component {
 
     handleCreate(event) {
         this.props.toggleModal();
-        console.log(this.coursename.value);
-        console.log(this.state.selectedOption);
-        // postCreatedCourse={this.props.postCreatedCourse}
-
+        // console.log(this.coursename.value);
+        // console.log(this.state.selectedOption);
+        var tags = this.state.selectedOption.map((option) => {
+            var tag = {"tagName": option.value};
+            return tag;
+        });
+        // console.log("tags");
+        console.log(tags);
         // this.props.postCreatedCourse({courseName: this.coursename.value, price: this.price.value, tags: this.state.selectedOption});
         event.preventDefault();
     }
