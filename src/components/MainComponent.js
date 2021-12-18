@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Home from './HomeComponent';
 import Buy from './BuyComponent';
 import BuyItemDetail from './BuyItemComponent';
-import Sell from './Sell/SellComponent/SellComponent';
+import Sell from './Sell/SellComponent/MainComponent';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import Dashboard from './Dashboard/DashboardComponent';
@@ -42,6 +42,7 @@ class Main extends Component {
           this.props.logoutUser();
         }
     }
+    console.log("consolemounted")
   }
   
 

@@ -5,8 +5,8 @@ import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import isEqual from 'lodash.isequal';
 import { postItem, fetchSellItem } from '../../redux/Sell/ActionCreator';
-import Sell from './SellComponent/SellComponent';
-import SellItemDetail from './SellComponent/RenderItem';
+import Sell from './SellComponent/MainComponent';
+import ItemDetail from './SellComponent/ItemDetailComponent';
 
 const mapStateToProps = state => {
     return {
@@ -45,9 +45,9 @@ class SellRouter extends Component {
         }
         const ItemWithIdPage = ({match}) => {
             return(
-                <SellItemDetail
+                <ItemDetail
                     item={this.props.sellItem.items.filter((item) => isEqual(item._id, match.params.itemId))[0]}
-                    isPosting={this.props.sellItem.isPosting}
+                    isLoading={this.props.sellItem.isLoading}
                     errMess={this.props.sellItem.errMess}
                 />
             );

@@ -8,7 +8,7 @@ import { Card, CardImg, CardImgOverlay, CardTitle, Breadcrumb, BreadcrumbItem,Ca
 import LoginButton from './AuthComponents/LoginModalComponent';
 import Avatar from 'react-avatar';
 import { NavDropdown} from 'react-bootstrap';
-
+import { baseUrl } from '../shared/baseUrl';
 
 class Header extends Component {
 
@@ -47,7 +47,7 @@ class Header extends Component {
                         <div className="row">
                             <div className="col-2 mt-2">
                                 <NavbarBrand className="mr-auto" href="/">
-                                    <img src="assets/images/logo.png" height="40" width="60"
+                                    <img src={`${baseUrl}images/logo.png`} height="40" width="60"
                                         alt="Ristorante Con Fusion" />
                                 </NavbarBrand>
                             </div>

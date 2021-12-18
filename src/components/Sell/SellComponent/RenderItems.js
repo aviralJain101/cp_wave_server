@@ -7,14 +7,14 @@ function RenderSellItem({ item, onClick }) {
     return(
         <Card>
             <Link to={`/sell/${item._id}`} >
-                <CardImg width="100%" src={'./assets/images/buffet.png'} alt={item.itemname} width="60px" />
+                <CardImg width="100%" src={'./assets/images/buffet.png'} alt={item.itemname} />
                 <p>{item.itemname}</p>
             </Link>
         </Card>
     );
 }
 
-const RenderItem = (props) => {
+const RenderItems = (props) => {
 
     const items = props.sellItem.items.map((item) => {
         return (
@@ -52,4 +52,4 @@ const RenderItem = (props) => {
         );
 }
 
-export default RenderItem;
+export default RenderItems;

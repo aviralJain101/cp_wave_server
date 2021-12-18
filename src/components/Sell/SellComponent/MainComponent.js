@@ -3,7 +3,7 @@ import { Card, CardImg, CardImgOverlay, CardTitle, Breadcrumb, BreadcrumbItem } 
 import { Link } from 'react-router-dom';
 import SellModal from './ModalForm';
 import { Accordion, Button } from 'react-bootstrap';
-import RenderItem from './RenderItem';
+import RenderItems from './RenderItems';
 
 
 class Sell extends Component {
@@ -40,7 +40,7 @@ class Sell extends Component {
                             </Button>
                         </div>
                         <div>
-                            <RenderItem
+                            <RenderItems
                                 sellItem={this.props.sellItem}
                             />
                         </div>
