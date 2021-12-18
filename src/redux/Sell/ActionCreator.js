@@ -10,9 +10,9 @@ export const itemFetchFailed = (errmess) => ({
     payload: errmess
 });
 
-export const addItem = (item) => ({
-    type: ActionTypes.ADD_ITEM,
-    payload: item
+export const addItems = (items) => ({
+    type: ActionTypes.ADD_ITEMS,
+    payload: items
 });
 
 export const fetchSellItem = () => (dispatch) => {
@@ -39,7 +39,7 @@ export const fetchSellItem = () => (dispatch) => {
         throw errmess;
     })
     .then(response => response.json())
-    .then(item => dispatch(addItem(item)))
+    .then(items => dispatch(addItems(items)))
     .catch(error => dispatch(itemFetchFailed(error.message)));
 }
 
@@ -52,6 +52,10 @@ export const itemPostFailed = (errmess) => ({
     payload: errmess
 });
 
+export const addItem = (item) => ({
+    type: ActionTypes.ADD_ITEM,
+    payload: item
+});
 export const postItem = (item) => (dispatch) => {
     dispatch(itemPosting());
 

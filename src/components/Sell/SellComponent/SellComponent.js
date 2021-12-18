@@ -3,7 +3,7 @@ import { Card, CardImg, CardImgOverlay, CardTitle, Breadcrumb, BreadcrumbItem } 
 import { Link } from 'react-router-dom';
 import SellModal from './ModalForm';
 import { Accordion, Button } from 'react-bootstrap';
-  
+import RenderItem from './RenderItem';
 
 
 class Sell extends Component {
@@ -21,6 +21,7 @@ class Sell extends Component {
     }
 
     render() {
+        
         return (
             <React.Fragment>
                 <div className="container">
@@ -38,24 +39,11 @@ class Sell extends Component {
                                 <span className="fa fa-plus fa-lg"></span>  Sell Item
                             </Button>
                         </div>
-                        {/* <div>
-                            <Accordion defaultActiveKey="0">
-                                <Accordion.Item eventKey="0" className="mb-3">
-                                    <Accordion.Header>My Bought Courses</Accordion.Header>
-                                    <Accordion.Body>
-                                        <MyBoughtCourses />
-                                    </Accordion.Body>
-                                </Accordion.Item>
-                                <Accordion.Item eventKey="1">
-                                    <Accordion.Header>My Created Courses</Accordion.Header>
-                                    <Accordion.Body>
-                                        <MyCreatedCourses 
-                                            createdCourse={this.props.createdCourse}
-                                        />
-                                    </Accordion.Body>
-                                </Accordion.Item> 
-                            </Accordion>
-                        </div> */}
+                        <div>
+                            <RenderItem
+                                sellItem={this.props.sellItem}
+                            />
+                        </div>
                     </div>
                 </div>
                 <SellModal 
