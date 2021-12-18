@@ -22,6 +22,7 @@ sellRouter.route('/')
     .catch((err) => next(err));
 })
 .post(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
+    console.log(req.body);
     if (req.body != null) {
         console.log(req.user._id);
         console.log(req.body);
@@ -40,12 +41,14 @@ sellRouter.route('/')
                 user.onSale = user.onSale.concat([req.body]);
                 user.save();
                 console.log("success");
-                // Commodity.findById(item._id)
-                // .populate('seller')
-                // .then((item) => {
-                res.statusCode = 200;
-                res.setHeader('Content-Type', 'application/json');
-                res.json({success:"true"});
+                Commodity.findById(item._id)
+                .populate('seller')
+                .then((item) => {
+                    res.statusCode = 200;
+                    res.setHeader('Content-Type', 'application/json');
+                    res.json(item);
+                }, (err => next(err)))
+                .catch((err) => next(err));
             }, (err => next(err)))
             .catch((err) => next(err));
             
