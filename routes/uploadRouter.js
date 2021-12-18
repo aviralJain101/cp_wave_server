@@ -27,24 +27,24 @@ uploadRouter.route('/')
     res.statusCode = 403;
     res.end('GET operation not supported on /imageUpload');
 })
-.post(cors.corsWithOptions,(req, res, next) => {
+.post(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
     upload(req,res,function(err) {  
         if(err) { 
             console.log(err); 
             return res.end("Error uploading file.");  
         }
         var item = new Commodity({
-            seller: 1,
+            seller: req.user._id,
             itemname: req.body.itemname,
             price: req.body.price,
             category: req.body.category,
-            image: req.file.originalname
+            image: '/images/'+req.file.originalname
         })
         item.save()
         .then((item) => {
             res.statusCode = 200;
             res.setHeader('Content-Type', 'application/json');
-            res.json(req.file);
+            res.json(item);
         }, (err => next(err)))
         .catch((err) => next(err));
         
