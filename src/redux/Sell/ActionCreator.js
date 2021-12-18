@@ -59,16 +59,20 @@ export const addItem = (item) => ({
 export const postItem = (item) => (dispatch) => {
     dispatch(itemPosting());
 
+    for (var key of item.entries()) {
+        console.log(key[0] + ', ' + key[1]);
+    }
+
     const bearer = 'Bearer ' + localStorage.getItem('token');
 
     return fetch(baseUrl+'sell', {
-        method: "POST",
-        body: JSON.stringify(item),
+        method: 'POST',
+        body: item,
         headers: {
-          "Content-Type": "application/json",
-          'Authorization': bearer
+            'Content-Type': 'multipart/form-data',
+            'Authorization': bearer
         },
-        credentials: "same-origin"
+        credentials: 'same-origin'
     })
     .then(response => {
         if (response.ok) {

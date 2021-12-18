@@ -49,7 +49,8 @@ const ItemDetail = (props) => {
             <div className="container">
                 <div className="row">
                     <Breadcrumb>
-                        <BreadcrumbItem><Link to='/menu'>Menu</Link></BreadcrumbItem>
+                        <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
+                        <BreadcrumbItem><Link to='/sell'>Sell</Link></BreadcrumbItem>
                         <BreadcrumbItem active>{props.item.itemname}</BreadcrumbItem>
                     </Breadcrumb>
                     <div className="col-12">

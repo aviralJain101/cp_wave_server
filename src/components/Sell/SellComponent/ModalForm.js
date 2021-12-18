@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Button, Modal, ModalHeader, ModalBody,Form, FormGroup, Input, Label } from 'reactstrap';
 import { Card, CardImg, CardImgOverlay, CardTitle, Breadcrumb, BreadcrumbItem,CardBody, CardHeader } from 'reactstrap';
 import Select from 'react-select';
-
+import { baseUrl } from '../../../shared/baseUrl';
+import axios from 'axios';
 
 const options = [
     { value: 'Garments', label: 'Garents' },
@@ -23,6 +24,7 @@ class SellModal extends Component {
         super(props);
         this.state = {
             selectedOption: null,
+            selectedFile: null
         }
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -30,14 +32,21 @@ class SellModal extends Component {
 
     handleSubmit(event) {
         this.props.toggleModal();
-        console.log(this.itemname.value);
-        console.log(this.price.value);
-        console.log(this.state.selectedOption);
         var tags = this.state.selectedOption.map((option) => {
             var tag = option.value;
             return tag;
         });
-        this.props.postItem({itemname: this.itemname.value, price: this.price.value, category: tags});
+
+        const item = new FormData();
+        item.append("itemname", this.itemname.value);
+        item.append("price", this.price.value);
+        item.append("category", tags);
+        item.append("itemImage", this.state.selectedFile);
+
+        axios.post(`${baseUrl}imageUpload`, item);
+
+        // this.props.postItem(item);
+        // this.props.postItem({itemname: this.itemname.value, price: this.price.value, category: tags});
         event.preventDefault();
     }
 
@@ -45,6 +54,13 @@ class SellModal extends Component {
         this.setState({ selectedOption });
         console.log(`Option selected:`, selectedOption);
     };
+
+    // On file select (from the pop up)
+	onFileChange = event => {
+        // Update the state
+        this.setState({ selectedFile: event.target.files[0] });
+	};
+
 
 
     render() {
@@ -78,6 +94,12 @@ class SellModal extends Component {
                                     isMulti='true'
                                     isSearchable='true'
                                     placeholder='Select Category'
+                                />
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="itemImage">Image</Label>
+                                <Input type="file" id="itemImage" name="itemImage"
+                                    onChange={this.onFileChange} 
                                 />
                             </FormGroup>
                             <FormGroup className="text-center mt-2 mb-3">
