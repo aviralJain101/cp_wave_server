@@ -57,7 +57,8 @@ class Home extends React.Component {
         return(
             <div className="container">
                 <div className="row align-items-start">
-                    <div className="col-12 col-md m-1">
+                    <div>Home</div>
+                    {/* <div className="col-12 col-md m-1">
                         <RenderCard item={this.props.dish} 
                             isLoading={this.props.dishesLoading}
                             errMess={this.props.dishesErrMess} />
@@ -71,7 +72,7 @@ class Home extends React.Component {
                         <RenderCard item={this.props.leader} 
                             isLoading={this.props.leaderLoading} 
                             errMess={this.props.leaderErrMess} />
-                    </div>
+                    </div> */}
                 </div>
             </div>
         );

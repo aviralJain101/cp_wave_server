@@ -17,35 +17,35 @@ function RenderMenuItem({ dish, onClick }) {
     );
 }
 
-const Menu = (props) => {
+const Sell = (props) => {
 
-    const menu = props.dishes.dishes.map((dish) => {
-        return (
-            <div key={dish._id} className="col-12 col-md-5 m-1">
-                <RenderMenuItem dish={dish} />
-            </div>
-        );
-    });
+    // const menu = props.dishes.dishes.map((dish) => {
+    //     return (
+    //         <div key={dish._id} className="col-12 col-md-5 m-1">
+    //             <RenderMenuItem dish={dish} />
+    //         </div>
+    //     );
+    // });
 
-    if (props.dishes.isLoading) {
-        return(
-            <div className="container">
-                <div className="row">
-                    <Loading />
-                </div>
-            </div>
-        );
-    }
-    else if (props.dishes.errMess) {
-        return(
-            <div className="container">
-                <div className="row">
-                    <h4>{props.dishes.errMess}</h4>
-                </div>
-            </div>
-        );
-    }
-    else
+    // if (props.dishes.isLoading) {
+    //     return(
+    //         <div className="container">
+    //             <div className="row">
+    //                 <Loading />
+    //             </div>
+    //         </div>
+    //     );
+    // }
+    // else if (props.dishes.errMess) {
+    //     return(
+    //         <div className="container">
+    //             <div className="row">
+    //                 <h4>{props.dishes.errMess}</h4>
+    //             </div>
+    //         </div>
+    //     );
+    // }
+    // else
         return (
             <div className="container">
                 <div className="row">
@@ -58,11 +58,11 @@ const Menu = (props) => {
                         <hr />
                     </div>
                 </div>
-                <div className="row">
+                {/* <div className="row">
                     {menu}
-                </div>
+                </div> */}
             </div>
         );
 }
 
-export default Menu;
+export default Sell;

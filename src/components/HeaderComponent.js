@@ -5,7 +5,7 @@ import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, Jumbotron,
 import { Link, NavLink } from 'react-router-dom';
 import SearchAS from './SearchASComponent';
 import { Card, CardImg, CardImgOverlay, CardTitle, Breadcrumb, BreadcrumbItem,CardBody, CardHeader } from 'reactstrap';
-import ModelPop from './AuthComponents/LoginModalComponent';
+import LoginButton from './AuthComponents/LoginModalComponent';
 import Avatar from 'react-avatar';
 import { NavDropdown} from 'react-bootstrap';
 
@@ -93,26 +93,20 @@ class Header extends Component {
                                             </NavLink>
                                         </NavItem>
                                         <NavItem>
-                                            <NavLink className="nav-link" to="/addusers">
-                                                <span className="fa fa-user-plus fa-lg"></span> Add Users
+                                            <NavLink className="nav-link" to="/buy">
+                                                <span className="fa fa-user-plus fa-lg"></span> Buy
                                             </NavLink>
                                         </NavItem>
                                         <NavItem>
-                                            <NavLink className="nav-link" to="/favorites">
-                                                <span className="fa fa-heart fa-lg"></span> My Favorites
-                                            </NavLink>
-                                        </NavItem>
-
-                                        <NavItem>
-                                            <NavLink className="nav-link" to="/courses">
-                                                <span className="fa fa-book fa-lg"></span> Courses
+                                            <NavLink className="nav-link" to="/sell">
+                                                <span className="fa fa-heart fa-lg"></span> Sell
                                             </NavLink>
                                         </NavItem>
                                     </Nav>
                                     <Nav className="ms-auto" navbar>
                                         <NavItem>
                                             { !this.props.auth.isAuthenticated ?
-                                                <ModelPop auth={this.props.auth}
+                                                <LoginButton auth={this.props.auth}
                                                     loginUser={this.props.loginUser} 
                                                     logoutUser={this.props.logoutUser} 
                                                     signupUser={this.props.signupUser}

@@ -66,8 +66,7 @@ class LoginModal extends Component {
 
     handleLogin(event) {
         this.props.toggleModal();
-        // alert(this.props.signupUser);
-        this.props.loginUser({username: this.username.value, password: this.password.value});
+        this.props.loginUser({username: this.email.value, password: this.password.value});
         event.preventDefault();
     }
 
@@ -81,9 +80,9 @@ class LoginModal extends Component {
                     <ModalBody>
                         <Form onSubmit={this.handleLogin}>
                             <FormGroup>
-                                <Label htmlFor="username">Username</Label>
-                                <Input type="text" id="username" name="username"
-                                    innerRef={(input) => this.username = input} />
+                                <Label htmlFor="email">Email</Label>
+                                <Input type="text" id="email" name="email"
+                                    innerRef={(input) => this.email = input} />
                             </FormGroup>
                             <FormGroup className="mt-2">
                                 <Label htmlFor="password">Password</Label>

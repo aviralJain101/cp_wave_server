@@ -9,7 +9,7 @@ import GLogin from './Logins/GoogleLoginComponent';
 import LoginModal from './Modals/LoginModal';
 
 
-class ModelPop extends Component {
+class LoginButton extends Component {
 
     constructor(props) {
         super(props);
@@ -49,4 +49,4 @@ class ModelPop extends Component {
     }
 }
 
-export default ModelPop;
+export default LoginButton;

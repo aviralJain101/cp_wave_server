@@ -130,7 +130,7 @@ class CommentForm extends Component {
 
 }
 
-const DishDetail = (props) => {
+const SellItemDetail = (props) => {
     if (props.isLoading) {
         return(
             <div className="container">
@@ -144,7 +144,8 @@ const DishDetail = (props) => {
         return(
             <div className="container">
                 <div className="row">
-                    <h4>{props.errMess}</h4>
+                    <h4>error</h4>
+                    {/* <h4>{props.errMess}</h4> */}
                 </div>
             </div>
         );
@@ -157,17 +158,18 @@ const DishDetail = (props) => {
                         <BreadcrumbItem><Link to='/menu'>Menu</Link></BreadcrumbItem>
                         <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
                     </Breadcrumb>
-                    <div className="col-12">
+                    <h4>Item Detail</h4>
+                    {/* <div className="col-12">
                         <h3>{props.dish.name}</h3>
                         <hr />
-                    </div>
+                    </div> */}
                 </div>
-                <div className="row">
+                {/* <div className="row">
                     <RenderDish dish={props.dish} favorite={props.favorite} postFavorite={props.postFavorite} />
                     <RenderComments comments={props.comments}
                         postComment={props.postComment}
                         dishId={props.dish._id} />
-                </div>
+                </div> */}
             </div>
         );
     else
@@ -176,4 +178,4 @@ const DishDetail = (props) => {
         );
 }
 
-export default DishDetail;
+export default SellItemDetail;

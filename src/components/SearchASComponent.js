@@ -5,8 +5,6 @@ import parse from 'autosuggest-highlight/parse';
 import { fetchSuggestions } from '../redux/ActionCreators';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Suggestion from './Searchs/suggestion';
-import Suggestions from './Searchs/suggestions';
 import autoBind from 'react-autobind';
 
 const mapStateToProps = state => {
