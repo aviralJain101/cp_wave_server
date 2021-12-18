@@ -9,23 +9,19 @@ var commoditySchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    name: {
+    itemname: {
         type: String,
         required: true
     },
-    category: {
+    category: [{
         type: String,
         required: true
-    },
+    }],
     price: {
         type: Currency,
         required: true,
         min: 0,
         default: 0
-    },
-    img:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Image'
     }
 }, {
     timestamps: true

@@ -1,6 +1,27 @@
 var mongoose = require('mongoose');
 var passportLocalMongoose = require('passport-local-mongoose');
 var Schema = mongoose.Schema;
+require('mongoose-currency').loadType(mongoose);
+const Currency = mongoose.Types.Currency;
+
+var commoditySchema = new Schema({
+  itemname: {
+      type: String,
+      required: true
+  },
+  category: [{
+      type: String,
+      required: true
+  }],
+  price: {
+      type: Currency,
+      required: true,
+      min: 0,
+      default: 0
+  }
+}, {
+  timestamps: true
+});
 
 var User = new Schema({
     name: {
@@ -11,16 +32,11 @@ var User = new Schema({
       type: String,
       unique: true
     },
-    onSale: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Commodity'
-    }],
-    bought: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Commodity'
-    }]
+    onSale: [commoditySchema],
+    purchased: [commoditySchema]
 }, {
-  timestamps: true
+  timestamps: true,
+  usePushEach: true
 });
 
 User.plugin(passportLocalMongoose);
