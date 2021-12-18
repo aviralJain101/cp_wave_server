@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const multer = require('multer');
+
 var authenticate = require('../authenticate');
 const cors = require('./cors');
 const Commodity = require('../models/commodity');
@@ -8,6 +10,21 @@ const Users = require('../models/user');
 const sellRouter = express.Router();
 
 sellRouter.use(bodyParser.json());
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'public/items');
+    },
+
+    filename: (req, file, cb) => {
+        console.lof(req.body);
+        cb(null, file.originalname )
+    }
+});
+
+const upload = multer({ storage : storage}); 
+
+
 
 sellRouter.route('/')
 .options(cors.corsWithOptions, (req, res) => {res.sendStatus(200); })
@@ -21,7 +38,7 @@ sellRouter.route('/')
     }, (err) => next(err))
     .catch((err) => next(err));
 })
-.post(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
+.post(cors.corsWithOptions, authenticate.verifyUser, upload.single('itemImage'), (req, res, next) => {
     console.log(req.body);
     if (req.body != null) {
         console.log(req.user._id);
@@ -30,7 +47,8 @@ sellRouter.route('/')
             seller: req.user._id,
             itemname: req.body.itemname,
             price: req.body.price,
-            category: req.body.category
+            category: req.body.category,
+            image: req.file.originalname
         })
         item.save()
         .then((item) => {
@@ -38,7 +56,7 @@ sellRouter.route('/')
             .then((user) => {
                 console.log(user.username);
                 console.log(req.body);
-                user.onSale = user.onSale.concat([req.body]);
+                user.onSale = user.onSale.concat([item]);
                 user.save();
                 console.log("success");
                 Commodity.findById(item._id)
@@ -51,9 +69,6 @@ sellRouter.route('/')
                 .catch((err) => next(err));
             }, (err => next(err)))
             .catch((err) => next(err));
-            
-            
-            // });
         }, (err => next(err)))
         .catch((err) => next(err));      
     }

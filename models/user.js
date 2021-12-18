@@ -18,6 +18,10 @@ var commoditySchema = new Schema({
       required: true,
       min: 0,
       default: 0
+  },
+  image: {
+    type: String,
+    required: true
   }
 }, {
   timestamps: true

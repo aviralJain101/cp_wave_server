@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const authenticate = require('../authenticate');
 const multer = require('multer');
 const cors = require('./cors');
+const Commodity = require('../models/commodity');
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -14,14 +15,7 @@ const storage = multer.diskStorage({
     }
 });
 
-// const imageFileFilter = (req, file, cb) => {
-//     if(!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
-//         return cb(new Error('You can upload only image files!'), false);
-//     }
-//     cb(null, true);
-// };
-
-var upload = multer({ storage : storage}).single('imageFile');  
+var upload = multer({ storage : storage}).single('itemImage');  
 
 const uploadRouter = express.Router();
 
@@ -33,14 +27,27 @@ uploadRouter.route('/')
     res.statusCode = 403;
     res.end('GET operation not supported on /imageUpload');
 })
-.post(cors.corsWithOptions,authenticate.verifyUser, (req, res) => {
+.post(cors.corsWithOptions,(req, res, next) => {
     upload(req,res,function(err) {  
         if(err) { 
             console.log(err); 
             return res.end("Error uploading file.");  
-        }  
-        console.log("success");
-        res.end("File is uploaded successfully!");  
+        }
+        var item = new Commodity({
+            seller: 1,
+            itemname: req.body.itemname,
+            price: req.body.price,
+            category: req.body.category,
+            image: req.file.originalname
+        })
+        item.save()
+        .then((item) => {
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'application/json');
+            res.json(req.file);
+        }, (err => next(err)))
+        .catch((err) => next(err));
+        
     });  
     // res.statusCode = 200;
     // res.setHeader('Content-Type', 'application/json');
