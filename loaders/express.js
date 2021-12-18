@@ -1,5 +1,5 @@
 const express = require('express');
-
+const userAuthRoute = require('../apis/routes/auth');
 
 const expressLoader = async (app) => {
 
@@ -11,10 +11,15 @@ const expressLoader = async (app) => {
     });
 
     app.use(express.json())//parse the incoming json data
+    
+    //include routes here
+    app.use(userAuthRoute);
+  
+  
+    // ...More middlewares
 
-  // ...More middlewares
-
-  // Return the express app
+    // Return the express app
+  
     return app
 }
 
