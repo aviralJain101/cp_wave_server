@@ -1,35 +1,28 @@
 import * as ActionTypes from './ActionTypes';
-import { baseUrl } from '../../../shared/baseUrl';
+import { baseUrl } from '../../shared/baseUrl';
 
-export const courseLoading = () => ({
-    type: ActionTypes.COURSE_LOADING
+export const itemLoading = () => ({
+    type: ActionTypes.ITEM_LOADING
 });
 
-export const courseFailed = (errmess) => ({
-    type: ActionTypes.COURSE_FAILED,
+export const itemFetchFailed = (errmess) => ({
+    type: ActionTypes.ITEM_FETCH_FAILED,
     payload: errmess
 });
 
-export const addCourse = (course) => ({
-    type: ActionTypes.ADD_COURSE,
-    payload: course
+export const addItem = (item) => ({
+    type: ActionTypes.ADD_ITEM,
+    payload: item
 });
 
-export const appendCourse = (course) => ({
-    type: ActionTypes.APPEND_COURSE,
-    payload: course
-});
-
-export const fetchCreatedCourse = () => (dispatch) => {
-    dispatch(courseLoading());
+export const fetchSellItem = () => (dispatch) => {
+    dispatch(itemLoading());
     const bearer = 'Bearer ' + localStorage.getItem('token');
-    return fetch(baseUrl + 'courses?type=created',{
-        method: "GET",
+
+    return fetch(baseUrl+'sell' ,{
         headers: {
-          "Content-Type": "application/json",
-          'Authorization': bearer
+            'Authorization': bearer
         },
-        credentials: "same-origin"
     })
     .then(response => {
         if (response.ok) {
@@ -46,15 +39,27 @@ export const fetchCreatedCourse = () => (dispatch) => {
         throw errmess;
     })
     .then(response => response.json())
-    .then(course => dispatch(addCourse(course)))
-    .catch(error => dispatch(courseFailed(error.message)));
+    .then(item => dispatch(addItem(item)))
+    .catch(error => dispatch(itemFetchFailed(error.message)));
 }
 
-export const postCreatedCourse = (courseData) => (dispatch) => {
+export const itemPosting = () => ({
+    type: ActionTypes.ITEM_POSTING
+});
+
+export const itemPostFailed = (errmess) => ({
+    type: ActionTypes.ITEM_POST_FAILED,
+    payload: errmess
+});
+
+export const postItem = (item) => (dispatch) => {
+    dispatch(itemPosting());
+
     const bearer = 'Bearer ' + localStorage.getItem('token');
-    return fetch(baseUrl + 'courses', {
+
+    return fetch(baseUrl+'sell', {
         method: "POST",
-        body: JSON.stringify(courseData),
+        body: JSON.stringify(item),
         headers: {
           "Content-Type": "application/json",
           'Authorization': bearer
@@ -74,6 +79,10 @@ export const postCreatedCourse = (courseData) => (dispatch) => {
             throw error;
       })
     .then(response => response.json())
-    .then(course => { console.log('Course Created', course); dispatch(appendCourse(course)); })
-    .catch(error => dispatch(courseFailed(error.message)));
+    .then(item => dispatch(addItem(item)))
+    .catch(error => dispatch(itemPostFailed(error.message)));
+
 }
+
+
+

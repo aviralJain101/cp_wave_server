@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import Home from './HomeComponent';
 import Buy from './BuyComponent';
 import BuyItemDetail from './BuyItemComponent';
-import Sell from './SellComponent';
-import SellItemDetail from './SellItemComponent';
+import Sell from './Sell/SellComponent/SellComponent';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import Dashboard from './Dashboard/DashboardComponent';
+import SellRouter from './Sell/SellRouter';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { signupUser, loginUser, logoutUser } from '../redux/ActionCreators';
@@ -74,17 +74,15 @@ class Main extends Component {
       );
     }
 
-    const SellPage = () => {
-      return (
-        <Buy  
-        />
-      );
-    }
-
-    const SellItemWithId = () => {
-      return (
-        <BuyItemDetail
-        />
+    const SellPage = ({match}) => {
+      return(
+        this.props.auth.isAuthenticated
+        ?
+        <SellRouter match={match}/>
+        :
+        <div>
+          {this.props.history.push("/home")}
+        </div>
       );
     }
 
@@ -103,7 +101,6 @@ class Main extends Component {
               <Route exact path="/buy" component={BuyPage} />
               <Route path="/buy/:itemId" component={BuyItemWithId} />
               <Route path="/sell" component={ SellPage } />
-              <Route path="/sell/:itemId" component={SellItemWithId} />
               <Route path="/:User" component={DashboardPage} />
               <Redirect to="/home" />
             </Switch>
