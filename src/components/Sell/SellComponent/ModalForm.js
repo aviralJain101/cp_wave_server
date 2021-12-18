@@ -43,9 +43,9 @@ class SellModal extends Component {
         item.append("category", tags);
         item.append("itemImage", this.state.selectedFile);
 
-        axios.post(`${baseUrl}imageUpload`, item);
+        // axios.post(`${baseUrl}imageUpload`, item);
 
-        // this.props.postItem(item);
+        this.props.postItem(item);
         // this.props.postItem({itemname: this.itemname.value, price: this.price.value, category: tags});
         event.preventDefault();
     }

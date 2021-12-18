@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardImg, CardImgOverlay, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Card, CardImg, CardImgOverlay,CardBody, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { baseUrl } from '../../../shared/baseUrl';
 import { Loading } from '../../LoadingComponent';
@@ -7,8 +7,13 @@ function RenderSellItem({ item, onClick }) {
     return(
         <Card>
             <Link to={`/sell/${item._id}`} >
-                <CardImg width="100%" src={'./assets/images/buffet.png'} alt={item.itemname} />
                 <p>{item.itemname}</p>
+                <Card>
+                    <CardImg width="100%" src={`${baseUrl}${item.image}`} alt={item.itemname} />
+                    <CardBody>
+                        <CardTitle>{item.itemname}</CardTitle>
+                    </CardBody>
+                </Card>
             </Link>
         </Card>
     );

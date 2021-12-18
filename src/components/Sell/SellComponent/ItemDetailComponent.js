@@ -14,7 +14,7 @@ function RenderItem({item}) {
                         exitTransform: 'scale(0.5) translateY(-50%)'
                     }}>
                     <Card>
-                        <CardImg top src={baseUrl+'images/buffet.png'} alt={item.itemname} />
+                        <CardImg width="100%" src={`${baseUrl}${item.image}`} alt={item.itemname} />
                         <CardBody>
                             <CardTitle>{item.itemname}</CardTitle>
                         </CardBody>

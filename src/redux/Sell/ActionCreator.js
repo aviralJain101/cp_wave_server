@@ -59,17 +59,13 @@ export const addItem = (item) => ({
 export const postItem = (item) => (dispatch) => {
     dispatch(itemPosting());
 
-    for (var key of item.entries()) {
-        console.log(key[0] + ', ' + key[1]);
-    }
-
     const bearer = 'Bearer ' + localStorage.getItem('token');
 
-    return fetch(baseUrl+'sell', {
+    return fetch(baseUrl+'imageUpload', {
         method: 'POST',
         body: item,
         headers: {
-            'Content-Type': 'multipart/form-data',
+            // 'Content-Type': 'multipart/form-data',
             'Authorization': bearer
         },
         credentials: 'same-origin'
