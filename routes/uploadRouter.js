@@ -26,13 +26,13 @@ uploadRouter.use(bodyParser.json());
 
 uploadRouter.route('/')
 .options(cors.corsWithOptions, (req, res) => {res.sendStatus(200); })
-.get(cors.cors, (req,res,next) => {
-    Commodity.find(req.query)
-    .populate('seller')
+.get(cors.cors, authenticate.verifyUser, (req,res,next) => {
+    User.findById(req.user._id)
+    .populate('onSale')
     .then((items) => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
-        res.json(items);
+        res.json(items.onSale);
     }, (err) => next(err))
     .catch((err) => next(err));
 })
