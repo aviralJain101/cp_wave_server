@@ -33,9 +33,10 @@ class ProfileLeft extends Component {
                         
                         {/* <CardTitle>Primary Card Title</CardTitle> */}
                         <Card style={{border:'none'}} className="mb-4">
+                            {console.log(this.props.auth.user)}
                             <h2 className="text-center mb-4"> {this.props.auth.user.username}</h2>
                             <CardText><i class="fa fa-user" aria-hidden="true"></i>Full Name</CardText>
-                            <CardText><i class="fa fa-envelope" aria-hidden="true"></i>Email</CardText>
+                            <CardText><i class="fa fa-envelope" aria-hidden="true"></i>{this.props.auth.user.username}</CardText>
                             <CardText><i class="fa fa-map-marker" aria-hidden="true"></i> Location</CardText>
                             <CardText><i class="fa fa-university" aria-hidden="true"></i> Education</CardText>
                             <CardText><i class="fa fa-calendar"></i> Joined On</CardText>

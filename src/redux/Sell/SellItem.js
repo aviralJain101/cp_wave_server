@@ -7,24 +7,24 @@ export const SellItem = (state = {
         items: []
     }, action) => {
     switch(action.type) {
-        case ActionTypes.ITEM_LOADING:
+        case ActionTypes.SELL_ITEM_LOADING:
             return {...state, isLoading: true,isPosting: false , errMess: null, items: []};
         
-        case ActionTypes.ITEM_FETCH_FAILED:
+        case ActionTypes.SELL_ITEM_FETCH_FAILED:
             return {...state, isLoading: false, isPosting: false, errMess: action.payload, items: []};
 
         
-        case ActionTypes.ADD_ITEMS:
+        case ActionTypes.ADD_SELL_ITEMS:
             return {...state, isLoading: false, isPosting: false, errMess: null, items: action.payload};
 
-        case ActionTypes.ITEM_POSTING:
+        case ActionTypes.SELL_ITEM_POSTING:
             return {...state, isLoading: false,isPosting: true , errMess: null};
 
         
-        case ActionTypes.ITEM_POST_FAILED:
+        case ActionTypes.SELL_ITEM_POST_FAILED:
             return {...state, isLoading: false, isPosting: false, errMess: action.payload};
 
-        case ActionTypes.ADD_ITEM:
+        case ActionTypes.ADD_SELL_ITEM:
             var item = action.payload;
             return {...state, isLoading: false, isPosting: false, errMess: null,items: state.items.concat(item)};
             

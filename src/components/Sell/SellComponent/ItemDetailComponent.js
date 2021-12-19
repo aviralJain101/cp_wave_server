@@ -18,7 +18,6 @@ function RenderItem({item}) {
                         <CardBody className="text-center text-dark text-capitalize">
                             <CardTitle style={{"fontWeight":"bold", "fontSize":"22px"}}>{item.itemname}</CardTitle>
                             <CardSubtitle>Price : ${item.price/100}</CardSubtitle>
-                            <CardText>Seller : {item.seller.name}</CardText>
                         </CardBody>
                     </Card>
                 </FadeTransform>

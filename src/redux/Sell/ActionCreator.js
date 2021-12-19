@@ -2,16 +2,16 @@ import * as ActionTypes from './ActionTypes';
 import { baseUrl } from '../../shared/baseUrl';
 
 export const itemLoading = () => ({
-    type: ActionTypes.ITEM_LOADING
+    type: ActionTypes.SELL_ITEM_LOADING
 });
 
 export const itemFetchFailed = (errmess) => ({
-    type: ActionTypes.ITEM_FETCH_FAILED,
+    type: ActionTypes.SELL_ITEM_FETCH_FAILED,
     payload: errmess
 });
 
 export const addItems = (items) => ({
-    type: ActionTypes.ADD_ITEMS,
+    type: ActionTypes.ADD_SELL_ITEMS,
     payload: items
 });
 
@@ -44,16 +44,16 @@ export const fetchSellItem = () => (dispatch) => {
 }
 
 export const itemPosting = () => ({
-    type: ActionTypes.ITEM_POSTING
+    type: ActionTypes.SELL_ITEM_POSTING
 });
 
 export const itemPostFailed = (errmess) => ({
-    type: ActionTypes.ITEM_POST_FAILED,
+    type: ActionTypes.SELL_ITEM_POST_FAILED,
     payload: errmess
 });
 
 export const addItem = (item) => ({
-    type: ActionTypes.ADD_ITEM,
+    type: ActionTypes.ADD_SELL_ITEM,
     payload: item
 });
 export const postItem = (item) => (dispatch) => {

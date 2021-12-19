@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import Home from './HomeComponent';
-import Buy from './BuyComponent';
-import BuyItemDetail from './BuyItemComponent';
-import Sell from './Sell/SellComponent/MainComponent';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import Dashboard from './Dashboard/DashboardComponent';
@@ -12,13 +9,8 @@ import PurchasedRouter from './Purchased/PurchasedRouter';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { signupUser, loginUser, logoutUser } from '../redux/ActionCreators';
-import { actions } from 'react-redux-form';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import jwt_decode from 'jwt-decode';
-import { io } from "socket.io-client";
-import { baseUrl } from '../shared/baseUrl';
-import isEqual from 'lodash.isequal';
-
 const mapStateToProps = state => {
     return {
       auth: state.auth

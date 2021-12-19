@@ -3,16 +3,15 @@ import { Card, CardImg, CardImgOverlay,CardBody, CardSubtitle, CardText, CardTit
 import { Link } from 'react-router-dom';
 import { baseUrl } from '../../../shared/baseUrl';
 import { Loading } from '../../LoadingComponent';
-function RenderSellItem({ item, onClick }) {
+function RenderSellItem({ item }) {
     return(
         <Card>
-            <Link to={`/market/${item._id}`} className="text-decoration-none">
+            <Link to={`/sell/${item._id}`} className="text-decoration-none">
                     <Card>
                         <CardImg width="100%" src={`${baseUrl}${item.image}`} alt={item.itemname} height="150px" />
                         <CardBody className="text-center text-dark text-capitalize">
                             <CardTitle style={{"fontWeight":"bold", "fontSize":"22px"}}>{item.itemname}</CardTitle>
                             <CardSubtitle>Price : ${item.price/100}</CardSubtitle>
-                            <CardText>Seller : {item.seller.name}</CardText>
                         </CardBody>
                     </Card>
                 

@@ -47,8 +47,8 @@ class Header extends Component {
                         <div className="row">
                             <div className="col-2 mt-2">
                                 <NavbarBrand className="mr-auto" href="/">
-                                    <img src={`${baseUrl}images/logo.png`} height="40" width="60"
-                                        alt="Ristorante Con Fusion" />
+                                    <img src={`${baseUrl}images/logo.jpeg`} height="40" width="60"
+                                        alt="Onepiece" />
                                 </NavbarBrand>
                             </div>
                             <div className="col-8 mt-2">
