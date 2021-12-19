@@ -19,7 +19,7 @@ export const fetchSellItem = () => (dispatch) => {
     dispatch(itemLoading());
     const bearer = 'Bearer ' + localStorage.getItem('token');
 
-    return fetch(baseUrl+'imageUpload' ,{
+    return fetch(baseUrl+'sell' ,{
         headers: {
             'Authorization': bearer
         },
@@ -61,7 +61,7 @@ export const postItem = (item) => (dispatch) => {
 
     const bearer = 'Bearer ' + localStorage.getItem('token');
 
-    return fetch(baseUrl+'imageUpload', {
+    return fetch(baseUrl+'sell', {
         method: 'POST',
         body: item,
         headers: {
