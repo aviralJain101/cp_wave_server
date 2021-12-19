@@ -19,7 +19,7 @@ export const fetchSellItem = () => (dispatch) => {
     dispatch(itemLoading());
     const bearer = 'Bearer ' + localStorage.getItem('token');
 
-    return fetch(baseUrl+'sell' ,{
+    return fetch(baseUrl+'imageUpload' ,{
         headers: {
             'Authorization': bearer
         },
