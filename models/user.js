@@ -30,7 +30,6 @@ var commoditySchema = new Schema({
 }, {
   timestamps: true,
   usePushEach: true
-
 });
 
 var User = new Schema({
