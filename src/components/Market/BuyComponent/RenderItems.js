@@ -12,9 +12,9 @@ function RenderMarketItem({ item, buyItem }) {
                     <CardTitle style={{"fontWeight":"bold", "fontSize":"22px"}}>{item.itemname}</CardTitle>
                     <CardSubtitle>Price : ${item.price/100}</CardSubtitle>
                     <CardText>Seller : {item.seller.name}</CardText>
-                    <Button className="w-100" onClick={() => buyItem({id:item._id})}>Buy</Button>
                 </CardBody>
             </Link>
+            <Button className="w-100" onClick={() => buyItem({id:item._id})}>Buy</Button>
         </Card>
     );
 }

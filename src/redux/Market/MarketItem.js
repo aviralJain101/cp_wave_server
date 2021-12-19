@@ -27,7 +27,7 @@ export const MarketItem = (state = {
 
         case ActionTypes.REMOVE_ITEM:
             var toRemove = action.payload;
-            var item = state.items.filter((item) => !(isEqual(item._id,toRemove._id)));
+            var item = state.items.filter((item) => (item._id.toString() != toRemove._id.toString()));
             return {...state, isLoading: false, isPurchasing: false, errMess: null,items: item};
             
         default:
