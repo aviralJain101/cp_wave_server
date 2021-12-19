@@ -15,7 +15,7 @@ const uploadRouter = require('./routes/uploadRouter');
 var suggestionsRouter = require('./routes/suggestionsRouter');
 var searchRouter = require('./routes/searchRouter');
 var sellRouter = require('./routes/sellRouter');
-
+var marketRouter = require('./routes/marketRouter');
 const mongoose = require('mongoose');
 
 const url = config.mongoUrl;
@@ -57,6 +57,7 @@ app.use('/imageUpload',uploadRouter);
 app.use('/suggestions', suggestionsRouter);
 app.use('/search',searchRouter);
 app.use('/sell',sellRouter);
+app.use('/market',marketRouter);
 
 
 // catch 404 and forward to error handler
