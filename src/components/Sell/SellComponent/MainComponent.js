@@ -40,9 +40,13 @@ class Sell extends Component {
                             </Button>
                         </div>
                         <div>
-                            <RenderItems
-                                sellItem={this.props.sellItem}
-                            />
+                            {
+                                (this.props.sellItem.items == null || this.props.sellItem.items.length == 0)?
+                                <h4>Selling List is Empty</h4>:
+                                <RenderItems
+                                    sellItem={this.props.sellItem}
+                                />
+                            }
                         </div>
                     </div>
                 </div>

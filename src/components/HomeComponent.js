@@ -55,26 +55,18 @@ class Home extends React.Component {
     
     render() {
         return(
-            <div className="container">
-                <div className="row align-items-start">
-                    <div>Home</div>
-                    {/* <div className="col-12 col-md m-1">
-                        <RenderCard item={this.props.dish} 
-                            isLoading={this.props.dishesLoading}
-                            errMess={this.props.dishesErrMess} />
-                    </div>
-                    <div className="col-12 col-md m-1">
-                        <RenderCard item={this.props.promotion} 
-                            isLoading={this.props.promosLoading}
-                            errMess={this.props.promosErrMess} />
-                    </div>
-                    <div className="col-12 col-md m-1">
-                        <RenderCard item={this.props.leader} 
-                            isLoading={this.props.leaderLoading} 
-                            errMess={this.props.leaderErrMess} />
-                    </div> */}
-                </div>
-            </div>
+            // <div className="container">
+            //     <div className="row align-items-start">
+            <FadeTransform in 
+                transformProps={{
+                    exitTransform: 'scale(0.5) translateY(-50%)'
+                }}>
+                {/* <Img> */}
+                    <img width="100%" src={`${baseUrl}images/welcome.png`} alt={"welcome"} height="700px" />
+                {/* </Card> */}
+            </FadeTransform>
+            //     </div>
+            // </div>
         );
     }
     

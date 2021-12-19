@@ -9,7 +9,7 @@ import { FadeTransform } from 'react-animation-components';
 
 
 
-function RenderItem({item, buyItem }) {
+function RenderItem({item}) {
         return(
             <div className="col-12 col-md-5 m-1">
                 <FadeTransform in 
@@ -22,7 +22,6 @@ function RenderItem({item, buyItem }) {
                             <CardTitle style={{"fontWeight":"bold", "fontSize":"22px"}}>{item.itemname}</CardTitle>
                             <CardSubtitle>Price : ${item.price/100}</CardSubtitle>
                             <CardText>Seller : {item.seller.name}</CardText>
-                            <Button className="w-100" onClick={() => buyItem({id:item._id})}>Buy</Button>
                         </CardBody>
                     </Card>
                 </FadeTransform>
@@ -56,7 +55,7 @@ const ItemDetail = (props) => {
                 <div className="row">
                     <Breadcrumb>
                         <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
-                        <BreadcrumbItem><Link to='/market'>Market</Link></BreadcrumbItem>
+                        <BreadcrumbItem><Link to='/purchased'>Purchased</Link></BreadcrumbItem>
                         <BreadcrumbItem active>{props.item.itemname}</BreadcrumbItem>
                     </Breadcrumb>
                     <div className="col-12">

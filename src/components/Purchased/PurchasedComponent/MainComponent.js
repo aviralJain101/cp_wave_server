@@ -1,22 +1,12 @@
 import React, { Component } from 'react';
-import { Card, CardImg, CardImgOverlay, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { Accordion, Button } from 'react-bootstrap';
 import RenderItems from './RenderItems';
 
 
-class Buy extends Component {
+class Purchased extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            isCreateModalOpen: false
-        }
-    }
-    toggleModalCreate = (event) => {
-        // event.preventDefault();
-        this.setState({
-            isCreateModalOpen: !this.state.isCreateModalOpen
-        });
     }
 
     render() {
@@ -27,7 +17,7 @@ class Buy extends Component {
                     <div className="row">
                         <Breadcrumb>
                             <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
-                            <BreadcrumbItem active>Market</BreadcrumbItem>
+                            <BreadcrumbItem active>Purchased</BreadcrumbItem>
                         </Breadcrumb>
                         <div className="col-4">
                             <h3>Items</h3>
@@ -35,14 +25,12 @@ class Buy extends Component {
                         </div>
                         <div>
                             {
-                                (this.props.marketItem.items == null || this.props.marketItem.items.length == 0)?
-                                <h4>Market is Empty!! wait Until the products come.</h4>:
+                                (this.props.purchasedItem.items == null || this.props.purchasedItem.items.length == 0)?
+                                <h4>Purchased List is Empty</h4>:
                                 <RenderItems
-                                marketItem={this.props.marketItem}
-                                buyItem={this.props.buyItem}
+                                    purchasedItem={this.props.purchasedItem}
                                 />
                             }
-                            
                         </div>
                     </div>
                 </div>
@@ -52,4 +40,4 @@ class Buy extends Component {
     }
 }
 
-export default Buy;
+export default Purchased;

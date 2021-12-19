@@ -8,6 +8,7 @@ import Footer from './FooterComponent';
 import Dashboard from './Dashboard/DashboardComponent';
 import SellRouter from './Sell/SellRouter';
 import MarketRouter from './Market/MarketRouter';
+import PurchasedRouter from './Purchased/PurchasedRouter';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { signupUser, loginUser, logoutUser } from '../redux/ActionCreators';
@@ -86,6 +87,18 @@ class Main extends Component {
       );
     }
 
+    const PurchasedPage = ({match}) => {
+      return(
+        this.props.auth.isAuthenticated
+        ?
+        <PurchasedRouter match={match}/>
+        :
+        <div>
+          {this.props.history.push("/home")}
+        </div>
+      );
+    }
+
 
     return (
       <div>
@@ -100,6 +113,7 @@ class Main extends Component {
               <Route path="/home" component={HomePage} />
               <Route path="/market" component={MarketPage} />
               <Route path="/sell" component={ SellPage } />
+              <Route path="/purchased" component={PurchasedPage} />
               <Route path="/:User" component={DashboardPage} />
               <Redirect to="/home" />
             </Switch>

@@ -8,14 +8,14 @@ export const MarketItem = (state = {
         items: []
     }, action) => {
     switch(action.type) {
-        case ActionTypes.ITEM_LOADING:
+        case ActionTypes.MARKET_ITEM_LOADING:
             return {...state, isLoading: true,isPurchasing: false , errMess: null, items: []};
         
-        case ActionTypes.ITEM_FETCH_FAILED:
+        case ActionTypes.MARKET_ITEM_FETCH_FAILED:
             return {...state, isLoading: false, isPurchasing: false, errMess: action.payload, items: []};
 
         
-        case ActionTypes.ADD_ITEMS:
+        case ActionTypes.ADD_MARKET_ITEMS:
             return {...state, isLoading: false, isPurchasing: false, errMess: null, items: action.payload};
 
         case ActionTypes.ITEM_PURCHASING:
@@ -25,7 +25,7 @@ export const MarketItem = (state = {
         case ActionTypes.ITEM_PURCHASE_FAILED:
             return {...state, isLoading: false, isPurchasing: false, errMess: action.payload};
 
-        case ActionTypes.REMOVE_ITEM:
+        case ActionTypes.REMOVE_PURCHASED_ITEM:
             var toRemove = action.payload;
             var item = state.items.filter((item) => (item._id.toString() != toRemove._id.toString()));
             return {...state, isLoading: false, isPurchasing: false, errMess: null,items: item};

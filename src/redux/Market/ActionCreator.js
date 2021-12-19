@@ -2,16 +2,16 @@ import * as ActionTypes from './ActionTypes';
 import { baseUrl } from '../../shared/baseUrl';
 
 export const itemLoading = () => ({
-    type: ActionTypes.ITEM_LOADING
+    type: ActionTypes.MARKET_ITEM_LOADING
 });
 
 export const itemFetchFailed = (errmess) => ({
-    type: ActionTypes.ITEM_FETCH_FAILED,
+    type: ActionTypes.MARKET_ITEM_FETCH_FAILED,
     payload: errmess
 });
 
 export const addItems = (items) => ({
-    type: ActionTypes.ADD_ITEMS,
+    type: ActionTypes.ADD_MARKET_ITEMS,
     payload: items
 });
 
@@ -53,7 +53,7 @@ export const itemPurchaseFailed = (errmess) => ({
 });
 
 export const removeItem = (item) => ({
-    type: ActionTypes.REMOVE_ITEM,
+    type: ActionTypes.REMOVE_PURCHASED_ITEM,
     payload: item
 });
 export const buyItem = (item) => (dispatch) => {

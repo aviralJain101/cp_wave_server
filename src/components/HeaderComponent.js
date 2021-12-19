@@ -73,9 +73,7 @@ class Header extends Component {
                                             {/* pass the props */}
                                             <NavDropdown.Item href={`${this.props.auth.user.username}`}>Profile</NavDropdown.Item>
                                             <NavDropdown.Divider />
-                                            <NavDropdown.Item href="/home" onClick={this.handleLogout}>Logout</NavDropdown.Item>
-                                            <NavDropdown.Divider />
-                                            <NavDropdown.Item href="/chat">Chat</NavDropdown.Item>                                                                              
+                                            <NavDropdown.Item href="/home" onClick={this.handleLogout}>Logout</NavDropdown.Item>                                                                            
                                         </NavDropdown>
                                         :
                                         null
@@ -94,12 +92,17 @@ class Header extends Component {
                                         </NavItem>
                                         <NavItem>
                                             <NavLink className="nav-link" to="/market">
-                                                <span className="fa fa-user-plus fa-lg"></span> Market
+                                                <span className="fa fa-shopping-cart fa-lg"></span> Market
                                             </NavLink>
                                         </NavItem>
                                         <NavItem>
                                             <NavLink className="nav-link" to="/sell">
-                                                <span className="fa fa-heart fa-lg"></span> Sell
+                                                <span className="fa fa-plus fa-lg"></span> Sell
+                                            </NavLink>
+                                        </NavItem>
+                                        <NavItem>
+                                            <NavLink className="nav-link" to="/purchased">
+                                                <span className="fa fa-shopping-basket fa-lg"></span> Purchased
                                             </NavLink>
                                         </NavItem>
                                     </Nav>
