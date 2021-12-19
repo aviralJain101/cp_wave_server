@@ -4,6 +4,7 @@ import { createForms } from 'react-redux-form';
 import { Auth } from './auth';
 import { Suggestions } from './suggestions';
 import { SellItem } from './Sell/SellItem';
+import { MarketItem } from './Market/MarketItem';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { InitialFeedback } from './forms';
@@ -16,6 +17,7 @@ export const ConfigureStore = () => {
             suggestions: Suggestions,
             searches: Searches,
             sellItem: SellItem,
+            marketItem: MarketItem,
             ...createForms({
                 feedback: InitialFeedback
             })

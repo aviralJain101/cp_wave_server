@@ -3,10 +3,10 @@ import { Card, CardImg, CardImgOverlay,CardBody, CardTitle, Breadcrumb, Breadcru
 import { Link } from 'react-router-dom';
 import { baseUrl } from '../../../shared/baseUrl';
 import { Loading } from '../../LoadingComponent';
-function RenderSellItem({ item, onClick }) {
+function RenderMarketItem({ item, onClick }) {
     return(
         <Card>
-            <Link to={`/sell/${item._id}`} >
+            <Link to={`/market/${item._id}`} >
                 <p>{item.itemname}</p>
                 <Card>
                     <CardImg width="100%" src={`${baseUrl}${item.image}`} alt={item.itemname} />
@@ -21,15 +21,15 @@ function RenderSellItem({ item, onClick }) {
 
 const RenderItems = (props) => {
 
-    const items = props.sellItem.items.map((item) => {
+    const items = props.marketItem.items.map((item) => {
         return (
             <div key={item._id} className="col-12 col-md-6 col-lg-4">
-                <RenderSellItem item={item} />
+                <RenderMarketItem item={item} />
             </div>
         );
     });
 
-    if (props.sellItem.isLoading) {
+    if (props.marketItem.isLoading) {
         return(
             <div className="container">
                 <div className="row">
@@ -38,11 +38,11 @@ const RenderItems = (props) => {
             </div>
         );
     }
-    else if (props.sellItem.errMess) {
+    else if (props.marketItem.errMess) {
         return(
             <div className="container">
                 <div className="row">
-                    <h4>{props.sellItem.errMess}</h4>
+                    <h4>{props.marketItem.errMess}</h4>
                 </div>
             </div>
         );

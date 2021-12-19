@@ -7,6 +7,7 @@ import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import Dashboard from './Dashboard/DashboardComponent';
 import SellRouter from './Sell/SellRouter';
+import MarketRouter from './Market/MarketRouter';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { signupUser, loginUser, logoutUser } from '../redux/ActionCreators';
@@ -61,25 +62,23 @@ class Main extends Component {
       );
     }
 
-    const BuyPage = () => {
-      return (
-        <Buy  
-        />
-      );
-    }
-
-    const BuyItemWithId = () => {
-      return (
-        <BuyItemDetail
-        />
-      );
-    }
-
     const SellPage = ({match}) => {
       return(
         this.props.auth.isAuthenticated
         ?
         <SellRouter match={match}/>
+        :
+        <div>
+          {this.props.history.push("/home")}
+        </div>
+      );
+    }
+
+    const MarketPage = ({match}) => {
+      return(
+        this.props.auth.isAuthenticated
+        ?
+        <MarketRouter match={match}/>
         :
         <div>
           {this.props.history.push("/home")}
@@ -99,8 +98,7 @@ class Main extends Component {
           <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>
             <Switch>
               <Route path="/home" component={HomePage} />
-              <Route exact path="/buy" component={BuyPage} />
-              <Route path="/buy/:itemId" component={BuyItemWithId} />
+              <Route exact path="/market" component={MarketPage} />
               <Route path="/sell" component={ SellPage } />
               <Route path="/:User" component={DashboardPage} />
               <Redirect to="/home" />

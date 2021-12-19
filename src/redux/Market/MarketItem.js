@@ -1,0 +1,36 @@
+import * as ActionTypes from './ActionTypes';
+import isEqual from 'lodash.isequal';
+
+export const MarketItem = (state = {
+        isLoading: false,
+        isPurchasing: false,
+        errMess: null,
+        items: []
+    }, action) => {
+    switch(action.type) {
+        case ActionTypes.ITEM_LOADING:
+            return {...state, isLoading: true,isPurchasing: false , errMess: null, items: []};
+        
+        case ActionTypes.ITEM_FETCH_FAILED:
+            return {...state, isLoading: false, isPurchasing: false, errMess: action.payload, items: []};
+
+        
+        case ActionTypes.ADD_ITEMS:
+            return {...state, isLoading: false, isPurchasing: false, errMess: null, items: action.payload};
+
+        case ActionTypes.ITEM_PURCHASING:
+            return {...state, isLoading: false,isPurchasing: true , errMess: null};
+
+        
+        case ActionTypes.ITEM_PURCHASE_FAILED:
+            return {...state, isLoading: false, isPurchasing: false, errMess: action.payload};
+
+        case ActionTypes.REMOVE_ITEM:
+            var toRemove = action.payload;
+            var item = state.items.filter((item) => !(isEqual(item._id,toRemove._id)));
+            return {...state, isLoading: false, isPurchasing: false, errMess: null,items: item};
+            
+        default:
+            return state;
+    }
+}
