@@ -98,7 +98,7 @@ class Main extends Component {
           <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>
             <Switch>
               <Route path="/home" component={HomePage} />
-              <Route exact path="/market" component={MarketPage} />
+              <Route path="/market" component={MarketPage} />
               <Route path="/sell" component={ SellPage } />
               <Route path="/:User" component={DashboardPage} />
               <Redirect to="/home" />

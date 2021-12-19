@@ -33,14 +33,10 @@ class Buy extends Component {
                             <h3>Items</h3>
                             <hr />
                         </div>
-                        <div className="col-8">
-                            <Button onClick={this.toggleModalCreate} className="pull-right shadow-none">
-                                <span className="fa fa-plus fa-lg"></span>  Buy
-                            </Button>
-                        </div>
                         <div>
                             <RenderItems
                                 marketItem={this.props.marketItem}
+                                buyItem={this.props.buyItem}
                             />
                         </div>
                     </div>

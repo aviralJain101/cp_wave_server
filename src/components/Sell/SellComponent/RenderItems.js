@@ -1,19 +1,21 @@
 import React from 'react';
-import { Card, CardImg, CardImgOverlay,CardBody, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Card, CardImg, CardImgOverlay,CardBody, CardSubtitle, CardText, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { baseUrl } from '../../../shared/baseUrl';
 import { Loading } from '../../LoadingComponent';
 function RenderSellItem({ item, onClick }) {
     return(
         <Card>
-            <Link to={`/sell/${item._id}`} >
-                <p>{item.itemname}</p>
-                <Card>
-                    <CardImg width="100%" src={`${baseUrl}${item.image}`} alt={item.itemname} />
-                    <CardBody>
-                        <CardTitle>{item.itemname}</CardTitle>
-                    </CardBody>
-                </Card>
+            <Link to={`/market/${item._id}`} className="text-decoration-none">
+                    <Card>
+                        <CardImg width="100%" src={`${baseUrl}${item.image}`} alt={item.itemname} height="150px" />
+                        <CardBody className="text-center text-dark text-capitalize">
+                            <CardTitle style={{"fontWeight":"bold", "fontSize":"22px"}}>{item.itemname}</CardTitle>
+                            <CardSubtitle>Price : ${item.price/100}</CardSubtitle>
+                            <CardText>Seller : {item.seller.name}</CardText>
+                        </CardBody>
+                    </Card>
+                
             </Link>
         </Card>
     );

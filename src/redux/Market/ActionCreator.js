@@ -65,7 +65,7 @@ export const buyItem = (item) => (dispatch) => {
         method: 'POST',
         body: JSON.stringify(item),
         headers: {
-            // 'Content-Type': 'multipart/form-data',
+            'Content-Type': 'application/json',
             'Authorization': bearer
         },
         credentials: 'same-origin'

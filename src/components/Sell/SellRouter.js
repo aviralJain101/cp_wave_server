@@ -44,6 +44,7 @@ class SellRouter extends Component {
               );
         }
         const ItemWithIdPage = ({match}) => {
+            {console.log(match.params.itemId)}
             return(
                 <ItemDetail
                     item={this.props.sellItem.items.filter((item) => isEqual(item._id, match.params.itemId))[0]}
@@ -56,7 +57,7 @@ class SellRouter extends Component {
 
         return (
             <div>
-                {/* {console.log(this.props.match)} */}
+                {console.log(this.props.match)}
                 <Switch>
                     <Route exact path={this.props.match.url} component={SellPage} />
                     <Route path={this.props.match.url+'/:itemId'} component={ItemWithIdPage} />

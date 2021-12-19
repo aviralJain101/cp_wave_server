@@ -6,7 +6,7 @@ import { baseUrl } from '../../../shared/baseUrl';
 import axios from 'axios';
 
 const options = [
-    { value: 'Garments', label: 'Garents' },
+    { value: 'Garments', label: 'Garments' },
     { value: 'Western', label: 'Western' },
     { value: 'Watch', label: 'Watch' },
     { value: 'Phone', label: 'Phone' },

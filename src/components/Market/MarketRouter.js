@@ -47,6 +47,7 @@ class MarketRouter extends Component {
                     item={this.props.marketItem.items.filter((item) => isEqual(item._id, match.params.itemId))[0]}
                     isLoading={this.props.marketItem.isLoading}
                     errMess={this.props.marketItem.errMess}
+                    buyItem={this.props.buyItem}
                 />
             );
         }
@@ -54,7 +55,7 @@ class MarketRouter extends Component {
 
         return (
             <div>
-                {/* {console.log(this.props.match)} */}
+                {console.log(this.props.match)}
                 <Switch>
                     <Route exact path={this.props.match.url} component={MarketPage} />
                     <Route path={this.props.match.url+'/:itemId'} component={ItemWithIdPage} />
