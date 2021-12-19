@@ -11,7 +11,6 @@ const marketRouter = express.Router();
 marketRouter.use(bodyParser.json());
 
 
-
 marketRouter.route('/')
 .options(cors.corsWithOptions, (req, res) => {res.sendStatus(200); })
 .get(cors.cors, authenticate.verifyUser, (req,res,next) => {
@@ -25,42 +24,62 @@ marketRouter.route('/')
     .catch((err) => next(err));
 })
 .post(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
-    upload(req,res,function(err) {  
-        if(err) { 
-            // err = new Error('error upoading file');
-            // err.status = 500;
-            res.statusCode=500;
-            res.end({errMess:"error while uploading"});
-            // return next(err);
-        }
-        else {
+    Commodity.find({_id:req.body.id})
+    .populate('seller')
+    .then((item) => {
+        User.findOne({_id:req.user._id})
+        .then((buyer) => {
+            var purchasedItem = {
+                seller: item.seller._id,
+                itemname: item.itemname,
+                price: item.price,
+                category: item.category,
+                image: item.image
+            };
 
-            var item = new Commodity({
-                seller: req.user._id,
-                itemname: req.body.itemname,
-                price: req.body.price,
-                category: req.body.category,
-                image: 'images/'+req.file.originalname
+            buyer.purchased.concat([purchasedItem]);
+            buyer.save((err, buyer) => {
+                if (err) {
+                    console.log(buyer);
+                    res.statusCode = 500;
+                    res.setHeader('Content-Type', 'application/json');
+                    res.json({err: err});
+                    return ;
+                }
+                else{
+                    User.findById(item.seller._id)
+                    .then((seller) => {
+                        var index = seller.onSale.indexOf(item._id)
+                        console.log(index);
+                        if(index > -1) {
+                            seller.onSale.splice(index,1);
+                        }
+                        seller.save((err,seller) => {
+                            if (err) {
+                                console.log(seller);
+                                res.statusCode = 500;
+                                res.setHeader('Content-Type', 'application/json');
+                                res.json({err: err});
+                                return ;
+                            }
+                            else {
+                                Commodity.findByIdAndRemove(req.body.id)
+                                .then((resp) => {
+                                    res.statusCode = 200;
+                                    res.setHeader('Content-Type', 'application/json');
+                                    res.json(resp);
+                                }, (err) => next(err))
+                                .catch((err) => next(err));
+                            }
+                        })
+                    }, err => next(err))
+                    .catch(err => next(err));
+                }
             })
-            item.save()
-            .then((item) => {
-                User.findOne({_id:req.user._id})
-                .then((user) => {
-                    if(user.onSale.indexOf(item._id) == -1) {
-                        user.onSale.push(item._id);
-                        user.save();
-                    }
-                }/*,err => next(err)*/)
-                // .catch(next(err));
-                // console.log(res.statusCode);
-                res.statusCode = 200;
-                res.setHeader('Content-Type', 'application/json');
-                res.json(item);
-                res.end();
-            }/*, (err => next(err)))
-            .catch((err) => next(err)*/);
-        }
-    });
+        }, err => next(err))
+        .catch(err => next(err));
+    }, err => next(err))
+    .catch(err => next(err));
 })
 .put(cors.corsWithOptions, authenticate.verifyUser, authenticate.VerifyAdmin, (req, res, next) => {
     res.statusCode = 403;
