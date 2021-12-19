@@ -16,6 +16,7 @@ var suggestionsRouter = require('./routes/suggestionsRouter');
 var searchRouter = require('./routes/searchRouter');
 var sellRouter = require('./routes/sellRouter');
 var marketRouter = require('./routes/marketRouter');
+var purchasedRouter = require('./routes/purchasedRouter');
 const mongoose = require('mongoose');
 
 const url = config.mongoUrl;
@@ -58,6 +59,7 @@ app.use('/suggestions', suggestionsRouter);
 app.use('/search',searchRouter);
 app.use('/sell',sellRouter);
 app.use('/market',marketRouter);
+app.use('/purchased', purchasedRouter);
 
 
 // catch 404 and forward to error handler

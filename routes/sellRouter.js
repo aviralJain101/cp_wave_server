@@ -12,7 +12,7 @@ const storage = multer.diskStorage({
     },
 
     filename: (req, file, cb) => {
-        cb(null, file.originalname)
+        cb(null, file.originalname+'-'+Date.now())
     }
 });
 var upload = multer({ storage : storage}).single('itemImage');  
@@ -46,13 +46,14 @@ sellRouter.route('/')
             // return next(err);
         }
         else {
+            console.log(req.file)
 
             var item = new Commodity({
                 seller: req.user._id,
                 itemname: req.body.itemname,
                 price: req.body.price,
                 category: req.body.category,
-                image: 'images/'+req.file.originalname
+                image: 'images/'+req.file.filename
             })
             item.save()
             .then((item) => {
