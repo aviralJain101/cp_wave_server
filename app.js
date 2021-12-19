@@ -11,9 +11,7 @@ var config = require('./config');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-const uploadRouter = require('./routes/uploadRouter');
 var suggestionsRouter = require('./routes/suggestionsRouter');
-var searchRouter = require('./routes/searchRouter');
 var sellRouter = require('./routes/sellRouter');
 var marketRouter = require('./routes/marketRouter');
 var purchasedRouter = require('./routes/purchasedRouter');
@@ -54,9 +52,7 @@ app.use('/users', usersRouter);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/imageUpload',uploadRouter);
 app.use('/suggestions', suggestionsRouter);
-app.use('/search',searchRouter);
 app.use('/sell',sellRouter);
 app.use('/market',marketRouter);
 app.use('/purchased', purchasedRouter);
