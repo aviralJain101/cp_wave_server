@@ -5,6 +5,10 @@ require('mongoose-currency').loadType(mongoose);
 const Currency = mongoose.Types.Currency;
 
 var commoditySchema = new Schema({
+  seller: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+  },
   itemname: {
       type: String,
       required: true
@@ -24,7 +28,9 @@ var commoditySchema = new Schema({
     required: true
   }
 }, {
-  timestamps: true
+  timestamps: true,
+  usePushEach: true
+
 });
 
 var User = new Schema({
@@ -36,7 +42,10 @@ var User = new Schema({
       type: String,
       unique: true
     },
-    onSale: [commoditySchema],
+    onSale: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Commodity'
+    }],
     purchased: [commoditySchema]
 }, {
   timestamps: true,

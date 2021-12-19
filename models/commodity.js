@@ -5,6 +5,10 @@ require('mongoose-currency').loadType(mongoose);
 const Currency = mongoose.Types.Currency;
 
 var commoditySchema = new Schema({
+    seller: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
     itemname: {
         type: String,
         required: true

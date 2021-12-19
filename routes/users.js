@@ -38,6 +38,8 @@ router.post('/signup', cors.corsWithOptions, (req, res, next) => {
         user.name = req.body.name;
       if (req.body.email)
         user.email = req.body.email;
+      // user.onSale =[];
+      // user.purchased = [];
       user.save((err, user) => {
         if (err) {
           res.statusCode = 500;
