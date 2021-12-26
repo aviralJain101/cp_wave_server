@@ -17,7 +17,7 @@ class GLogin extends Component {
       return (
        
           <GoogleLogin
-              clientId="920503752377-rm7jhvujkb46j8co2shgebaac721ou4f.apps.googleusercontent.com"
+              clientId="233-2323902"
               onSuccess={responseGoogle}
               onFailure={responseGoogle}
               className="btnGoogle"

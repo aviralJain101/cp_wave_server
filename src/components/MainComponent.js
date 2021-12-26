@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import { signupUser, loginUser, logoutUser } from '../redux/ActionCreators';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import jwt_decode from 'jwt-decode';
+
 const mapStateToProps = state => {
     return {
       auth: state.auth
@@ -91,7 +92,6 @@ class Main extends Component {
       );
     }
 
-
     return (
       <div>
         <Header auth={this.props.auth} 
@@ -105,7 +105,7 @@ class Main extends Component {
               <Route path="/home" component={HomePage} />
               <Route path="/market" component={MarketPage} />
               <Route path="/sell" component={ SellPage } />
-              <Route path="/purchased" component={PurchasedPage} />
+              <Route exact path="/purchased" component={PurchasedPage} />
               <Route path="/:User" component={DashboardPage} />
               <Redirect to="/home" />
             </Switch>

@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Card, CardImg, CardImgOverlay, CardSubtitle, CardText, CardBody, CardTitle, 
     Breadcrumb, BreadcrumbItem, Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { baseUrl } from '../../../shared/baseUrl';
-import { Loading } from '../../LoadingComponent';
+import { baseUrl } from '../../../../shared/baseUrl';
+import { Loading } from '../../../LoadingComponent';
 import { FadeTransform } from 'react-animation-components';
 
 function RenderItem({item}) {

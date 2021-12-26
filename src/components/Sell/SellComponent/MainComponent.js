@@ -31,13 +31,13 @@ class Sell extends Component {
                             <BreadcrumbItem active>Sell</BreadcrumbItem>
                         </Breadcrumb>
                         <div className="col-4">
-                            <h3>Items</h3>
+                            <h3>Courses</h3>
                             <hr />
                         </div>
                         <div className="col-8">
-                            <Button onClick={this.toggleModalCreate} className="pull-right shadow-none">
-                                <span className="fa fa-plus fa-lg"></span>  Sell Item
-                            </Button>
+                            <Link to="/sell/createcourse" className="pull-right shadow-none">
+                                <span className="fa fa-plus fa-lg"></span>  Create New Course
+                            </Link>
                         </div>
                         <div>
                             {

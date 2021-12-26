@@ -1,0 +1,126 @@
+import React, { Component } from 'react';
+import { Button, Form, FormGroup, Label, Input, FormFeedback, FormText } from 'reactstrap';
+import Select from 'react-select';
+import { Editor } from "react-draft-wysiwyg";
+import { EditorState } from 'draft-js';
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+
+const options = [
+    { value: 'CP', label: 'CP' },
+    { value: 'WEB DEV', label: 'WEB DEV' },
+    { value: 'ML', label: 'ML' },
+    { value: 'DL', label: 'DL' }
+  ];
+class CreateCourse extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            selectedOption: null,
+            selectedFile: null,
+            editorState: EditorState.createEmpty(),
+        }
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+
+    handleSubmit(event) {
+        this.props.toggleModal();
+        var tags = this.state.selectedOption.map((option) => {
+            var tag = option.value;
+            return tag;
+        });
+
+        const item = new FormData();
+        item.append("itemname", this.itemname.value);
+        item.append("price", this.price.value);
+        item.append("category", tags);
+        item.append("itemImage", this.state.selectedFile);
+
+        // axios.post(`${baseUrl}imageUpload`, item);
+
+        this.props.postItem(item);
+        // this.props.postItem({itemname: this.itemname.value, price: this.price.value, category: tags});
+        event.preventDefault();
+    }
+
+    handleChange = (selectedOption) => {
+        this.setState({ selectedOption });
+        console.log(`Option selected:`, selectedOption);
+    };
+
+    // On file select (from the pop up)
+	onFileChange = event => {
+        // Update the state
+        this.setState({ selectedFile: event.target.files[0] });
+	};
+
+    onEditorStateChange = (editorState) => {
+        this.setState({
+          editorState: editorState
+        });
+    };
+
+
+
+    render() {
+        const { selectedOption } = this.state;
+        return(
+
+            <React.Fragment>
+                <div className="container">
+                    <div className="row">
+                        <Form onSubmit={this.handleSubmit}>
+                            <FormGroup>
+                                <Label htmlFor="itemname">Course Name</Label>
+                                <Input type="text" id="itemname" name="itemname"
+                                    innerRef={(input) => this.itemname = input} 
+                                    required/>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label htmlFor="price">Price</Label>
+                                <Input type="text" id="price" name="price"
+                                    innerRef={(input) => this.price = input} 
+                                    required/>
+                            </FormGroup>
+                            <FormGroup className="mt-3 mb-4">
+                                <Label htmlFor="category">Category</Label>
+                                <Select
+                                    value={selectedOption}
+                                    onChange={this.handleChange}
+                                    options={options}
+                                    isMulti='true'
+                                    isSearchable='true'
+                                    placeholder='Select Category'
+                                />
+                            </FormGroup>
+                            <FormGroup className="mb-4">
+                                <Label for="itemImage">Image</Label>
+                                <Input type="file" id="itemImage" name="itemImage"
+                                    onChange={this.onFileChange} 
+                                />
+                            </FormGroup>
+                            <FormGroup style = {{minHeight: "400px"}}>
+                                <Editor
+                                    editorState={this.state.editorState}
+                                    toolbarClassName="toolbarClassName"
+                                    wrapperClassName="wrapperClassName"
+                                    editorClassName="editorClassName"
+                                    onEditorStateChange={this.onEditorStateChange}
+                                    placeholder="Create Your Content"
+                                />
+                            </FormGroup>
+                            
+                            <FormGroup className="text-center mt-2 mb-3">
+                                <Button type="submit" value="submit" color="primary">Submit</Button>
+                            </FormGroup>
+                        </Form>
+                    </div>
+                </div>
+                
+            </React.Fragment>
+        );
+    }
+}
+
+export default CreateCourse;

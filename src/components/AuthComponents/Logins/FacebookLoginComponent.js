@@ -21,7 +21,7 @@ class FBLogin extends Component {
 
             // <div style={{display: 'flex',flexWrap: 'wrap' }} >                           
                 <FacebookLogin
-                    appId={222966759929270}
+                    appId={28377}
                     autoLoad={false}
                     fields="name,email,picture"
                     callback={responseFacebook}

@@ -6,7 +6,9 @@ import { connect } from 'react-redux';
 import isEqual from 'lodash.isequal';
 import { postItem, fetchSellItem } from '../../redux/Sell/ActionCreator';
 import Sell from './SellComponent/MainComponent';
-import ItemDetail from './SellComponent/ItemDetailComponent';
+import ItemDetail from './SellComponent/itemDetail/ItemDetailComponent';
+import CreateCourse from './SellComponent/CreateCourse/MainComponent';
+
 
 const mapStateToProps = state => {
     return {
@@ -44,7 +46,6 @@ class SellRouter extends Component {
               );
         }
         const ItemWithIdPage = ({match}) => {
-            {console.log(match.params.itemId)}
             return(
                 <ItemDetail
                     item={this.props.sellItem.items.filter((item) => isEqual(item._id, match.params.itemId))[0]}
@@ -54,12 +55,20 @@ class SellRouter extends Component {
             );
         }
 
+        const CreateCoursePage = () => {
+            return(
+              <CreateCourse 
+              />
+            );
+          }
+
 
         return (
             <div>
                 {console.log(this.props.match)}
                 <Switch>
                     <Route exact path={this.props.match.url} component={SellPage} />
+                    <Route exact path={this.props.match.url+'/createcourse'} component={CreateCoursePage} />
                     <Route path={this.props.match.url+'/:itemId'} component={ItemWithIdPage} />
                 </Switch>
           </div>
