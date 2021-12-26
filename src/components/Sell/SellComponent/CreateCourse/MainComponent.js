@@ -25,7 +25,6 @@ class CreateCourse extends Component {
 
 
     handleSubmit(event) {
-        this.props.toggleModal();
         var tags = this.state.selectedOption.map((option) => {
             var tag = option.value;
             return tag;
@@ -38,10 +37,12 @@ class CreateCourse extends Component {
         item.append("itemImage", this.state.selectedFile);
 
         // axios.post(`${baseUrl}imageUpload`, item);
-
+        console.log(item)
         this.props.postItem(item);
-        // this.props.postItem({itemname: this.itemname.value, price: this.price.value, category: tags});
-        event.preventDefault();
+        //  to do
+        // push history to created course
+        // 
+        
     }
 
     handleChange = (selectedOption) => {
@@ -66,7 +67,6 @@ class CreateCourse extends Component {
     render() {
         const { selectedOption } = this.state;
         return(
-
             <React.Fragment>
                 <div className="container">
                     <div className="row">

@@ -50,11 +50,11 @@ class Sell extends Component {
                         </div>
                     </div>
                 </div>
-                <SellModal 
+                {/* <SellModal 
                     isModalOpen={this.state.isCreateModalOpen} 
                     toggleModal={this.toggleModalCreate}
                     postItem={this.props.postItem}
-                />
+                /> */}
                
             </React.Fragment>
         );

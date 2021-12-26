@@ -58,6 +58,7 @@ class SellRouter extends Component {
         const CreateCoursePage = () => {
             return(
               <CreateCourse 
+                postItem={this.props.postItem}
               />
             );
           }
