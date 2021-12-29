@@ -6,7 +6,7 @@ async function startServer() {
   const app = express();
 
   await loaders(app);
-  const port = process.env.PORT || 3000;
+  const port = process.env.PORT;
   app.listen(port, err => {
     if (err) {
       console.log(err);
