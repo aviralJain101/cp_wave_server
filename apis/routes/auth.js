@@ -1,26 +1,27 @@
 const express = require('express')
-const UserAuth = require('../models/userAuth')
+const jwt = require('jsonwebtoken')
+const UserAuth = require('../../models/userAuth')
 
 const router = new express.Router()
 
 //signin user
-router.post('/users/signin',async(req,res)=>{
+router.post('/user/signin',async(req,res)=>{
     try{
         const user = await UserAuth.findByCredentials(req.body.email, req.body.password)
-        const token = await user.generateAuthToken()
+        const token = jwt.sign({_id: user._id.toString()},process.env.JWT_SECRET || "avj");
         res.send({user, token:token})
     }catch(error){
-        res.status(400).send(error)
+        res.status(404).send(error)
     }
 })
 
 //signup user
-router.post('/users/signup',async(req,res)=>{
+router.post('/user/signup',async(req,res)=>{
     const user = new UserAuth(req.body)
 
     try{
+        const token = jwt.sign({_id: user._id.toString()},process.env.JWT_SECRET || "avj");
         await user.save();
-        const token = await user.generateAuthToken()
         res.status(201).send({user,token});
     }catch(error){
         res.status(400).send(error)

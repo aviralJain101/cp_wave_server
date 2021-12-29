@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
 const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
+// const jwt = require('jsonwebtoken')
 
 const userAuthSchema = new mongoose.Schema({//to user middleware in mongoose
     name:{
@@ -38,14 +38,11 @@ const userAuthSchema = new mongoose.Schema({//to user middleware in mongoose
 })
 
 
-userAuthSchema.methods.generateAuthToken = async function(){//accessed by instance of User model
-    const user = this
-    const token = jwt.sign({_id: user._id.toString()},process.env.JWT_SECRET)
-
-    user.tokens = user.tokens.concat({token})
-    await user.save()
-    return token
-}
+// userAuthSchema.methods.generateAuthToken = async function(){//accessed by instance of User model
+//     const user = this
+//     const token = jwt.sign({_id: user._id.toString()},process.env.JWT_SECRET)
+//     return token
+// }
 
 userAuthSchema.methods.toJSON = function(){//by toJSON we can change the return value when js object is converted to json i.e. of JSON.stringify()
     const user = this

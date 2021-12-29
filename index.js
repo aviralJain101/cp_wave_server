@@ -6,13 +6,13 @@ async function startServer() {
   const app = express();
 
   await loaders(app);
-
-  app.listen(process.env.PORT, err => {
+  const port = process.env.PORT || 3000;
+  app.listen(port, err => {
     if (err) {
       console.log(err);
       return;
     }
-    console.log(`Your server is ready !`);
+    console.log(`Your server is ready at ${port}`);
   });
 }
 
