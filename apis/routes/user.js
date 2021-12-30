@@ -4,11 +4,23 @@ const auth = require('../middlewares/auth');
 
 const router = new express.Router()
 
-
-router.get('/user/course/bought', auth, async(req, res) => {
+router.post('/user/details', auth, async(req, res) => {
     try{
-        const _userId = req.user.id;
-        const user = await getUserByUserId()
+        const user = await new User({
+            userId: req.userId,
+            name: req.body.name,
+        });
+        res.status(201).send(user);
+    }catch(error){
+        res.status(400).send(error);
+    }
+})
+
+router.get('/user/details', auth, async(req, res) => {
+    try{
+        const user = await User.findOne({userId: req.userId});
+        if(user) res.status(201).send(user);
+        else res.status('404').send('User Not found');
     }catch(error){
         res.status(400).send(error);
     }

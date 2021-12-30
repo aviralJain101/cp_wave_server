@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 
 const userSchema = new mongoose.Schema({//to user middleware in mongoose
+    _id: false,
     userId: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: 'UserAuth',
@@ -9,15 +10,6 @@ const userSchema = new mongoose.Schema({//to user middleware in mongoose
         type:String,
         required:true,
         trim:true
-    },
-    age:{
-        type:Number,
-        default:0,
-        validate(value){//setting a custom validator
-            if(value<0){
-                throw Error('Age must be positive')
-            }
-        }
     },
     createdCourses: [mongoose.SchemaTypes.ObjectId],
     boughtCourses: [mongoose.SchemaTypes.ObjectId],

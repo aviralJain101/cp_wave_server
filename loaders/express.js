@@ -1,5 +1,6 @@
 const express = require('express');
 const userAuthRoute = require('../apis/routes/auth');
+const userRoute = require('../apis/routes/user');
 
 const expressLoader = async (app) => {
 
@@ -14,7 +15,7 @@ const expressLoader = async (app) => {
     
     //include routes here
     app.use(userAuthRoute);
-  
+    app.user(userRoute);
   
     // ...More middlewares
 
