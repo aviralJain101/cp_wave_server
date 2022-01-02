@@ -6,19 +6,22 @@ const router = new express.Router()
 
 router.post('/user/details', auth, async(req, res) => {
     try{
-        const user = await new User({
-            userId: req.userId,
+        const user = new User({
+            _id: req.userId,
             name: req.body.name,
         });
+        await user.save();
         res.status(201).send(user);
     }catch(error){
-        res.status(400).send(error);
+        res.status(400).send(error.message);
     }
 })
 
 router.get('/user/details', auth, async(req, res) => {
     try{
-        const user = await User.findOne({userId: req.userId});
+        const _id = req.userId;
+        //TASK : Use populate to fill the problem and courses fields.
+        const user = await User.findById(_id);
         if(user) res.status(201).send(user);
         else res.status('404').send('User Not found');
     }catch(error){

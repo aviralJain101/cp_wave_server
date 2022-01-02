@@ -1,8 +1,7 @@
 const mongoose = require('mongoose')
 
 const userSchema = new mongoose.Schema({//to user middleware in mongoose
-    _id: false,
-    userId: {
+    _id: { //same as _id of UserAuth
         type: mongoose.SchemaTypes.ObjectId,
         ref: 'UserAuth',
     },
@@ -11,14 +10,15 @@ const userSchema = new mongoose.Schema({//to user middleware in mongoose
         required:true,
         trim:true
     },
-    createdCourses: [mongoose.SchemaTypes.ObjectId],
-    boughtCourses: [mongoose.SchemaTypes.ObjectId],
+    createdCourses: [{ type: mongoose.SchemaTypes.ObjectId, ref: 'Course' }],
+    boughtCourses: [{ type: mongoose.SchemaTypes.ObjectId, ref: 'Course' }],
     problems: [{
-        problemId: mongoose.SchemaTypes.ObjectId,
+        problemId: { type: mongoose.SchemaTypes.ObjectId, ref: 'Problem' },
         code: String,
         status: Number  // 1 -- solved, -1 -- not correct (compiled but didnt ran)   0 -- not attempted
     }]
 },{
+    _id: false,
     timestamps:true
 })
 

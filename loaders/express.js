@@ -15,7 +15,7 @@ const expressLoader = async (app) => {
     
     //include routes here
     app.use(userAuthRoute);
-    app.user(userRoute);
+    app.use(userRoute);
   
     // ...More middlewares
 
