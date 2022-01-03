@@ -29,4 +29,19 @@ router.get('/user/details', auth, async(req, res) => {
     }
 })
 
+//when user buys a new course
+//NOT TESTED
+router.post('/user/details/course/buy/:courseId', auth, async(req, res) => {
+    try{
+        const _courseId = req.params.courseId;
+        const _id = req.userId;
+        const user = await User.findById(_id);
+        user.boughtCourses.push(_courseId);
+        await user.save();
+        res.status(201).send('Succesfully Bought')
+    }catch(error){
+        res.status(500).send(error)
+    }
+})
+
 module.exports = router
