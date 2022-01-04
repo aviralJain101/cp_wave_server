@@ -6,15 +6,15 @@ import { Link } from 'react-router-dom';
 import { Control, LocalForm } from 'react-redux-form';
 import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
-import { FadeTransform, Fade, Stagger } from 'react-animation-components';
+// import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 
 function RenderDish({dish, favorite, postFavorite}) {
         return(
             <div className="col-12 col-md-5 m-1">
-                <FadeTransform in 
+                {/* <FadeTransform in 
                     transformProps={{
                         exitTransform: 'scale(0.5) translateY(-50%)'
-                    }}>
+                    }}> */}
                     <Card>
                         <CardImg top src={baseUrl + dish.image} alt={dish.name} />
                         <CardImgOverlay>
@@ -31,7 +31,7 @@ function RenderDish({dish, favorite, postFavorite}) {
                             <CardText>{dish.description}</CardText>
                         </CardBody>
                     </Card>
-                </FadeTransform>
+                {/* </FadeTransform> */}
             </div>
         );
 
@@ -43,19 +43,19 @@ function RenderComments({comments, postComment, dishId}) {
             <div className="col-12 col-md-5 m-1">
                 <h4>Comments</h4>
                 <ul className="list-unstyled">
-                    <Stagger in>
+                    {/* <Stagger in> */}
                         {comments.map((comment) => {
                             return (
-                                <Fade in key={comment._id}>
+                                // <Fade in key={comment._id}>
                                     <li>
                                     <p>{comment.comment}</p>
                                     <p>{comment.rating} stars</p>
                                     <p>-- {comment.author.firstname} {comment.author.lastname} , {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day:'2-digit'}).format(new Date(Date.parse(comment.updatedAt)))}</p>
                                     </li>
-                                </Fade>
+                                // </Fade>
                             );
                         })}
-                    </Stagger>
+                    {/* </Stagger> */}
                 </ul>
                 <CommentForm dishId={dishId} postComment={postComment} />
             </div>

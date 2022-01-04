@@ -8,7 +8,8 @@ import { postItem, fetchSellItem } from '../../redux/Sell/ActionCreator';
 import Sell from './SellComponent/MainComponent';
 import ItemDetail from './SellComponent/itemDetail/ItemDetailComponent';
 import CreateCourse from './SellComponent/CreateCourse/MainComponent';
-
+import CreateTopics from './SellComponent/CreateTopic/MainComponent';
+import EditCourse from './SellComponent/EditCourse/MainComponent';
 
 const mapStateToProps = state => {
     return {
@@ -57,11 +58,29 @@ class SellRouter extends Component {
 
         const CreateCoursePage = () => {
             return(
-              <CreateCourse 
+                <CreateCourse 
                 postItem={this.props.postItem}
-              />
+                />
             );
-          }
+        }
+
+        const EditCoursePage = ({match}) => {
+            return(
+                <EditCourse 
+                    item={this.props.sellItem.items.filter((item) => isEqual(item._id, match.params.itemId))[0]}
+                    isLoading={this.props.sellItem.isLoading}
+                    errMess={this.props.sellItem.errMess}
+                />
+            );
+        }
+
+        const CreateTopicPage = () => {
+            return(
+                <CreateTopics 
+            
+                />
+            );
+        }
 
 
         return (
@@ -70,7 +89,10 @@ class SellRouter extends Component {
                 <Switch>
                     <Route exact path={this.props.match.url} component={SellPage} />
                     <Route exact path={this.props.match.url+'/createcourse'} component={CreateCoursePage} />
+                    <Route exact path={this.props.match.url+'/createtopics'} component={CreateTopicPage} />
+                    <Route path={this.props.match.url+'/:itemId/edit'} component={EditCoursePage} />
                     <Route path={this.props.match.url+'/:itemId'} component={ItemWithIdPage} />
+
                 </Switch>
           </div>
         );

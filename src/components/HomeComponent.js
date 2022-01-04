@@ -1,6 +1,6 @@
 import React from 'react';
 import { baseUrl } from '../shared/baseUrl';
-import { FadeTransform } from 'react-animation-components';
+// import { FadeTransform } from 'react-animation-components';
 
 class Home extends React.Component {
     
@@ -20,12 +20,12 @@ class Home extends React.Component {
     
     render() {
         return(
-            <FadeTransform in 
-                transformProps={{
-                    exitTransform: 'scale(0.5) translateY(-50%)'
-                }}>
+            // <FadeTransform in 
+            //     transformProps={{
+            //         exitTransform: 'scale(0.5) translateY(-50%)'
+            //     }}>
                     <img width="100%" src={`${baseUrl}images/welcome.png`} alt={"welcome"} height="700px" />
-            </FadeTransform>
+            // </FadeTransform>
         );
     }
     

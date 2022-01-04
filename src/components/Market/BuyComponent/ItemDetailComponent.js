@@ -4,7 +4,7 @@ import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle, CardSubti
 import { Link } from 'react-router-dom';
 import { baseUrl } from '../../../shared/baseUrl';
 import { Loading } from '../../LoadingComponent';
-import { FadeTransform } from 'react-animation-components';
+// import { FadeTransform } from 'react-animation-components';
 
 
 
@@ -12,10 +12,10 @@ import { FadeTransform } from 'react-animation-components';
 function RenderItem({item, buyItem }) {
         return(
             <div className="col-12 col-md-5 m-1">
-                <FadeTransform in 
+                {/* <FadeTransform in 
                     transformProps={{
                         exitTransform: 'scale(0.5) translateY(-50%)'
-                    }}>
+                    }}> */}
                     <Card>
                         <CardImg width="100%" src={`${baseUrl}${item.image}`} alt={item.itemname} height="150px" />
                         <CardBody className="text-center text-dark text-capitalize">
@@ -25,7 +25,7 @@ function RenderItem({item, buyItem }) {
                             <Button className="w-100" onClick={() => buyItem({id:item._id})}>Buy</Button>
                         </CardBody>
                     </Card>
-                </FadeTransform>
+                {/* </FadeTransform> */}
             </div>
         );
 

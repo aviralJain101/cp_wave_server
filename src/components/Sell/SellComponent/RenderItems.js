@@ -8,13 +8,12 @@ function RenderSellItem({ item }) {
         <Card>
             <Link to={`/sell/${item._id}`} className="text-decoration-none">
                     <Card>
-                        <CardImg width="100%" src={`${baseUrl}${item.image}`} alt={item.itemname} height="150px" />
+                        <CardImg width="100%" src={`${baseUrl}${item.image}`} alt={item.title} height="150px" />
                         <CardBody className="text-center text-dark text-capitalize">
-                            <CardTitle style={{"fontWeight":"bold", "fontSize":"22px"}}>{item.itemname}</CardTitle>
+                            <CardTitle style={{"fontWeight":"bold", "fontSize":"22px"}}>{item.title}</CardTitle>
                             <CardSubtitle>Price : ${item.price/100}</CardSubtitle>
                         </CardBody>
                     </Card>
-                
             </Link>
         </Card>
     );

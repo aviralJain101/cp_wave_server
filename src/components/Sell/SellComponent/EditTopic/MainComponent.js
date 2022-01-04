@@ -13,7 +13,7 @@ const options = [
     { value: 'ML', label: 'ML' },
     { value: 'DL', label: 'DL' }
   ];
-class CreateCourse extends Component {
+class CreateTopics extends Component {
 
     constructor(props) {
         super(props);
@@ -52,7 +52,7 @@ class CreateCourse extends Component {
 
 
         const item = new FormData();
-        item.append("title", this.itemname.value);
+        item.append("title", this.topicname.value);
         item.append("price", this.price.value);
         item.append("category", tags);
         item.append("courseImage", this.state.selectedFile);
@@ -98,51 +98,22 @@ class CreateCourse extends Component {
             <React.Fragment>
                 <div className="container">
                     <div className="row">
-                        <div className="mt-4">
-                            <h4>Create New Course</h4>
-                            <hr />
-                        </div>
                         <Form onSubmit={this.handleSubmit}>
-                            <FormGroup>
-                                <Label htmlFor="itemname">Course Name</Label>
-                                <Input type="text" id="itemname" name="itemname"
-                                    innerRef={(input) => this.itemname = input} 
+                            <FormGroup className="mb-3">
+                                <Label htmlFor="topicname">Topic Name</Label>
+                                <Input type="text" id="topicname" name="topicname"
+                                    innerRef={(input) => this.topicname = input} 
                                     // required
-                                />
-                            </FormGroup>
-                            <FormGroup>
-                                <Label htmlFor="price">Price</Label>
-                                <Input type="text" id="price" name="price"
-                                    innerRef={(input) => this.price = input} 
-                                    // required
-                                />
-                            </FormGroup>
-                            <FormGroup className="mt-3 mb-4">
-                                <Label htmlFor="category">Category</Label>
-                                <Select
-                                    value={selectedOption}
-                                    onChange={this.handleChange}
-                                    options={options}
-                                    isMulti='true'
-                                    isSearchable='true'
-                                    placeholder='Select Category'
-                                />
-                            </FormGroup>
-                            <FormGroup className="mb-4">
-                                <Label for="itemImage">Image</Label>
-                                <Input type="file" id="itemImage" name="itemImage"
-                                    onChange={this.onFileChange} 
                                 />
                             </FormGroup>
                             <FormGroup style = {{minHeight: "400px"}}>
-                                {/* <Label>Course Description</Label> */}
                                 <Editor
                                     wrapperClassName="wrapper-class"
                                     editorClassName="editor-class"
                                     editorState={editorState}
                                     toolbarClassName="toolbarClassName"
                                     onEditorStateChange={this.onEditorStateChange}
-                                    placeholder="Course Description"
+                                    placeholder="Topic Details"
                                 />
                             </FormGroup>
                             
@@ -158,4 +129,4 @@ class CreateCourse extends Component {
     }
 }
 
-export default CreateCourse;
+export default CreateTopics;
