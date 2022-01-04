@@ -39,8 +39,23 @@ var User = new Schema({
     },
     email: {
       type: String,
-      unique: true
+      unique: true,
+      required:true,
+      trim:true
     },
+    createdCourses: [{ 
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Course' 
+    }],
+    boughtCourses: [{ 
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Course' 
+    }],
+    problems: [{
+        problemId: { type: mongoose.Schema.Types.ObjectId, ref: 'Problem' },
+        code: String,
+        status: Number  // 1 -- solved, -1 -- not correct (compiled but didnt ran)   0 -- not attempted
+    }],
     onSale: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Commodity'

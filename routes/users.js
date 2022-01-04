@@ -26,9 +26,10 @@ router.get('/',cors.corsWithOptions, authenticate.verifyUser, authenticate.Verif
 
 router.post('/signup', cors.corsWithOptions, (req, res, next) => {
   console.log(req.body);
-  User.register(new User({username: req.body.username}), 
+  User.register(new User({username: req.body.username, email: req.body.email}), 
     req.body.password, (err, user) => {
     if(err) {
+      console.log(err);
       res.statusCode = 500;
       res.setHeader('Content-Type', 'application/json');
       res.json({err: err});
@@ -36,8 +37,8 @@ router.post('/signup', cors.corsWithOptions, (req, res, next) => {
     else {
       if (req.body.name)
         user.name = req.body.name;
-      if (req.body.email)
-        user.email = req.body.email;
+      // if (req.body.email)
+      //   user.email = req.body.email;
       // user.onSale =[];
       // user.purchased = [];
       user.save((err, user) => {

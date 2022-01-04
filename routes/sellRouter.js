@@ -5,6 +5,8 @@ const multer = require('multer');
 const cors = require('./cors');
 var User = require('../models/user');
 const Commodity = require('../models/commodity');
+const Course = require('../models/course');
+
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -12,10 +14,13 @@ const storage = multer.diskStorage({
     },
 
     filename: (req, file, cb) => {
-        cb(null, file.originalname+'-'+Date.now())
+        var position = file.originalname.lastIndexOf('.')
+        var fileName = file.originalname.slice(0,position)
+        var extension = file.originalname.slice(position)
+        cb(null, fileName+'-' + Date.now()+extension)
     }
 });
-var upload = multer({ storage : storage}).single('itemImage');  
+var upload = multer({ storage : storage}).single('courseImage');  
 
 
 
@@ -28,15 +33,16 @@ sellRouter.route('/')
 .options(cors.corsWithOptions, (req, res) => {res.sendStatus(200); })
 .get(cors.cors, authenticate.verifyUser, (req,res,next) => {
     User.findById(req.user._id)
-    .populate('onSale')
-    .then((items) => {
+    .populate('createdCourses')
+    .then((course) => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
-        res.json(items.onSale);
+        res.json(course.createdCourses);
     }, (err) => next(err))
     .catch((err) => next(err));
 })
 .post(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
+    console.log("requested");
     upload(req,res,function(err) {  
         if(err) { 
             // err = new Error('error upoading file');
@@ -48,19 +54,20 @@ sellRouter.route('/')
         else {
             console.log(req.file)
 
-            var item = new Commodity({
-                seller: req.user._id,
-                itemname: req.body.itemname,
+            var course = new Course({
+                author: req.user._id,
+                title: req.body.title,
                 price: req.body.price,
                 category: req.body.category,
-                image: 'images/'+req.file.filename
+                image: 'images/'+req.file.filename,
+                description: req.body.description
             })
-            item.save()
-            .then((item) => {
+            course.save()
+            .then((course) => {
                 User.findOne({_id:req.user._id})
                 .then((user) => {
-                    if(user.onSale.indexOf(item._id) == -1) {
-                        user.onSale.push(item._id);
+                    if(user.createdCourses.indexOf(course._id) == -1) {
+                        user.createdCourses.push(course._id);
                         user.save();
                     }
                 }/*,err => next(err)*/)
@@ -68,7 +75,7 @@ sellRouter.route('/')
                 // console.log(res.statusCode);
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
-                res.json(item);
+                res.json(course);
                 res.end();
             }/*, (err => next(err)))
             .catch((err) => next(err)*/);
@@ -83,15 +90,5 @@ sellRouter.route('/')
     res.statusCode = 403;
     res.end('DELETE operation not supported on /sell');
 });
-
-// .delete(cors.corsWithOptions, authenticate.verifyUser, authenticate.VerifyAdmin, (req, res, next) => {
-//     Dishes.remove({})
-//     .then((resp) => {
-//         res.statusCode = 200;
-//         res.setHeader('Content-Type', 'application/json');
-//         res.json(resp);
-//     }, (err) => next(err))
-//     .catch((err) => next(err));    
-// });
 
 module.exports = sellRouter;
