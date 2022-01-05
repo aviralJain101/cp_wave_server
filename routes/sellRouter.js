@@ -54,11 +54,16 @@ sellRouter.route('/')
         else {
             console.log(req.file)
 
+            console.log(req.body);
+            
+            var tags = req.body.category.split(",");
+            console.log(tags);
+
             var course = new Course({
                 author: req.user._id,
                 title: req.body.title,
                 price: req.body.price,
-                category: req.body.category,
+                category: tags,
                 image: 'images/'+req.file.filename,
                 description: req.body.description
             })
