@@ -4,16 +4,33 @@ import Select from 'react-select';
 import { Editor } from "react-draft-wysiwyg";
 import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-// import { convertToRaw } from 'draft-js';
-// import { convertFromRaw } from 'draft-js';
+import { fetchSingleCourse } from '../../../../../redux/SingleCourseFetch/ActionCreator';
+import { Switch, Route, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+
+
 
 const options = [
     { value: 'CP', label: 'CP' },
     { value: 'WEB DEV', label: 'WEB DEV' },
     { value: 'ML', label: 'ML' },
     { value: 'DL', label: 'DL' }
-  ];
-class CreateCourse extends Component {
+];
+
+const mapStateToProps = state => {
+    return {
+        singleCourse: state.singleCourse
+    }
+  }
+  
+const mapDispatchToProps = (dispatch) => ({
+    fetchSingleCourse: (courseId) => dispatch(fetchSingleCourse(courseId))
+});
+
+
+
+class EditCourse extends Component {
 
     constructor(props) {
         super(props);
@@ -21,100 +38,114 @@ class CreateCourse extends Component {
             selectedOption: null,
             selectedFile: null,
             editorState: EditorState.createEmpty(),
+            itemname:'',
+            price: '',
         }
+        this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    componentDidMount() {
+        this.props.fetchSingleCourse(this.props.courseId)
+        if(!this.props.singleCourse.isLoading && this.props.singleCourse.course.length!= 0) {
+            var tags = this.props.singleCourse.course.category.map((tag) => {
+                return ({
+                    value: tag,
+                    label: tag
+                })
+            })
+
+            const data = EditorState.createWithContent(
+                convertFromRaw(JSON.parse(this.props.singleCourse.course.description))
+            );
+
+            
+            this.setState ({ 
+                itemname: this.props.singleCourse.course.title,
+                price: this.props.singleCourse.course.price,
+                selectedOption: tags,
+                editorState: data
+    
+            })
+        }
+    }
+    
 
     handleSubmit(event) {
         event.preventDefault();
-        // console.log(this.state);
-        // console.log(this.state.editorState.getCurrentContent());
+        // const rawState = JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent()));
+        // var tags = this.state.selectedOption.map((option) => {
+        //     var tag = option.value;
+        //     return tag;
+        // });
 
-        // console.log(this.state.editorState.getCurrentContent().getPlainText());
-        const rawState = JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent()));
-        // console.log(rawState);
-
-        // const data = EditorState.createWithContent(
-        //     convertFromRaw(JSON.parse(rawState))
-        // );
-        // console.log(data);
-        // console.log(data.getCurrentContent().getPlainText());
-
-        // console.log(this.state.editorState);
-        var tags = this.state.selectedOption.map((option) => {
-            var tag = option.value;
-            return tag;
-        });
-
-
-        console.log(this.state.editorState);
-
-
-        const item = new FormData();
-        item.append("title", this.itemname.value);
-        item.append("price", this.price.value);
-        item.append("category", tags);
-        item.append("courseImage", this.state.selectedFile);
-        item.append("description", rawState);
-
-
-        // axios.post(`${baseUrl}imageUpload`, item);
-        console.log(item)
-        this.props.postItem(item);
-        //  to do
-        // push history to created course
-        // 
-
-        
-        
+        // const item = new FormData();
+        // item.append("title", this.itemname.value);
+        // item.append("price", this.price.value);
+        // item.append("category", tags);
+        // item.append("courseImage", this.state.selectedFile);
+        // item.append("description", rawState);
+        // console.log(item)
     }
 
-    handleChange = (selectedOption) => {
-        this.setState({ selectedOption });
-        console.log(`Option selected:`, selectedOption);
-    };
+    // handleChange = (selectedOption) => {
+    //     this.setState({ selectedOption });
+    //     console.log(`Option selected:`, selectedOption);
+    // };
 
-    // On file select (from the pop up)
-	onFileChange = event => {
-        // Update the state
-        this.setState({ selectedFile: event.target.files[0] });
-	};
+    // // On file select (from the pop up)
+	// onFileChange = event => {
+    //     // Update the state
+    //     this.setState({ selectedFile: event.target.files[0] });
+	// };
 
-    onEditorStateChange = (editorState) => {
-        // console.log(this.state.editorState.getCurrentContent().getPlainText());
+    // onEditorStateChange = (editorState) => {
+    //     // console.log(this.state.editorState.getCurrentContent().getPlainText());
+    //     this.setState({
+    //       editorState: editorState
+    //     });
+    // };
+
+    handleInputChange(event) {
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+    
         this.setState({
-          editorState: editorState
+          [name]: value
         });
-    };
+    }
 
 
 
     render() {
         const { selectedOption } = this.state;
         const { editorState } = this.state;
-
+        // this.setState({
+        //     itemname: "fuckyou"
+        // })
         return(
             <React.Fragment>
                 <div className="container">
                     <div className="row">
-                        <div className="mt-4">
-                            <h4>Create New Course</h4>
-                            <hr />
-                        </div>
+                    <div className="mt-4">
+                        <h4>Edit Course</h4>
+                        <hr />
+                    </div>
+                    
                         <Form onSubmit={this.handleSubmit}>
                             <FormGroup>
                                 <Label htmlFor="itemname">Course Name</Label>
                                 <Input type="text" id="itemname" name="itemname"
-                                    innerRef={(input) => this.itemname = input} 
-                                    // required
+                                    value={this.state.itemname}
+                                    onChange={this.handleInputChange}
                                 />
                             </FormGroup>
                             <FormGroup>
                                 <Label htmlFor="price">Price</Label>
                                 <Input type="text" id="price" name="price"
-                                    innerRef={(input) => this.price = input} 
-                                    // required
+                                    value={this.state.price}
+                                    onChange={this.handleInputChange}
                                 />
                             </FormGroup>
                             <FormGroup className="mt-3 mb-4">
@@ -135,7 +166,6 @@ class CreateCourse extends Component {
                                 />
                             </FormGroup>
                             <FormGroup style = {{minHeight: "400px"}}>
-                                {/* <Label>Course Description</Label> */}
                                 <Editor
                                     wrapperClassName="wrapper-class"
                                     editorClassName="editor-class"
@@ -157,5 +187,6 @@ class CreateCourse extends Component {
         );
     }
 }
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EditCourse));
 
-export default CreateCourse;
+// export default EditCourse;

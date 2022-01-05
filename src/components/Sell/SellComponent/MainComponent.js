@@ -3,7 +3,7 @@ import { Card, CardImg, CardImgOverlay, CardTitle, Breadcrumb, BreadcrumbItem } 
 import { Link } from 'react-router-dom';
 import SellModal from './ModalForm';
 import { Accordion, Button } from 'react-bootstrap';
-import RenderItems from './RenderItems';
+import RenderItems from './RenderCourses';
 
 
 class Sell extends Component {

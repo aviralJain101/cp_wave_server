@@ -13,7 +13,7 @@ const options = [
     { value: 'ML', label: 'ML' },
     { value: 'DL', label: 'DL' }
   ];
-class EditCourse extends Component {
+class CreateCourse extends Component {
 
     constructor(props) {
         super(props);
@@ -61,10 +61,13 @@ class EditCourse extends Component {
 
         // axios.post(`${baseUrl}imageUpload`, item);
         console.log(item)
-        // this.props.editCourse(item);
-        // to do
+        this.props.postItem(item);
+        //  to do
         // push history to created course
-        //
+        // 
+
+        
+        
     }
 
     handleChange = (selectedOption) => {
@@ -90,20 +93,14 @@ class EditCourse extends Component {
     render() {
         const { selectedOption } = this.state;
         const { editorState } = this.state;
-
         return(
             <React.Fragment>
                 <div className="container">
                     <div className="row">
-                    {/* <Breadcrumb>
-                        <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
-                        <BreadcrumbItem><Link to='/sell'>Sell</Link></BreadcrumbItem>
-                        <BreadcrumbItem active>{props.item.title}</BreadcrumbItem>
-                    </Breadcrumb> */}
-                    <div className="mt-4">
-                        <h4>Edit Course</h4>
-                        <hr />
-                    </div>
+                        <div className="mt-4">
+                            <h4>Create New Course</h4>
+                            <hr />
+                        </div>
                         <Form onSubmit={this.handleSubmit}>
                             <FormGroup>
                                 <Label htmlFor="itemname">Course Name</Label>
@@ -160,4 +157,4 @@ class EditCourse extends Component {
     }
 }
 
-export default EditCourse;
+export default CreateCourse;

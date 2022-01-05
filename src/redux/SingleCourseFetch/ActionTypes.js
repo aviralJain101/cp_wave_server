@@ -1,0 +1,3 @@
+export const COURSE_LOADING = 'COURSE_LOADING';
+export const COURSE_FETCH_FAILED = 'COURSE_FETCH_FAILED';
+export const ADD_COURSE = 'ADD_COURSE';

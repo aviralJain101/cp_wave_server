@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
-import { Link } from 'react-router-dom';
-import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
+import { Switch, Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import isEqual from 'lodash.isequal';
 import { postItem, fetchSellItem } from '../../redux/Sell/ActionCreator';
 import Sell from './SellComponent/MainComponent';
-import ItemDetail from './SellComponent/itemDetail/ItemDetailComponent';
-import CreateCourse from './SellComponent/CreateCourse/MainComponent';
-import CreateTopics from './SellComponent/CreateTopic/MainComponent';
-import EditCourse from './SellComponent/EditCourse/MainComponent';
+import ItemDetail from './SellComponent/CourseDetail/CourseDetailComponent';
+import CreateCourse from './SellComponent/Course/CreateCourse/MainComponent';
+import CreateTopics from './SellComponent/Topic/CreateTopic/MainComponent';
+import EditCourse from './SellComponent/Course/EditCourse/MainComponent';
 
 const mapStateToProps = state => {
     return {
@@ -66,10 +64,8 @@ class SellRouter extends Component {
 
         const EditCoursePage = ({match}) => {
             return(
-                <EditCourse 
-                    item={this.props.sellItem.items.filter((item) => isEqual(item._id, match.params.itemId))[0]}
-                    isLoading={this.props.sellItem.isLoading}
-                    errMess={this.props.sellItem.errMess}
+                <EditCourse
+                    courseId={match.params.itemId}
                 />
             );
         }
@@ -101,6 +97,3 @@ class SellRouter extends Component {
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SellRouter));
-
-
-// export default Courses;
