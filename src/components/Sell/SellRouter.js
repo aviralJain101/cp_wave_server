@@ -65,7 +65,9 @@ class SellRouter extends Component {
         const EditCoursePage = ({match}) => {
             return(
                 <EditCourse
-                    courseId={match.params.itemId}
+                    item={this.props.sellItem.items.filter((item) => isEqual(item._id, match.params.itemId))[0]}
+
+                    // courseId={match.params.itemId}
                 />
             );
         }

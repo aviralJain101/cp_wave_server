@@ -46,26 +46,26 @@ class EditCourse extends Component {
     }
 
     componentDidMount() {
-        this.props.fetchSingleCourse(this.props.courseId)
-        if(!this.props.singleCourse.isLoading && this.props.singleCourse.course.length!= 0) {
-            var tags = this.props.singleCourse.course.category.map((tag) => {
-                return ({
-                    value: tag,
-                    label: tag
-                })
-            })
+        if(typeof this.props.item != 'undefined') {
+            console.log(this.props.item.category);
+            const tags = this.props.item.category.map((tag) => {
+                
+                var t = {"value": tag,"label": tag}
+                return t;
+            });
+            
+            console.log(tags);
 
             const data = EditorState.createWithContent(
-                convertFromRaw(JSON.parse(this.props.singleCourse.course.description))
+                convertFromRaw(JSON.parse(this.props.item.description))
             );
 
             
             this.setState ({ 
-                itemname: this.props.singleCourse.course.title,
-                price: this.props.singleCourse.course.price,
+                itemname: this.props.item.title,
+                price: this.props.item.price/100,
                 selectedOption: tags,
                 editorState: data
-    
             })
         }
     }
@@ -88,23 +88,23 @@ class EditCourse extends Component {
         // console.log(item)
     }
 
-    // handleChange = (selectedOption) => {
-    //     this.setState({ selectedOption });
-    //     console.log(`Option selected:`, selectedOption);
-    // };
+    handleChange = (selectedOption) => {
+        this.setState({ selectedOption });
+        console.log(`Option selected:`, selectedOption);
+    };
 
-    // // On file select (from the pop up)
-	// onFileChange = event => {
-    //     // Update the state
-    //     this.setState({ selectedFile: event.target.files[0] });
-	// };
+    // On file select (from the pop up)
+	onFileChange = event => {
+        // Update the state
+        this.setState({ selectedFile: event.target.files[0] });
+	};
 
-    // onEditorStateChange = (editorState) => {
-    //     // console.log(this.state.editorState.getCurrentContent().getPlainText());
-    //     this.setState({
-    //       editorState: editorState
-    //     });
-    // };
+    onEditorStateChange = (editorState) => {
+        // console.log(this.state.editorState.getCurrentContent().getPlainText());
+        this.setState({
+          editorState: editorState
+        });
+    };
 
     handleInputChange(event) {
         const target = event.target;

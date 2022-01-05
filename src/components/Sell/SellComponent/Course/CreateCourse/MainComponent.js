@@ -46,6 +46,7 @@ class CreateCourse extends Component {
             var tag = option.value;
             return tag;
         });
+        console.log(tags);
 
 
         console.log(this.state.editorState);
