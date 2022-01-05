@@ -19,6 +19,9 @@ class Sell extends Component {
             isCreateModalOpen: !this.state.isCreateModalOpen
         });
     }
+    componentDidMount() {
+        alert("mounted main sell router")
+    }
 
     render() {
         

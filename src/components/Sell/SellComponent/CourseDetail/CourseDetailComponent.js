@@ -85,7 +85,7 @@ const ItemDetail = (props) => {
                     </Breadcrumb>
                     <div className="col-4">
                         <h5>{props.item.title} 
-                            <Link to={`/sell/${props.item._id}/edit`} className="pull-right shadow-none">
+                            <Link to={`${props.item._id}/edit`} className="pull-right shadow-none">
                                 <i className="fa fa-edit fa-lg">
                                 </i>
                             </Link>
