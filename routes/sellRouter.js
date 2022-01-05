@@ -91,4 +91,61 @@ sellRouter.route('/')
     res.end('DELETE operation not supported on /sell');
 });
 
+
+
+sellRouter.route('/:courseId')
+.options(cors.corsWithOptions, (req, res) => {res.sendStatus(200); })
+.get(cors.cors, authenticate.verifyUser, (req,res,next) => {
+    Course.findById(req.params.courseId)
+    .populate('author')
+    .then((course) => {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json(course);
+    }, (err) => next(err))
+    .catch((err) => next(err));
+})
+.post(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
+    res.statusCode = 403;
+    res.end('POST operation not supported on /sell/'+ req.params.courseId);
+})
+.put(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
+    console.log("requested");
+    
+    upload(req,res,function(err) {  
+        if(err) { 
+            // err = new Error('error upoading file');
+            // err.status = 500;
+            res.statusCode=500;
+            res.end({errMess:"error while uploading"});
+            // return next(err);
+        }
+        else {
+            console.log(req.file)
+
+            var updatedCourse = {
+                author: req.user._id,
+                title: req.body.title,
+                price: req.body.price,
+                category: req.body.category,
+                image: 'images/'+req.file.filename,
+                description: req.body.description
+            }
+            Course.findByIdAndUpdate(req.params.courseId.anchor, {
+                $set: updatedCourse
+            })
+            .then((course) => {
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                res.json(course);
+            }, (err) => next(err))
+            .catch((err) => next(err));
+        }
+    });
+})
+.delete(cors.corsWithOptions, authenticate.verifyUser, authenticate.VerifyAdmin, (req, res, next) => {
+    res.statusCode = 403;
+    res.end('DELETE operation not supported on /sell');
+});
+
 module.exports = sellRouter;
