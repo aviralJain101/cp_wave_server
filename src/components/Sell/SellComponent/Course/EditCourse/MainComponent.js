@@ -4,6 +4,7 @@ import Select from 'react-select';
 import { Editor } from "react-draft-wysiwyg";
 import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { withRouter } from 'react-router-dom';
 
 
 
@@ -57,7 +58,6 @@ class EditCourse extends Component {
     
 
     handleSubmit(event) {
-        event.preventDefault();
         const rawState = JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent()));
         var tags = this.state.selectedOption.map((option) => {
             var tag = option.value;
@@ -75,6 +75,9 @@ class EditCourse extends Component {
             console.log(value); 
         }
         this.props.editCourse(item, this.props.item._id);
+        this.props.history.push(`/sell/${this.props.item._id}`);
+        event.preventDefault();
+
     }
 
     handleChange = (selectedOption) => {
@@ -173,4 +176,4 @@ class EditCourse extends Component {
         );
     }
 }
-export default EditCourse;
+export default withRouter(EditCourse);

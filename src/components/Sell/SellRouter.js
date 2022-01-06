@@ -17,7 +17,7 @@ const mapStateToProps = state => {
   
 const mapDispatchToProps = (dispatch) => ({
     fetchSellItem: () => dispatch(fetchSellItem()),
-    postItem: (item) => dispatch(postItem(item)),
+    postItem: (item, history) => dispatch(postItem(item, history)),
     editCourse: (item, courseId) => dispatch(editCourse(item, courseId))
 });
 

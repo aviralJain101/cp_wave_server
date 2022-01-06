@@ -56,7 +56,7 @@ export const addItem = (item) => ({
     type: ActionTypes.ADD_SELL_ITEM,
     payload: item
 });
-export const postItem = (item) => (dispatch) => {
+export const postItem = (item, history) => (dispatch) => {
     dispatch(itemPosting());
 
     const bearer = 'Bearer ' + localStorage.getItem('token');
@@ -83,7 +83,10 @@ export const postItem = (item) => (dispatch) => {
             throw error;
       })
     .then(response => response.json())
-    .then(item => dispatch(addItem(item)))
+    .then(item => {
+        dispatch(addItem(item))
+        history.push(`/sell/${item._id}`)
+    })
     .catch(error => dispatch(itemPostFailed(error.message)));
 }
 
@@ -131,7 +134,7 @@ export const editCourse = (item, courseId) => (dispatch) => {
             throw error;
       })
     .then(response => response.json())
-    // .then(course => dispatch(addEdittedCourse(course)))
+    .then(course => dispatch(addEdittedCourse(course)))
     .catch(error => dispatch(courseEditPostFailed(error.message)));
 }
 

@@ -37,6 +37,7 @@ export const SellItem = (state = {
 
         case ActionTypes.ADD_EDITTED_COURSE:
             var item = action.payload;
+            state.items = state.items.filter((item) => (item._id.toString() != action.payload._id.toString()));
             return {...state, isLoading: false, isPosting: false, isEditing: true, errMess: null,items: state.items.concat(item)};
             
             

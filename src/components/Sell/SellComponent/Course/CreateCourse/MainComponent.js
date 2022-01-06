@@ -6,6 +6,7 @@ import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 // import { convertToRaw } from 'draft-js';
 // import { convertFromRaw } from 'draft-js';
+import { withRouter } from 'react-router-dom';
 
 const options = [
     { value: 'CP', label: 'CP' },
@@ -62,7 +63,7 @@ class CreateCourse extends Component {
 
         // axios.post(`${baseUrl}imageUpload`, item);
         console.log(item)
-        this.props.postItem(item);
+        this.props.postItem(item, this.props.history);
         //  to do
         // push history to created course
         // 
@@ -158,4 +159,4 @@ class CreateCourse extends Component {
     }
 }
 
-export default CreateCourse;
+export default withRouter(CreateCourse);
