@@ -5,6 +5,7 @@ import { SellItem } from './Sell/SellItem';
 import { MarketItem } from './Market/MarketItem';
 import { PurchasedItem } from './Purchased/PurchasedItem';
 import { SingleCourse } from './SingleCourseFetch/SingleCourse';
+import { Topic } from './Topics/Topic';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 
@@ -16,7 +17,8 @@ export const ConfigureStore = () => {
             sellItem: SellItem,
             marketItem: MarketItem,
             purchasedItem: PurchasedItem,
-            singleCourse: SingleCourse
+            singleCourse: SingleCourse,
+            topics: Topic
         }),
         applyMiddleware(thunk, logger)
     );

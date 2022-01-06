@@ -3,6 +3,7 @@ import { Switch, Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import isEqual from 'lodash.isequal';
 import { postItem, fetchSellItem, editCourse } from '../../redux/Sell/ActionCreator';
+import { postTopic, fetchTopics, editTopic } from '../../redux/Topics/ActionCreator';
 import Sell from './SellComponent/MainComponent';
 import ItemDetail from './SellComponent/CourseDetail/CourseDetailComponent';
 import CreateCourse from './SellComponent/Course/CreateCourse/MainComponent';
@@ -11,14 +12,18 @@ import EditCourse from './SellComponent/Course/EditCourse/MainComponent';
 
 const mapStateToProps = state => {
     return {
-        sellItem: state.sellItem
+        sellItem: state.sellItem,
+        topics: state.topics 
     }
   }
   
 const mapDispatchToProps = (dispatch) => ({
     fetchSellItem: () => dispatch(fetchSellItem()),
     postItem: (item, history) => dispatch(postItem(item, history)),
-    editCourse: (item, courseId) => dispatch(editCourse(item, courseId))
+    editCourse: (item, courseId) => dispatch(editCourse(item, courseId)),
+    fetchTopics: (courseId) => dispatch(fetchTopics(courseId)),
+    postTopic: (courseId, topic, history) => dispatch(postTopic(courseId, topic, history)),
+    editTopic: (courseId, topicId, topic) => dispatch(editTopic(courseId, topicId, topic))
 });
 
   
@@ -73,10 +78,11 @@ class SellRouter extends Component {
             );
         }
 
-        const CreateTopicPage = () => {
+        const CreateTopicPage = ({match}) => {
             return(
                 <CreateTopics 
-            
+                    postTopic = {this.props.postTopic}
+                    courseId={match.params.itemId}
                 />
             );
         }
@@ -88,7 +94,7 @@ class SellRouter extends Component {
                 <Switch>
                     <Route exact path={this.props.match.url} component={SellPage} />
                     <Route exact path={this.props.match.url+'/createcourse'} component={CreateCoursePage} />
-                    <Route exact path={this.props.match.url+'/createtopics'} component={CreateTopicPage} />
+                    <Route exact path={this.props.match.url+'/:itemId/createtopics'} component={CreateTopicPage} />
                     <Route path={this.props.match.url+'/:itemId/edit'} component={EditCoursePage} />
                     <Route path={this.props.match.url+'/:itemId'} component={ItemWithIdPage} />
 

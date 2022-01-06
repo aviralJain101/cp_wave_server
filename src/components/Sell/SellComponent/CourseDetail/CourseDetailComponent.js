@@ -93,7 +93,7 @@ const ItemDetail = (props) => {
                         <hr />
                     </div>
                     <div className="col-8">
-                        <Link to="/sell/createtopics" className="pull-right shadow-none">
+                        <Link to={`/sell/${props.item._id}/createtopics`} className="pull-right shadow-none">
                             <span className="fa fa-plus fa-lg"></span>  Create New Topic
                         </Link>
                     </div>
