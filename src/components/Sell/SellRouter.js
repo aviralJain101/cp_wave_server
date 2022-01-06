@@ -56,6 +56,7 @@ class SellRouter extends Component {
                     item={this.props.sellItem.items.filter((item) => isEqual(item._id, match.params.itemId))[0]}
                     isLoading={this.props.sellItem.isLoading}
                     errMess={this.props.sellItem.errMess}
+                    courseId = {match.params.itemId}
                 />
             );
         }
@@ -95,7 +96,7 @@ class SellRouter extends Component {
                     <Route exact path={this.props.match.url} component={SellPage} />
                     <Route exact path={this.props.match.url+'/createcourse'} component={CreateCoursePage} />
                     <Route exact path={this.props.match.url+'/:itemId/createtopics'} component={CreateTopicPage} />
-                    <Route path={this.props.match.url+'/:itemId/edit'} component={EditCoursePage} />
+                    <Route exact path={this.props.match.url+'/:itemId/edit'} component={EditCoursePage} />
                     <Route path={this.props.match.url+'/:itemId'} component={ItemWithIdPage} />
 
                 </Switch>

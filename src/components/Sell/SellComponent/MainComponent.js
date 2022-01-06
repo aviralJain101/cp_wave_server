@@ -1,25 +1,69 @@
 import React, { Component } from 'react';
-import { Card, CardImg, CardImgOverlay, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Card, CardImg, CardImgOverlay,CardBody, CardSubtitle, CardText, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import SellModal from './ModalForm';
-import { Accordion, Button } from 'react-bootstrap';
-import RenderItems from './RenderCourses';
+import { baseUrl } from '../../../shared/baseUrl';
+import { Loading } from '../../LoadingComponent';
+function RenderSellItem({ item }) {
+    return(
+        <Card>
+            <Link to={`/sell/${item._id}`} className="text-decoration-none">
+                    <Card>
+                        <CardImg width="100%" src={`${baseUrl}${item.image}`} alt={item.title} height="150px" />
+                        <CardBody className="text-center text-dark text-capitalize">
+                            <CardTitle style={{"fontWeight":"bold", "fontSize":"22px"}}>{item.title}</CardTitle>
+                            <CardSubtitle>Price : ${item.price/100}</CardSubtitle>
+                        </CardBody>
+                    </Card>
+            </Link>
+        </Card>
+    );
+}
+
+const RenderItems = (props) => {
+
+    const items = props.sellItem.items.map((item) => {
+        return (
+            <div key={item._id} className="col-12 col-md-6 col-lg-4">
+                <RenderSellItem item={item} />
+            </div>
+        );
+    });
+
+    if (props.sellItem.isLoading) {
+        return(
+            <div className="container">
+                <div className="row">
+                    <Loading />
+                </div>
+            </div>
+        );
+    }
+    else if (props.sellItem.errMess) {
+        return(
+            <div className="container">
+                <div className="row">
+                    <h4>{props.sellItem.errMess}</h4>
+                </div>
+            </div>
+        );
+    }
+    else
+        return (
+            <div className="container">
+                <div className="row mt-4 mb-4">
+                    {items}
+                </div>
+            </div>
+        );
+}
 
 
 class Sell extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isCreateModalOpen: false
         }
     }
-    toggleModalCreate = (event) => {
-        // event.preventDefault();
-        this.setState({
-            isCreateModalOpen: !this.state.isCreateModalOpen
-        });
-    }
-    
 
     render() {
         
@@ -51,12 +95,6 @@ class Sell extends Component {
                         </div>
                     </div>
                 </div>
-                {/* <SellModal 
-                    isModalOpen={this.state.isCreateModalOpen} 
-                    toggleModal={this.toggleModalCreate}
-                    postItem={this.props.postItem}
-                /> */}
-               
             </React.Fragment>
         );
 
