@@ -33,12 +33,12 @@ export const SellItem = (state = {
             return {...state, isLoading: false,isPosting: false , isEditing: true, errMess: null};
         
         case ActionTypes.COURSE_EDIT_POST_FAILED:
-            return {...state, isLoading: false, isPosting: false, isEditing: true, errMess: action.payload};
+            return {...state, isLoading: false, isPosting: false, isEditing: false, errMess: action.payload};
 
         case ActionTypes.ADD_EDITTED_COURSE:
             var item = action.payload;
             state.items = state.items.filter((item) => (item._id.toString() != action.payload._id.toString()));
-            return {...state, isLoading: false, isPosting: false, isEditing: true, errMess: null,items: state.items.concat(item)};
+            return {...state, isLoading: false, isPosting: false, isEditing: false, errMess: null,items: state.items.concat(item)};
             
             
         default:

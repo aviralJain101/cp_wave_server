@@ -3,18 +3,20 @@ import { Switch, Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import isEqual from 'lodash.isequal';
 import { postItem, fetchSellItem, editCourse } from '../../redux/Sell/ActionCreator';
-import { postTopic, fetchTopics, editTopic } from '../../redux/Topic/ActionCreator';
+import { postTopic, fetchTopics /*editTopic*/ } from '../../redux/Topic/ActionCreator';
+import { editTopic } from '../../redux/EditTopic/ActionCreator';
 import Sell from './SellComponent/MainComponent';
 import ItemDetail from './SellComponent/CourseDetail/CourseDetailComponent';
 import CreateCourse from './SellComponent/Course/CreateCourse/MainComponent';
 import CreateTopics from './SellComponent/Topic/CreateTopic/MainComponent';
 import EditCourse from './SellComponent/Course/EditCourse/MainComponent';
 import TopicRender from './SellComponent/CourseDetail/TopicComponent';
+import EditTopic from './SellComponent/Topic/EditTopic/MainComponent';
 
 const mapStateToProps = state => {
     return {
         sellItem: state.sellItem,
-        // topics: state.topics 
+        // editTopic: state.editTopic 
     }
   }
   
@@ -24,7 +26,7 @@ const mapDispatchToProps = (dispatch) => ({
     editCourse: (item, courseId) => dispatch(editCourse(item, courseId)),
     // fetchTopics: (courseId, topicId) => dispatch(fetchTopics(courseId, topicId)),
     postTopic: (courseId, topic, history) => dispatch(postTopic(courseId, topic, history)),
-    editTopic: (courseId, topicId, topic) => dispatch(editTopic(courseId, topicId, topic))
+    // editTopic: (courseId, topicId, topic, history) => dispatch(editTopic(courseId, topicId, topic))
 });
 
   
@@ -73,7 +75,16 @@ class SellRouter extends Component {
                 <EditCourse
                     item={this.props.sellItem.items.filter((item) => isEqual(item._id, match.params.itemId))[0]}
                     editCourse={this.props.editCourse}
-                    // courseId={match.params.itemId}
+                />
+            );
+        }
+
+        const EditTopicPage = ({match}) => {
+            return(
+                <EditTopic
+                    // editTopic={this.props.editTopic}
+                    courseId={match.params.itemId}
+                    topicId={match.params.topicId}
                 />
             );
         }
@@ -106,9 +117,9 @@ class SellRouter extends Component {
                     <Route exact path={this.props.match.url+'/createcourse'} component={CreateCoursePage} />
                     <Route exact path={this.props.match.url+'/:itemId/createtopics'} component={CreateTopicPage} />
                     <Route exact path={this.props.match.url+'/:itemId/edit'} component={EditCoursePage} />
-                    <Route path={this.props.match.url+'/:itemId/:topicId'} component={TopicPage} />
+                    <Route exact path={this.props.match.url+'/:itemId/:topicId'} component={TopicPage} />
+                    <Route exact path={this.props.match.url+'/:itemId/:topicId/edit'} component={EditTopicPage} />
                     <Route path={this.props.match.url+'/:itemId'} component={ItemWithIdPage} />
-
                 </Switch>
           </div>
         );

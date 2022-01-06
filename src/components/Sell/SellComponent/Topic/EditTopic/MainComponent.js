@@ -1,30 +1,62 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Label, Input, FormFeedback, FormText } from 'reactstrap';
-import { Switch, Route, withRouter } from 'react-router-dom';
 import { Editor } from "react-draft-wysiwyg";
 import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 // import { convertToRaw } from 'draft-js';
 // import { convertFromRaw } from 'draft-js';
+import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+// import { editTopic } from '../../../../../redux/EditTopic/ActionCreator';
+import { fetchTopics, editTopic } from '../../../../../redux/Topic/ActionCreator';
 
+const mapStateToProps = state => {
+    return {
+        // editTopic: state.editTopic,
+        topics: state.topics 
+    }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+    editTopic: (courseId, topicId, topic, history) => dispatch(editTopic(courseId, topicId, topic, history)),
+    fetchTopics: (courseId, topicId) => dispatch(fetchTopics(courseId, topicId))
+});
+
+  
 class EditTopic extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            editorState: EditorState.createEmpty(),
+            title: '',
+            editorState: EditorState.createEmpty()
         }
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    componentDidMount() {
+        this.props.fetchTopics(this.props.courseId, this.props.topicId);
+        console.log("topicsprinting");
+        console.log(this.props.topics);
+        if(this.props.topics.topics.length != 0) {
+            const theory = EditorState.createWithContent(
+                convertFromRaw(JSON.parse(this.props.topics.topics.theory))
+            );
+
+            this.setState({
+                title: this.props.topics.topics.title,
+                editorState: theory
+            })
+        }
+    }
 
     handleSubmit(event) {
         event.preventDefault();
         const rawState = JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent()));
         const item = new FormData();
-        item.append("title", this.topicname.value);
+        item.append("title", this.state.title);
         item.append("theory", rawState);
-        this.props.editTopic(this.props.courseId, item, this.props.history);
+        this.props.editTopic(this.props.courseId, this.props.topicId, item, this.props.history);
     }
 
     onEditorStateChange = (editorState) => {
@@ -32,6 +64,16 @@ class EditTopic extends Component {
           editorState: editorState
         });
     };
+
+    handleInputChange(event) {
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+    
+        this.setState({
+          [name]: value
+        });
+    }
 
 
 
@@ -48,9 +90,10 @@ class EditTopic extends Component {
                         </div>
                         <Form onSubmit={this.handleSubmit}>
                             <FormGroup className="mb-3">
-                                <Label htmlFor="topicname">Topic Name</Label>
-                                <Input type="text" id="topicname" name="topicname"
-                                    innerRef={(input) => this.topicname = input} 
+                                <Label htmlFor="title">Topic Name</Label>
+                                <Input type="text" id="title" name="title"
+                                    value={this.state.title}
+                                    onChange={this.handleInputChange}
                                     required
                                 />
                             </FormGroup>
@@ -76,5 +119,5 @@ class EditTopic extends Component {
         );
     }
 }
-
-export default withRouter(EditTopic);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EditTopic));
+// export default withRouter(EditTopic);

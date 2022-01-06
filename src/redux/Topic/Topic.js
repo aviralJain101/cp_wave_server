@@ -34,12 +34,12 @@ export const Topic = (state = {
             return {...state, isLoading: false,isPosting: false , isEditing: true, errMess: null};
         
         case ActionTypes.TOPIC_EDIT_POST_FAILED:
-            return {...state, isLoading: false, isPosting: false, isEditing: true, errMess: action.payload};
+            return {...state, isLoading: false, isPosting: false, isEditing: false, errMess: action.payload};
 
         case ActionTypes.ADD_EDITTED_TOPIC:
             var topic = action.payload;
             state.topics = state.topics.filter((topic) => (topic._id.toString() != action.payload._id.toString()));
-            return {...state, isLoading: false, isPosting: false, isEditing: true, errMess: null,topics: state.topics.concat(topic)};
+            return {...state, isLoading: false, isPosting: false, isEditing: false, errMess: null,topics: state.topics.concat(topic)};
             
             
         default:

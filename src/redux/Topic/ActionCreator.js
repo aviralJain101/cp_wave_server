@@ -112,7 +112,7 @@ export const addEdittedTopic = (topic) => ({
     type: ActionTypes.ADD_EDITTED_TOPIC,
     payload: topic
 });
-export const editTopic = (courseId, topicId, topic) => (dispatch) => {
+export const editTopic = (courseId, topicId, topic, history) => (dispatch) => {
     dispatch(topicEditPosting());
 
     const bearer = 'Bearer ' + localStorage.getItem('token');
@@ -139,7 +139,10 @@ export const editTopic = (courseId, topicId, topic) => (dispatch) => {
             throw error;
       })
     .then(response => response.json())
-    .then(topic => dispatch(addEdittedTopic(topic)))
+    .then(topic => {
+        // dispatch(addEdittedTopic(topic))
+        history.push(`/sell/${courseId}/${topicId}`);        
+    })
     .catch(error => dispatch(topicEditPostFailed(error.message)));
 }
 
