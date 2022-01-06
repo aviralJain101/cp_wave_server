@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import isEqual from 'lodash.isequal';
-import { fetchCourseDetail, postTopic, editTopic } from '../../../../redux/Topics/ActionCreator';
+import { fetchCourseDetail, postTopic, editTopic } from '../../../../redux/Topic/ActionCreator';
 import CourseDetail from './CourseDetailComponent';
 
 

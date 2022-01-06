@@ -15,11 +15,11 @@ export const addTopics = (topics) => ({
     payload: topics
 });
 
-export const fetchTopics = (courseId) => (dispatch) => {
+export const fetchTopics = (courseId, topicId) => (dispatch) => {
     dispatch(topicLoading());
     const bearer = 'Bearer ' + localStorage.getItem('token');
 
-    return fetch(baseUrl+`sell/${courseId}` ,{
+    return fetch(baseUrl+`sell/${courseId}/${topicId}` ,{
         headers: {
             'Authorization': bearer
         },
@@ -89,7 +89,7 @@ export const postTopic = (courseId, topic, history) => (dispatch) => {
       })
     .then(response => response.json())
     .then(topic => {
-        dispatch(addTopic(topic))
+        // dispatch(addTopic(topic))
         history.push(`/sell/${courseId}`)
     })
     .catch(error => dispatch(topicPostFailed(error.message)));

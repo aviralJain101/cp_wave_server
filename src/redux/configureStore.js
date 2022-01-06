@@ -5,7 +5,7 @@ import { SellItem } from './Sell/SellItem';
 import { MarketItem } from './Market/MarketItem';
 import { PurchasedItem } from './Purchased/PurchasedItem';
 import { SingleCourse } from './SingleCourseFetch/SingleCourse';
-import { Topic } from './Topics/Topic';
+import { Topic } from './Topic/Topic';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 

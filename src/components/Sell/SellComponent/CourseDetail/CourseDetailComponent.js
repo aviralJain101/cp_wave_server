@@ -51,10 +51,9 @@ function RenderItem({item, description, data, currentContentAsHTML}) {
                     <Card>
                         <CardBody className="text-center text-dark text-capitalize">
                             <CardTitle style={{"fontWeight":"bold", "fontSize":"22px"}}>Course Description</CardTitle>
+                            <hr />
                             <CardSubtitle>
-                                
-                                {currentContentAsHTML}
-                                
+                                <div dangerouslySetInnerHTML={{__html: currentContentAsHTML}}></div>
                             </CardSubtitle>
                         </CardBody>
                     </Card>
@@ -78,12 +77,6 @@ class ItemDetail extends Component {
     }
 
     render() {
-        // return (
-        //     <div>
-        //         <h4>Course Detail</h4>
-        //     </div>
-        // )
-        
         
         if (this.props.singleCourse.isLoading) {
             return(
@@ -112,7 +105,13 @@ class ItemDetail extends Component {
             const description = data.getCurrentContent().getPlainText();
 
             const topics = this.props.singleCourse.course.topics.map((topic) => {
-                return <li>{topic.title}</li>
+                return (
+                    <li>
+                        <Link to={`/sell/${this.props.courseId}/${topic._id}`} className="text-decoration-none">
+                            {topic.title}
+                        </Link>
+                    </li>
+                )
             })
 
             return (
@@ -146,11 +145,17 @@ class ItemDetail extends Component {
                         />
                     </div>
                     <div className="row mt-4 mb-4">
-                        <h4 className="text-center">Topics</h4>
-                        <hr/>
-                        <ul>
-                            {topics}
-                        </ul>
+                        <div className="col-12 mt-2">
+                            <h4>Topics</h4>
+                            <hr />
+                        </div>
+                        <div className="col-12">
+                            <ol>
+                                {topics}
+                            </ol>
+                        </div>
+                        
+                        
                     </div>
 
                 </div>
