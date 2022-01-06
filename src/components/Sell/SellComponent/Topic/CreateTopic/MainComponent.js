@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Label, Input, FormFeedback, FormText } from 'reactstrap';
-import Select from 'react-select';
+import { Switch, Route, withRouter } from 'react-router-dom';
 import { Editor } from "react-draft-wysiwyg";
 import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
@@ -24,7 +24,7 @@ class CreateTopics extends Component {
         const item = new FormData();
         item.append("title", this.topicname.value);
         item.append("theory", rawState);
-        this.props.postTopic(this.props.courseId, item);
+        this.props.postTopic(this.props.courseId, item, this.props.history);
     }
 
     onEditorStateChange = (editorState) => {
@@ -77,4 +77,4 @@ class CreateTopics extends Component {
     }
 }
 
-export default CreateTopics;
+export default withRouter(CreateTopics);

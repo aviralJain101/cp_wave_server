@@ -90,7 +90,7 @@ export const postTopic = (courseId, topic, history) => (dispatch) => {
     .then(response => response.json())
     .then(topic => {
         dispatch(addTopic(topic))
-        // history.push(`/sell/${courseId}`)
+        history.push(`/sell/${courseId}`)
     })
     .catch(error => dispatch(topicPostFailed(error.message)));
 }
