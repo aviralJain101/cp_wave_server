@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import isEqual from 'lodash.isequal';
-import { postItem, fetchSellItem } from '../../redux/Sell/ActionCreator';
+import { postItem, fetchSellItem, editCourse } from '../../redux/Sell/ActionCreator';
 import Sell from './SellComponent/MainComponent';
 import ItemDetail from './SellComponent/CourseDetail/CourseDetailComponent';
 import CreateCourse from './SellComponent/Course/CreateCourse/MainComponent';
@@ -17,9 +17,10 @@ const mapStateToProps = state => {
   
 const mapDispatchToProps = (dispatch) => ({
     fetchSellItem: () => dispatch(fetchSellItem()),
-    postItem: (item) => dispatch(postItem(item))
+    postItem: (item) => dispatch(postItem(item)),
+    editCourse: (item, courseId) => dispatch(editCourse(item, courseId))
 });
-  
+
   
 
 
@@ -66,7 +67,7 @@ class SellRouter extends Component {
             return(
                 <EditCourse
                     item={this.props.sellItem.items.filter((item) => isEqual(item._id, match.params.itemId))[0]}
-
+                    editCourse={this.props.editCourse}
                     // courseId={match.params.itemId}
                 />
             );

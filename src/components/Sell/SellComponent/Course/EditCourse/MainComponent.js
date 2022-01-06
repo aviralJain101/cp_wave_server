@@ -4,10 +4,6 @@ import Select from 'react-select';
 import { Editor } from "react-draft-wysiwyg";
 import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { fetchSingleCourse } from '../../../../../redux/SingleCourseFetch/ActionCreator';
-import { Switch, Route, withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-
 
 
 
@@ -17,17 +13,6 @@ const options = [
     { value: 'ML', label: 'ML' },
     { value: 'DL', label: 'DL' }
 ];
-
-const mapStateToProps = state => {
-    return {
-        singleCourse: state.singleCourse
-    }
-  }
-  
-const mapDispatchToProps = (dispatch) => ({
-    fetchSingleCourse: (courseId) => dispatch(fetchSingleCourse(courseId))
-});
-
 
 
 class EditCourse extends Component {
@@ -73,19 +58,23 @@ class EditCourse extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        // const rawState = JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent()));
-        // var tags = this.state.selectedOption.map((option) => {
-        //     var tag = option.value;
-        //     return tag;
-        // });
+        const rawState = JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent()));
+        var tags = this.state.selectedOption.map((option) => {
+            var tag = option.value;
+            return tag;
+        });
 
-        // const item = new FormData();
-        // item.append("title", this.itemname.value);
-        // item.append("price", this.price.value);
-        // item.append("category", tags);
-        // item.append("courseImage", this.state.selectedFile);
-        // item.append("description", rawState);
-        // console.log(item)
+        const item = new FormData();
+        item.append("title", this.state.itemname);
+        item.append("price", this.state.price);
+        item.append("category", tags);
+        item.append("courseImage", this.state.selectedFile);
+        item.append("description", rawState);
+        console.log(this.state.selectedFile);
+        for (var value of item.values()) {
+            console.log(value); 
+        }
+        this.props.editCourse(item, this.props.item._id);
     }
 
     handleChange = (selectedOption) => {
@@ -121,9 +110,6 @@ class EditCourse extends Component {
     render() {
         const { selectedOption } = this.state;
         const { editorState } = this.state;
-        // this.setState({
-        //     itemname: "fuckyou"
-        // })
         return(
             <React.Fragment>
                 <div className="container">
@@ -187,6 +173,4 @@ class EditCourse extends Component {
         );
     }
 }
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EditCourse));
-
-// export default EditCourse;
+export default EditCourse;

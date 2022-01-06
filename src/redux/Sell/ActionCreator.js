@@ -85,7 +85,54 @@ export const postItem = (item) => (dispatch) => {
     .then(response => response.json())
     .then(item => dispatch(addItem(item)))
     .catch(error => dispatch(itemPostFailed(error.message)));
+}
 
+/* ==============================================
+            EDITING COURSE
+============================================== */
+
+export const courseEditPosting = () => ({
+    type: ActionTypes.COURSE_EDIT_POSTING
+});
+
+export const courseEditPostFailed = (errmess) => ({
+    type: ActionTypes.COURSE_EDIT_POST_FAILED,
+    payload: errmess
+});
+
+export const addEdittedCourse = (course) => ({
+    type: ActionTypes.ADD_EDITTED_COURSE,
+    payload: course
+});
+export const editCourse = (item, courseId) => (dispatch) => {
+    dispatch(courseEditPosting());
+
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+
+    return fetch(baseUrl+`sell/${courseId}`, {
+        method: 'PUT',
+        body: item,
+        headers: {
+            // 'Content-Type': 'multipart/form-data',
+            'Authorization': bearer
+        },
+        credentials: 'same-origin'
+    })
+    .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error('Error ' + response.status + ': ' + response.statusText);
+          error.response = response;
+          throw error;
+        }
+      },
+      error => {
+            throw error;
+      })
+    .then(response => response.json())
+    // .then(course => dispatch(addEdittedCourse(course)))
+    .catch(error => dispatch(courseEditPostFailed(error.message)));
 }
 
 
