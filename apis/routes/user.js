@@ -1,4 +1,5 @@
 const  express = require('express');
+const Course = require('../../models/course');
 const User = require('../../models/user');
 const auth = require('../middlewares/auth');
 
@@ -38,6 +39,8 @@ router.post('/user/details/course/buy/:courseId', auth, async(req, res) => {
         const user = await User.findById(_id);
         user.boughtCourses.push(_courseId);
         await user.save();
+        //increase course bought counter by 1
+        await Course.findByIdAndUpdate(_courseId, { $inc: {numberOfTimesBought: 1}});
         res.status(201).send('Succesfully Bought')
     }catch(error){
         res.status(500).send(error)
