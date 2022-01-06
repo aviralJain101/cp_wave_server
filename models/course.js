@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 require('mongoose-currency').loadType(mongoose);
 const Currency = mongoose.Types.Currency;
 
@@ -24,9 +24,13 @@ const courseSchema = new mongoose.Schema({//to user middleware in mongoose
     }],
     numberOfTimesBought: Number,
     rating: Number,  //give decimal type
-    topics: [mongoose.Schema.Types.ObjectId]
+    topics: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Topic'
+    }]
 },{
-    timestamps:true
+    timestamps:true,
+    usePushEach: true
 })
 
 var Course = mongoose.model('Course',courseSchema)

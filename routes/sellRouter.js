@@ -6,7 +6,7 @@ const cors = require('./cors');
 var User = require('../models/user');
 const Commodity = require('../models/commodity');
 const Course = require('../models/course');
-
+const Topic = require('../models/topic');
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -104,6 +104,7 @@ sellRouter.route('/:courseId')
 .get(cors.cors, authenticate.verifyUser, (req,res,next) => {
     Course.findById(req.params.courseId)
     .populate('author')
+    .populate('topics')
     .then((course) => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
@@ -112,8 +113,43 @@ sellRouter.route('/:courseId')
     .catch((err) => next(err));
 })
 .post(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
-    res.statusCode = 403;
-    res.end('POST operation not supported on /sell/'+ req.params.courseId);
+    console.log("requested");
+    console.log(req.file);
+    upload(req,res,function(err) {  
+        if(err) { 
+            res.statusCode=500;
+            res.end({errMess:"error while uploading"});
+        }
+        else {
+            var topic = new Topic({
+                author: req.user._id,
+                title: req.body.title,
+                theory: req.body.theory
+            })
+            topic.save()
+            .then((topic) => {
+                console.log(req.params.courseId);
+                Course.findOne({_id:req.params.courseId})
+                .then((course) => {
+                    course.topics.push(topic._id);
+                    course.save();
+                }/*,err => next(err)*/)
+                // .catch(next(err));
+                // console.log(res.statusCode);
+
+               Course.findById(req.params.courseId)
+                .populate('author')
+                .populate('topics')
+                .then((course) => {
+                    res.statusCode = 200;
+                    res.setHeader('Content-Type', 'application/json');
+                    res.json(course.topics);
+                }, (err) => next(err))
+                .catch((err) => next(err));
+            }/*, (err => next(err)))
+            .catch((err) => next(err)*/);
+        }
+    });
 })
 .put(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
     console.log("requested");
@@ -133,7 +169,7 @@ sellRouter.route('/:courseId')
 
             var tags = req.body.category.split(",");
             console.log(tags);
-            
+
             if(typeof req.file != 'undefined') {
                 var updatedCourse = {
                     author: req.user._id,
