@@ -43,6 +43,7 @@ sellRouter.route('/')
 })
 .post(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
     console.log("requested");
+    console.log(req.file);
     upload(req,res,function(err) {  
         if(err) { 
             // err = new Error('error upoading file');
@@ -52,9 +53,9 @@ sellRouter.route('/')
             // return next(err);
         }
         else {
-            console.log(req.file)
+            // console.log(req.file)
 
-            console.log(req.body);
+            // console.log(req.body);
             
             var tags = req.body.category.split(",");
             console.log(tags);
@@ -116,6 +117,7 @@ sellRouter.route('/:courseId')
 })
 .put(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
     console.log("requested");
+    console.log(req.body);
     
     upload(req,res,function(err) {  
         if(err) { 
@@ -127,24 +129,49 @@ sellRouter.route('/:courseId')
         }
         else {
             console.log(req.file)
+            console.log(req.body);
 
-            var updatedCourse = {
-                author: req.user._id,
-                title: req.body.title,
-                price: req.body.price,
-                category: req.body.category,
-                image: 'images/'+req.file.filename,
-                description: req.body.description
+            var tags = req.body.category.split(",");
+            console.log(tags);
+            
+            if(typeof req.file != 'undefined') {
+                var updatedCourse = {
+                    author: req.user._id,
+                    title: req.body.title,
+                    price: req.body.price,
+                    category: tags,
+                    image: 'images/'+req.file.filename,
+                    description: req.body.description
+                }
+    
+                Course.findByIdAndUpdate(req.params.courseId, {
+                    $set: updatedCourse
+                })
+                .then((course) => {
+                    res.statusCode = 200;
+                    res.setHeader('Content-Type', 'application/json');
+                    res.json(course);
+                }, (err) => next(err))
+                .catch((err) => next(err));
             }
-            Course.findByIdAndUpdate(req.params.courseId.anchor, {
-                $set: updatedCourse
-            })
-            .then((course) => {
-                res.statusCode = 200;
-                res.setHeader('Content-Type', 'application/json');
-                res.json(course);
-            }, (err) => next(err))
-            .catch((err) => next(err));
+            else {
+                var updatedCourse = {
+                    author: req.user._id,
+                    title: req.body.title,
+                    price: req.body.price,
+                    category: tags,
+                    description: req.body.description
+                }
+                Course.findByIdAndUpdate(req.params.courseId, {
+                    $set: updatedCourse
+                })
+                .then((course) => {
+                    res.statusCode = 200;
+                    res.setHeader('Content-Type', 'application/json');
+                    res.json(course);
+                }, (err) => next(err))
+                .catch((err) => next(err));
+            }
         }
     });
 })
