@@ -213,7 +213,60 @@ sellRouter.route('/:courseId')
 })
 .delete(cors.corsWithOptions, authenticate.verifyUser, authenticate.VerifyAdmin, (req, res, next) => {
     res.statusCode = 403;
-    res.end('DELETE operation not supported on /sell');
+    res.end('DELETE operation not supported on /sell/courseId');
 });
+
+
+
+sellRouter.route('/:courseId/:topicId')
+.options(cors.corsWithOptions, (req, res) => {res.sendStatus(200); })
+.get(cors.cors, authenticate.verifyUser, (req,res,next) => {
+    Topic.findById(req.params.topicId)
+    .populate('author')
+    .then((topic) => {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json(topic);
+    }, (err) => next(err))
+    .catch((err) => next(err));
+})
+.post(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
+    res.statusCode = 403;
+    res.end('DELETE operation not supported on /sell/courseId/topicId');
+})
+.put(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
+    console.log("requested");
+    console.log(req.body);
+    
+    upload(req,res,function(err) {  
+        if(err) { 
+            res.statusCode=500;
+            res.end({errMess:"error while uploading"});
+        }
+        else {
+
+            var updatedTopic = {
+                author: req.user._id,
+                title: req.body.title,
+                theory: req.body.theory
+            }
+
+            Topic.findByIdAndUpdate(req.params.topicId, {
+                $set: updatedTopic
+            })
+            .then((topic) => {
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                res.json(topic);
+            }, (err) => next(err))
+            .catch((err) => next(err));
+        }
+    });
+})
+.delete(cors.corsWithOptions, authenticate.verifyUser, authenticate.VerifyAdmin, (req, res, next) => {
+    res.statusCode = 403;
+    res.end('DELETE operation not supported on /sell/courseId');
+});
+
 
 module.exports = sellRouter;
