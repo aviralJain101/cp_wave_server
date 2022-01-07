@@ -54,9 +54,6 @@ class SellRouter extends Component {
         const ItemWithIdPage = ({match}) => {
             return(
                 <ItemDetail
-                    item={this.props.sellItem.items.filter((item) => isEqual(item._id, match.params.itemId))[0]}
-                    isLoading={this.props.sellItem.isLoading}
-                    errMess={this.props.sellItem.errMess}
                     courseId = {match.params.itemId}
                 />
             );
