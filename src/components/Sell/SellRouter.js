@@ -39,7 +39,6 @@ class SellRouter extends Component {
 
     componentDidMount() {
         // this.props.fetchSellItem();
-        alert("sell router");
     }
 
     render() {
@@ -68,14 +67,15 @@ class SellRouter extends Component {
             );
         }
 
-        // const EditCoursePage = ({match}) => {
-        //     return(
-        //         <EditCourse
-        //             item={this.props.sellItem.items.filter((item) => isEqual(item._id, match.params.itemId))[0]}
-        //             editCourse={this.props.editCourse}
-        //         />
-        //     );
-        // }
+        const EditCoursePage = ({match}) => {
+            return(
+                <EditCourse
+                    // item={this.props.sellItem.items.filter((item) => isEqual(item._id, match.params.itemId))[0]}
+                    editCourse={this.props.editCourse}
+                    courseId={match.params.itemId}
+                />
+            );
+        }
 
         const EditTopicPage = ({match}) => {
             return(
@@ -114,7 +114,7 @@ class SellRouter extends Component {
                     <Route exact path={this.props.match.url} component={SellPage} />
                     <Route exact path={this.props.match.url+'/createcourse'} component={CreateCoursePage} />
                     <Route exact path={this.props.match.url+'/:itemId/createtopics'} component={CreateTopicPage} />
-                    {/* <Route exact path={this.props.match.url+'/:itemId/edit'} component={EditCoursePage} /> */}
+                    <Route exact path={this.props.match.url+'/:itemId/edit'} component={EditCoursePage} />
                     <Route exact path={this.props.match.url+'/:itemId/:topicId'} component={TopicPage} />
                     <Route exact path={this.props.match.url+'/:itemId/:topicId/edit'} component={EditTopicPage} />
                     <Route path={this.props.match.url+'/:itemId'} component={ItemWithIdPage} />

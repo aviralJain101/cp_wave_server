@@ -5,6 +5,19 @@ import { Editor } from "react-draft-wysiwyg";
 import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { fetchSingleCourse } from '../../../../../redux/SingleCourseFetch/ActionCreator';
+import { editCourse } from '../../../../../redux/Sell/ActionCreator';
+const mapStateToProps = state => {
+  return {
+    singleCourse: state.singleCourse
+  }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+    fetchSingleCourse: (courseId) => dispatch(fetchSingleCourse(courseId)),
+    editCourse: (item, courseId) => dispatch(editCourse(item, courseId)),
+});
 
 
 
@@ -31,10 +44,15 @@ class EditCourse extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    componentDidMount() {
-        if(typeof this.props.item != 'undefined') {
-            console.log(this.props.item.category);
-            const tags = this.props.item.category.map((tag) => {
+    async componentDidMount() {
+        alert("edit course");
+        await this.props.fetchSingleCourse(this.props.courseId);
+        console.log("singlecoursesforedit");
+        console.log(this.props.singleCourse.course);
+
+        if(!this.props.singleCourse.errMess) {
+            console.log(this.props.singleCourse.course.category);
+            const tags = this.props.singleCourse.course.category.map((tag) => {
                 
                 var t = {"value": tag,"label": tag}
                 return t;
@@ -43,13 +61,13 @@ class EditCourse extends Component {
             console.log(tags);
 
             const data = EditorState.createWithContent(
-                convertFromRaw(JSON.parse(this.props.item.description))
+                convertFromRaw(JSON.parse(this.props.singleCourse.course.description))
             );
 
             
             this.setState ({ 
-                itemname: this.props.item.title,
-                price: this.props.item.price/100,
+                itemname: this.props.singleCourse.course.title,
+                price: this.props.singleCourse.course.price/100,
                 selectedOption: tags,
                 editorState: data
             })
@@ -74,8 +92,8 @@ class EditCourse extends Component {
         for (var value of item.values()) {
             console.log(value); 
         }
-        this.props.editCourse(item, this.props.item._id);
-        this.props.history.push(`/sell/${this.props.item._id}`);
+        this.props.editCourse(item, this.props.courseId);
+        this.props.history.push(`/sell/${this.props.courseId}`);
         event.preventDefault();
 
     }
@@ -176,4 +194,5 @@ class EditCourse extends Component {
         );
     }
 }
-export default withRouter(EditCourse);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EditCourse));
+// export default withRouter(EditCourse);

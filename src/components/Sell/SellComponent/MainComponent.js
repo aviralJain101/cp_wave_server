@@ -80,7 +80,6 @@ class Sell extends Component {
     }
     componentDidMount() {
         this.props.fetchSellItem();
-        alert("sell item")
     }
 
     render() {
