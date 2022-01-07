@@ -3,6 +3,22 @@ import { Card, CardImg, CardImgOverlay,CardBody, CardSubtitle, CardText, CardTit
 import { Link } from 'react-router-dom';
 import { baseUrl } from '../../../shared/baseUrl';
 import { Loading } from '../../LoadingComponent';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+
+import { postItem, fetchSellItem } from '../../../redux/Sell/ActionCreator';
+const mapStateToProps = state => {
+    return {
+        sellItem: state.sellItem
+    }
+  }
+  
+const mapDispatchToProps = (dispatch) => ({
+    fetchSellItem: () => dispatch(fetchSellItem()),
+    postItem: (item, history) => dispatch(postItem(item, history)),
+});
+
 function RenderSellItem({ item }) {
     return(
         <Card>
@@ -63,6 +79,7 @@ class Sell extends Component {
         super(props);
     }
     componentDidMount() {
+        this.props.fetchSellItem();
         alert("sell item")
     }
 
@@ -102,7 +119,7 @@ class Sell extends Component {
     }
 }
 
-// export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Courses));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Sell));
 
 
-export default Sell;
+// export default Sell;
