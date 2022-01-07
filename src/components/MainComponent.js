@@ -99,18 +99,18 @@ class Main extends Component {
           logoutUser={this.props.logoutUser} 
           signupUser={this.props.signupUser}
           />   
-        <TransitionGroup>
-          <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>
+        {/* <TransitionGroup>
+          <CSSTransition key={this.props.location.key} classNames="page" timeout={300}> */}
             <Switch>
-              <Route path="/home" component={HomePage} />
+              <Route exact path="/home" component={HomePage} />
               <Route path="/market" component={MarketPage} />
               <Route path="/sell" component={ SellPage } />
               <Route exact path="/purchased" component={PurchasedPage} />
               <Route path="/:User" component={DashboardPage} />
               <Redirect to="/home" />
             </Switch>
-          </CSSTransition>
-        </TransitionGroup>
+          {/* </CSSTransition>
+        </TransitionGroup> */}
         <Footer />
       </div>
     );

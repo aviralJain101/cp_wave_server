@@ -27,10 +27,6 @@ function RenderItem({item, description, data, currentContentAsHTML}) {
         return(
             <React.Fragment>
                 <div className="col-12 col-md-6">
-                {/* <FadeTransform in 
-                    transformProps={{
-                        exitTransform: 'scale(0.5) translateY(-50%)'
-                    }}> */}
                     <Card>
                         <CardImg width="100%" src={`${baseUrl}${item.image}`} alt={item.title} height="150px" />
                         <CardBody className="text-center text-dark text-capitalize">
@@ -38,7 +34,6 @@ function RenderItem({item, description, data, currentContentAsHTML}) {
                             <CardSubtitle>Price : ${item.price/100}</CardSubtitle>
                         </CardBody>
                     </Card>
-                {/* </FadeTransform> */}
                 </div>
                 <div className="col-12 col-md-6">
                             {/* // const data = EditorState.createWithContent(
@@ -68,8 +63,6 @@ class ItemDetail extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {            
-        };
     }
 
     componentDidMount() {
@@ -78,17 +71,18 @@ class ItemDetail extends Component {
 
     render() {
         
-        if (this.props.singleCourse.isLoading) {
-            return(
-                <div className="container">
-                    <div className="row">
-                        <Loading />
-                    </div>
-                </div>
-            );
-        }
+        // if (this.props.singleCourse.isLoading) {
+        //     return(
+        //         <div className="container">
+        //             <div className="row">
+        //                 <Loading />
+        //             </div>
+        //         </div>
+        //     );
+        // }
 
-        else if (this.props.singleCourse.errMess) {
+        // else 
+        if (this.props.singleCourse.errMess) {
             return(
                 <div className="container">
                     <div className="row">

@@ -16,7 +16,7 @@ export const addItems = (items) => ({
 });
 
 export const fetchSellItem = () => (dispatch) => {
-    dispatch(itemLoading());
+    // dispatch(itemLoading());
     const bearer = 'Bearer ' + localStorage.getItem('token');
 
     return fetch(baseUrl+'sell' ,{
@@ -57,7 +57,7 @@ export const addItem = (item) => ({
     payload: item
 });
 export const postItem = (item, history) => (dispatch) => {
-    dispatch(itemPosting());
+    // dispatch(itemPosting());
 
     const bearer = 'Bearer ' + localStorage.getItem('token');
 
@@ -108,7 +108,7 @@ export const addEdittedCourse = (course) => ({
     payload: course
 });
 export const editCourse = (item, courseId) => (dispatch) => {
-    dispatch(courseEditPosting());
+    // dispatch(courseEditPosting());
 
     const bearer = 'Bearer ' + localStorage.getItem('token');
 

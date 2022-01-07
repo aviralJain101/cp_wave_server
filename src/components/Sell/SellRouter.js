@@ -39,6 +39,7 @@ class SellRouter extends Component {
 
     componentDidMount() {
         this.props.fetchSellItem();
+        alert("sell router");
     }
 
     render() {

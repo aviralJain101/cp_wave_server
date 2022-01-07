@@ -16,7 +16,7 @@ export const addCourse = (course) => ({
 });
 
 export const fetchSingleCourse = (courseId) => (dispatch) => {
-    dispatch(courseLoading());
+    // dispatch(courseLoading());
     const bearer = 'Bearer ' + localStorage.getItem('token');
 
     return fetch(baseUrl+`sell/${courseId}` ,{
