@@ -15,18 +15,12 @@ import EditTopic from './SellComponent/Topic/EditTopic/MainComponent';
 
 const mapStateToProps = state => {
     return {
-        // sellItem: state.sellItem,
-        // editTopic: state.editTopic 
     }
   }
   
 const mapDispatchToProps = (dispatch) => ({
-    // fetchSellItem: () => dispatch(fetchSellItem()),
-    // postItem: (item, history) => dispatch(postItem(item, history)),
-    // editCourse: (item, courseId) => dispatch(editCourse(item, courseId)),
-    // fetchTopics: (courseId, topicId) => dispatch(fetchTopics(courseId, topicId)),
+    postItem: (item, history) => dispatch(postItem(item, history)),
     postTopic: (courseId, topic, history) => dispatch(postTopic(courseId, topic, history)),
-    // editTopic: (courseId, topicId, topic, history) => dispatch(editTopic(courseId, topicId, topic))
 });
 
   
@@ -38,17 +32,13 @@ class SellRouter extends Component {
     }
 
     componentDidMount() {
-        // this.props.fetchSellItem();
     }
 
     render() {
 
-        const SellPage = ({}) => {
+        const SellPage = () => {
             return(
-              <Sell
-                // sellItem={this.props.sellItem}
-                // postItem={this.props.postItem}
-              />
+              <Sell/>
               );
         }
         const ItemWithIdPage = ({match}) => {
@@ -70,7 +60,6 @@ class SellRouter extends Component {
         const EditCoursePage = ({match}) => {
             return(
                 <EditCourse
-                    // item={this.props.sellItem.items.filter((item) => isEqual(item._id, match.params.itemId))[0]}
                     editCourse={this.props.editCourse}
                     courseId={match.params.itemId}
                 />
@@ -80,7 +69,6 @@ class SellRouter extends Component {
         const EditTopicPage = ({match}) => {
             return(
                 <EditTopic
-                    // editTopic={this.props.editTopic}
                     courseId={match.params.itemId}
                     topicId={match.params.topicId}
                 />
@@ -99,7 +87,6 @@ class SellRouter extends Component {
         const TopicPage = ({match}) => {
             return(
                 <TopicRender 
-                    // fetchTopics = {this.props.fetchTopics}
                     courseId={match.params.itemId}
                     topicId={match.params.topicId}
                 />
