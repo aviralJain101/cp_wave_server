@@ -32,12 +32,12 @@ class EditTopic extends Component {
             editorState: EditorState.createEmpty()
         }
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
+
     }
 
     async componentDidMount() {
         await this.props.fetchTopics(this.props.courseId, this.props.topicId);
-        console.log("topicsprinting");
-        console.log(this.props.topics);
         if(this.props.topics.topics.length != 0) {
             const theory = EditorState.createWithContent(
                 convertFromRaw(JSON.parse(this.props.topics.topics.theory))
@@ -89,6 +89,7 @@ class EditTopic extends Component {
                             <hr />
                         </div>
                         <Form onSubmit={this.handleSubmit}>
+                            
                             <FormGroup className="mb-3">
                                 <Label htmlFor="title">Topic Name</Label>
                                 <Input type="text" id="title" name="title"

@@ -45,7 +45,6 @@ class EditCourse extends Component {
     }
 
     async componentDidMount() {
-        alert("edit course");
         await this.props.fetchSingleCourse(this.props.courseId);
         console.log("singlecoursesforedit");
         console.log(this.props.singleCourse.course);

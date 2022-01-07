@@ -16,7 +16,7 @@ export const addTopics = (topics) => ({
 });
 
 export const fetchTopics = (courseId, topicId) => (dispatch) => {
-    dispatch(topicLoading());
+    // dispatch(topicLoading());
     const bearer = 'Bearer ' + localStorage.getItem('token');
 
     return fetch(baseUrl+`sell/${courseId}/${topicId}` ,{
