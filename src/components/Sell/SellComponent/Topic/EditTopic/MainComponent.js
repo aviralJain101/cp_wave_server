@@ -34,8 +34,8 @@ class EditTopic extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    componentDidMount() {
-        this.props.fetchTopics(this.props.courseId, this.props.topicId);
+    async componentDidMount() {
+        await this.props.fetchTopics(this.props.courseId, this.props.topicId);
         console.log("topicsprinting");
         console.log(this.props.topics);
         if(this.props.topics.topics.length != 0) {
